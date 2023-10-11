@@ -1,5 +1,7 @@
 import "../styles/globals.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/blocks/theme-provider";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +21,9 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen bg-background font-sans antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
