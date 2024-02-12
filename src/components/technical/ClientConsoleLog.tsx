@@ -3,10 +3,11 @@
 export default function ClientConsoleLog(props: {
   dataToLog: any;
   hide?: boolean;
+  name?: string;
 }) {
-  const { dataToLog, hide } = props;
+  const { dataToLog, hide, name = "ClientConsoleLog" } = props;
   const content = JSON.stringify(dataToLog, null, 2);
-  console.log("ClientConsoleLog ", `${content.substring(0, 8)}`, dataToLog);
+  console.log(name, `${content.substring(0, 8)}`, dataToLog);
 
   return (
     <div>
