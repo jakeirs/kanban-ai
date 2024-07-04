@@ -1,10 +1,10 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { internalMutation, query } from "./_generated/server";
 
-export const createUser = mutation({
-  args: { email: v.string() },
-  handler: async (ctx, args) => {
-    const newUserId = await ctx.db.insert("users", { email: args.email });
+export const createUser = internalMutation({
+  args: { email: v.string(), stripeCheckoutId: v.string() },
+  handler: async (ctx, { email, stripeCheckoutId }) => {
+    const newUserId = await ctx.db.insert("users", { email, stripeCheckoutId });
 
     return newUserId;
   },

@@ -3,7 +3,6 @@ import { action, internalAction } from "./_generated/server";
 import Stripe from "stripe";
 import { api, internal } from "./_generated/api";
 
-
 export const stripe = new Stripe(process.env.STRIPE_KEY!, {
   apiVersion: "2024-06-20",
 });
@@ -39,18 +38,25 @@ export const webhookFulfill = internalAction({
 
       if (event.type === "checkout.session.completed") {
         const completedEvent = event.data.object as Stripe.Checkout.Session;
-        const customerEmail = completedEvent.customer_email;
+        const customerEmail = completedEvent.customer_details?.email;
+        const stripeCheckoutId = completedEvent.id;
 
-        console.log(
-          "customerEmail stripe",
-          completedEvent.customer_details?.email
-        );
-        console.log(" stripe id ", completedEvent.id);
+        if (!customerEmail && !stripeCheckoutId) {
+          throw new Error(
+            "Payment wasn't successfull OR email wasn't provided"
+          );
+        }
 
-        // await ctx.runMutation(internal.users.setStripeId, {
-        //   stripeId: completedEvent.id,
-        //   userId,
-        // });
+        const userDetails = {
+          email: customerEmail!,
+          stripeCheckoutId: stripeCheckoutId,
+        };
+
+        await ctx.runMutation(internal.users.createUser, { ...userDetails });
+
+        return {
+          ...userDetails,
+        };
       }
       return { success: true };
     } catch (err) {
