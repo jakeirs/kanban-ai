@@ -1,5 +1,6 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
 
 export default function IndexPage() {
   return (
@@ -7,11 +8,8 @@ export default function IndexPage() {
       Take me here after pay
       <div>
         Login To course content
-        <Button asChild>
-          <SignInButton>Sign in button</SignInButton>
-        </Button>
+        <Button asChild></Button>
       </div>
     </div>
   );
 }
-  

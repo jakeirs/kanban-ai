@@ -1,6 +1,8 @@
 import { v } from "convex/values";
 import { action, internalAction } from "./_generated/server";
 import Stripe from "stripe";
+import { api, internal } from "./_generated/api";
+
 
 export const stripe = new Stripe(process.env.STRIPE_KEY!, {
   apiVersion: "2024-06-20",
