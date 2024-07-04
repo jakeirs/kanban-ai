@@ -8,8 +8,10 @@ export default function MainPage() {
   return (
     <div>
       <ThemeToggle />
-      MainPage<Button variant="destructive">Add Button</Button>
-      <SignOutButton>Sign Out</SignOutButton>
+      It's a paid course accesses
+      <Button variant="destructive" asChild>
+        <SignOutButton>Sign Out</SignOutButton>
+      </Button>
     </div>
   );
 }
