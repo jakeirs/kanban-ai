@@ -1,5 +1,9 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useFormState } from "react-hook-form";
+import { redirect, useRouter } from "next/navigation";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -11,9 +15,6 @@ import {
   Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormState } from "react-hook-form";
-import { z } from "zod";
 import { printTextAction } from "./actions";
 
 const formSchema = z.object({
@@ -23,6 +24,7 @@ const formSchema = z.object({
 });
 
 export function ProfileForm() {
+  const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,9 +38,16 @@ export function ProfileForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    const message = await printTextAction(values.email);
+    const resJSON = await printTextAction(values.email);
+    const response = JSON.parse(resJSON);
 
-    console.log("message from server", message);
+    if (response.isOk) {
+      localStorage.setItem("userStatus", "1");
+      router.push("/main");
+    }
+    if (!response.isOk) {
+      localStorage.setItem("userStatus", "0");
+    }
   }
 
   return (

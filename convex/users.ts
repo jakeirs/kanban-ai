@@ -28,7 +28,7 @@ export const checkIfUserPaid = query({
       .unique();
 
     if (!user) {
-      throw new Error("User didn't pay");
+      throw new Error("User didn't pay or not exist");
     }
 
     return {
