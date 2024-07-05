@@ -18,3 +18,21 @@ export const getUsers = query({
     return users;
   },
 });
+
+export const checkIfUserPaid = query({
+  args: { email: v.string() },
+  handler: async (ctx, { email }) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", email))
+      .unique();
+
+    if (!user) {
+      throw new Error("User didn't pay");
+    }
+
+    return {
+      user,
+    };
+  },
+});

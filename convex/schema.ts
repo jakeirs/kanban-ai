@@ -7,5 +7,5 @@ export default defineSchema({
     firstName: v.optional(v.string()),
     lastName: v.optional(v.string()),
     stripeCheckoutId: v.optional(v.string()),
-  }),
+  }).index("by_email", ["email"]),
 });
