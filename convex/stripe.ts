@@ -1,7 +1,9 @@
+"use node";
+
 import { v } from "convex/values";
 import { action, internalAction } from "./_generated/server";
 import Stripe from "stripe";
-import { api, internal } from "./_generated/api";
+import { internal } from "./_generated/api";
 
 export const stripe = new Stripe(process.env.STRIPE_KEY!, {
   apiVersion: "2024-06-20",
@@ -30,7 +32,7 @@ export const webhookFulfill = internalAction({
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
     try {
-      const event = await stripe.webhooks.constructEventAsync(
+      const event = stripe.webhooks.constructEvent(
         args.payload,
         args.signature,
         webhookSecret
@@ -53,14 +55,11 @@ export const webhookFulfill = internalAction({
         };
 
         await ctx.runMutation(internal.users.createUser, { ...userDetails });
-
-        return {
-          ...userDetails,
-        };
       }
       return { success: true };
     } catch (err) {
       console.error(err);
+      console.log("Tell me what's wrong", err);
       return { success: false, error: (err as { message: string }).message };
     }
   },

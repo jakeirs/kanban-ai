@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  domAnimation,
-  LazyMotion,
-  m,
-  Variants,
-} from "framer-motion";
+import { domAnimation, LazyMotion, m, Variants } from "framer-motion";
 import { ReactNode } from "react";
 
 export default function Template({ children }: { children: ReactNode }) {
@@ -46,7 +40,7 @@ export default function Template({ children }: { children: ReactNode }) {
             <m.div
               {...anim(expand, numberOfCols - i)}
               key={i}
-              className={`${i === 2 ? "bg-black" : "bg-black"} relative h-full w-full`}
+              className={`${i === 2 ? "bg-black" : "bg-black"} relative h-full w-full ring-8 ring-white`}
             />
           ))}
         </LazyMotion>
