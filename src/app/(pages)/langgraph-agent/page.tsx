@@ -7,7 +7,6 @@ export default function MainPage() {
   return (
     <div>
       <ThemeToggle />
-      It's a paid course accesses
       <Button variant="destructive" asChild></Button>
     </div>
   );
