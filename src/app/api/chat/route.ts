@@ -15,7 +15,7 @@ import { NextResponse } from "next/server";
 // Define a simple tool for demonstration
 const simpleTool = tool(
   async () => {
-    console.log("INVOKOED simple Tool");
+    console.log("INVOKED simple Tool");
     return {
       currentTime: new Date().toLocaleString(),
     };
@@ -46,12 +46,12 @@ const toolNode = new ToolNode([simpleTool]);
 // Define agent node
 const callModel = async (state: typeof GraphAnnotation.State) => {
   const { messages } = state;
-  console.log("INVOKOED simple Tool");
+  console.log("INVOKED Model");
 
   const systemMessage = {
     role: "system",
     content:
-      "You are a helpful AI assistant. You can use tools to help answer questions.",
+      "You are a helpful AI assistant. When asked about time, use the get_current_time tool to provide accurate time information. Format your final response in a clear, natural way.",
   };
 
   const llmWithTools = llm.bindTools([simpleTool]);
@@ -82,10 +82,6 @@ const workflow = new StateGraph(GraphAnnotation)
 
 const graph = workflow.compile();
 
-const isCompliled = workflow.compiled;
-
-console.log("isCompliled", isCompliled);
-
 export async function POST(request: Request) {
   try {
     const { message } = await request.json();
@@ -93,10 +89,37 @@ export async function POST(request: Request) {
     const result = await graph.invoke({
       messages: [new HumanMessage(message)],
     });
-    console.log("result", result);
+
+    // Transform messages to include all necessary information
+    const transformedMessages = result.messages.map((msg: any) => {
+      const base = {
+        id: msg.id || crypto.randomUUID(),
+        content: msg.content,
+        additional_kwargs: msg.additional_kwargs || {},
+        response_metadata: msg.response_metadata || {},
+      };
+
+      if (msg._getType() === "human") {
+        return { ...base, type: "human" };
+      } else if (msg._getType() === "ai") {
+        return {
+          ...base,
+          type: "ai",
+          tool_calls: msg.tool_calls || [],
+        };
+      } else if (msg._getType() === "tool") {
+        return {
+          ...base,
+          type: "tool",
+          name: msg.name,
+          tool_call_id: msg.tool_call_id,
+        };
+      }
+      return base;
+    });
 
     return NextResponse.json({
-      content: result.messages.content,
+      messages: transformedMessages,
     });
   } catch (error) {
     console.error("Error:", error);
