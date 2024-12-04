@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useShoppingList } from "./hook";
 import { ShoppingListPanel } from "./panel";
+import { ChatDrawer } from "./chat-drawer";
 
 export default function OperationsPage() {
   const { shoppingList, handleCheckboxChange, isLoading } = useShoppingList();
@@ -64,6 +65,9 @@ export default function OperationsPage() {
           ))}
         </div>
       </section>
+
+      {/* Chat Drawer */}
+      <ChatDrawer />
     </div>
   );
 }
