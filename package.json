@@ -8,9 +8,7 @@
     "dev:backend": "convex dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "stripe:listen": "C:/Users/kiere/stripe.exe listen --forward-to https://curious-scorpion-640.convex.site/stripe",
-    "stripe:trigger": "C:/Users/kiere/stripe.exe trigger payment_intent.succeeded"
+    "lint": "next lint"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.2",
