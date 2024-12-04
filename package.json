@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.2",
+    "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^3.8.0",
     "@langchain/anthropic": "^0.3.8",
     "@langchain/core": "^0.3.19",

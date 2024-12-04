@@ -36,6 +36,14 @@ export default function HomePage() {
             <Button id="operations">Go to Operations</Button>
           </Link>
         </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="kanban">
+            My implementation of Kanban manage by AI-SDK Vercel - tools
+          </Label>
+          <Link href="/kanban">
+            <Button id="kanban">Go to Kanban</Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
