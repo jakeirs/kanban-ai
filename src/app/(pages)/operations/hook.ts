@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingCategory, initialShoppingList } from "./types";
 import { createShoppingListCrud } from "./crud-hooks";
 
+const STORAGE_KEY = "shopping-list";
+
 export const useShoppingList = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingCategory[]>(initialShoppingList);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Legacy handler for checkbox changes (keeping for backward compatibility)
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      setShoppingList(JSON.parse(saved));
+    }
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(shoppingList));
+    }
+  }, [shoppingList, isLoaded]);
+
   const handleCheckboxChange = (categoryIndex: number, itemIndex: number) => {
     setShoppingList(prevList => {
       const newList = [...prevList];
@@ -26,6 +42,7 @@ export const useShoppingList = () => {
   return {
     shoppingList,
     handleCheckboxChange,
+    isLoaded,
     ...crudOperations,
   };
 };
