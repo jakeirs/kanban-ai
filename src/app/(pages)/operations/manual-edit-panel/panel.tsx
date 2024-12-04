@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useShoppingList } from "./hook";
+import { useShoppingList } from "../hook";
 
 export function ShoppingListPanel() {
   const {
@@ -26,7 +26,9 @@ export function ShoppingListPanel() {
   const [editItemName, setEditItemName] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [searchIds, setSearchIds] = useState("");
-  const [searchResults, setSearchResults] = useState<Array<{ id: string; name: string; checked: boolean }>>([]);
+  const [searchResults, setSearchResults] = useState<
+    Array<{ id: string; name: string; checked: boolean }>
+  >([]);
 
   if (isLoading) {
     return <div>Loading panel...</div>;
@@ -78,7 +80,7 @@ export function ShoppingListPanel() {
   // Display Items by IDs
   const handleShowItemsByIds = () => {
     if (searchIds) {
-      const ids = searchIds.split(",").map(id => id.trim());
+      const ids = searchIds.split(",").map((id) => id.trim());
       const items = getItemsByIds(ids);
       setSearchResults(items);
     }
@@ -203,9 +205,14 @@ export function ShoppingListPanel() {
           <h3 className="text-lg font-semibold">Results</h3>
           <div className="space-y-2">
             {searchResults.map((item) => (
-              <div key={item.id} className="flex items-center gap-4 p-2 bg-accent/50 rounded">
+              <div
+                key={item.id}
+                className="flex items-center gap-4 p-2 bg-accent/50 rounded"
+              >
                 <span>{item.name}</span>
-                <span className="text-sm text-muted-foreground">ID: {item.id}</span>
+                <span className="text-sm text-muted-foreground">
+                  ID: {item.id}
+                </span>
                 <Button
                   variant="outline"
                   size="sm"

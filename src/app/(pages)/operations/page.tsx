@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useShoppingList } from "./hook";
-import { ShoppingListPanel } from "./panel";
+import { ShoppingListPanel } from "./manual-edit-panel/panel";
 import { ChatDrawer } from "./chat-drawer";
 
 export default function OperationsPage() {
