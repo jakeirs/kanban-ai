@@ -11,6 +11,24 @@
   - style/
   ```
 
+## Required Environment Variables
+
+Before initializing the repository, you need to set up the following environment variables in your `.env.local` file:
+
+```bash
+# Convex deployment configuration
+CONVEX_DEPLOYMENT=dev:your-deployment-id    # Get this from your Convex dashboard
+NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+
+# Anthropic API key for AI functionality
+ANTHROPIC_API_KEY=your-anthropic-api-key    # Get this from https://console.anthropic.com
+```
+
+To get started:
+1. Copy `.env.local.example` to `.env.local`
+2. Replace the placeholder values with your actual credentials
+3. Make sure not to commit `.env.local` to version control
+
 ## Running the Application
 
 To run the application properly, use the following commands:
@@ -48,4 +66,3 @@ This section contains client-side operations with two integrated tools:
 - Tools are directly invoked from the client side for immediate interaction
 - API Route: Hits `/api/operations` for processing chat operations
 - Uses `useChat` hook from `"ai"` package for chat interactions
-
