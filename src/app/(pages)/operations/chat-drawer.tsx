@@ -21,17 +21,11 @@ export function ChatDrawer() {
       maxSteps: 2,
       api: "/api/operations",
       async onToolCall({ toolCall }) {
-        if (toolCall.toolName === "getLocation") {
-          const cities = [
-            "New York",
-            "Los Angeles",
-            "Chicago",
-            "San Francisco",
-            "Miami",
-            "Seattle",
-          ];
-          const result = cities[Math.floor(Math.random() * cities.length)];
-          return result;
+        if (toolCall.toolName === "toggleShoppingItem") {
+          console.log("toggleShoppingItem", toolCall);
+        }
+        if (toolCall.toolName === "readAllShoppingItems") {
+          console.log("readAllShoppingItems", toolCall);
         }
       },
     });

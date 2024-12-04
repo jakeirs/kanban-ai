@@ -17,43 +17,29 @@ export async function POST(req: Request) {
     const { messages } = body as { messages: Message[] };
 
     const result = streamText({
-      model: anthropic("claude-3-5-sonnet-20240620"),
+      model: anthropic("claude-3-5-sonnet-20241022"),
       messages,
       experimental_toolCallStreaming: true,
       maxSteps: 2,
       tools: {
-        // Server-side tool with execute function
-        getWeatherInformation: {
+        toggleShoppingItem: {
           description:
-            "show the weather in a given city to the user. After you get the location always check the weather",
-          parameters: z.object({ city: z.string() }),
-          execute: async ({ city }: { city: string }) => {
-            const weatherOptions = [
-              "sunny",
-              "cloudy",
-              "rainy",
-              "snowy",
-              "windy",
-            ];
-            return weatherOptions[
-              Math.floor(Math.random() * weatherOptions.length)
-            ];
-          },
-        },
-        // Client-side tool that starts user interaction
-        askForConfirmation: {
-          description: "Ask the user for confirmation.",
+            "Toggle the checked state of a shopping list item in a specific category",
           parameters: z.object({
-            message: z
-              .string()
-              .describe("The message to ask for confirmation."),
+            categoryIndex: z
+              .number()
+              .describe("The index of the category containing the item"),
+            itemIndex: z
+              .number()
+              .describe("The index of the item within the category to toggle"),
           }),
         },
-        // Client-side tool that is automatically executed on the client
-        getLocation: {
+        readAllShoppingItems: {
           description:
-            "Get the user location. Always ask for confirmation before using this tool. After this tool check the location in the given location",
-          parameters: z.object({}),
+            "Read All Shopping Items in order to know to toggle the checked state of the shopping list",
+          parameters: z.object({
+            name: z.string().describe("name of the shopping items"),
+          }),
         },
       },
     });
