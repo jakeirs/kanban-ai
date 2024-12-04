@@ -14,18 +14,25 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { STORAGE_KEY, useShoppingList } from "./hook";
 
 export function ChatDrawer() {
+  const { shoppingList, toggleItemCheck } = useShoppingList();
+
   const { messages, input, handleInputChange, handleSubmit, addToolResult } =
     useChat({
       maxSteps: 2,
       api: "/api/operations",
       async onToolCall({ toolCall }) {
         if (toolCall.toolName === "toggleShoppingItem") {
-          console.log("toggleShoppingItem", toolCall);
+          const itemId = toolCall.args?.itemId!;
+          toggleItemCheck(itemId);
+          return "Toggle changed";
         }
         if (toolCall.toolName === "readAllShoppingItems") {
-          console.log("readAllShoppingItems", toolCall);
+          console.log("readAllShoppingItems", toolCall, shoppingList);
+
+          return JSON.stringify(shoppingList);
         }
       },
     });

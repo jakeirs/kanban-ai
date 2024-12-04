@@ -21,7 +21,7 @@ export default function OperationsPage() {
   return (
     <div className="container mx-auto p-6 space-y-8">
       <h1 className="text-3xl font-bold mb-8">Shopping List Manager</h1>
-      
+
       {/* Management Panel */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Management Panel</h2>
@@ -46,7 +46,9 @@ export default function OperationsPage() {
                     <Checkbox
                       id={item.id}
                       checked={item.checked}
-                      onCheckedChange={() => handleCheckboxChange(categoryIndex, itemIndex)}
+                      onCheckedChange={() =>
+                        handleCheckboxChange(categoryIndex, itemIndex)
+                      }
                       className="data-[state=checked]:bg-primary"
                     />
                     <label

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ShoppingCategory, initialShoppingList } from "./types";
 import { createShoppingListCrud } from "./crud-hooks";
 
-const STORAGE_KEY = "shopping-list";
+export const STORAGE_KEY = "shopping-list";
 
 export const useShoppingList = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingCategory[]>(initialShoppingList);

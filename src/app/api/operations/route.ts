@@ -26,12 +26,7 @@ export async function POST(req: Request) {
           description:
             "Toggle the checked state of a shopping list item in a specific category",
           parameters: z.object({
-            categoryIndex: z
-              .number()
-              .describe("The index of the category containing the item"),
-            itemIndex: z
-              .number()
-              .describe("The index of the item within the category to toggle"),
+            itemId: z.string().describe("The Item Id from the Shopping List"),
           }),
         },
         readAllShoppingItems: {
