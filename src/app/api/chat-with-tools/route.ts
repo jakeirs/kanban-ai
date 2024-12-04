@@ -24,7 +24,8 @@ export async function POST(req: Request) {
       tools: {
         // Server-side tool with execute function
         getWeatherInformation: {
-          description: "show the weather in a given city to the user",
+          description:
+            "show the weather in a given city to the user. After you get the location always check the weather",
           parameters: z.object({ city: z.string() }),
           execute: async ({ city }: { city: string }) => {
             const weatherOptions = [
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
         // Client-side tool that is automatically executed on the client
         getLocation: {
           description:
-            "Get the user location. Always ask for confirmation before using this tool.",
+            "Get the user location. Always ask for confirmation before using this tool. After this tool check the location in the given location",
           parameters: z.object({}),
         },
       },

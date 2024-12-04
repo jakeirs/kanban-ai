@@ -21,7 +21,8 @@ export default function ChatWithTools() {
             "Miami",
             "Seattle",
           ];
-          return cities[Math.floor(Math.random() * cities.length)];
+          const result = cities[Math.floor(Math.random() * cities.length)];
+          return result;
         }
       },
     });
