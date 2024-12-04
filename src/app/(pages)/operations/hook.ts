@@ -6,21 +6,17 @@ const STORAGE_KEY = "shopping-list";
 
 export const useShoppingList = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingCategory[]>(initialShoppingList);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       setShoppingList(JSON.parse(saved));
     }
-    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(shoppingList));
-    }
-  }, [shoppingList, isLoaded]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(shoppingList));
+  }, [shoppingList]);
 
   const handleCheckboxChange = (categoryIndex: number, itemIndex: number) => {
     setShoppingList(prevList => {
@@ -42,7 +38,6 @@ export const useShoppingList = () => {
   return {
     shoppingList,
     handleCheckboxChange,
-    isLoaded,
     ...crudOperations,
   };
-};
+}
