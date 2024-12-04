@@ -23,7 +23,7 @@ npm run dev:frontend
 npm run dev:backend
 ```
 
-Note: Do not use "npm run dev" unless you have properly configured Convex first.
+Note: Do not use `"npm run dev"` unless you have properly configured Convex first.
 
 ## Project Structure Overview
 
