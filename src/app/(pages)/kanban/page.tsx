@@ -8,6 +8,7 @@ import {
 } from "@hello-pangea/dnd";
 import { Card, CardContent } from "@/components/ui/card";
 import { useKanbanBoard } from "./hooks";
+import { KanbanManualDrawer } from "./drawer-manual";
 
 export default function KanbanBoard() {
   const { columns, onDragEnd } = useKanbanBoard();
@@ -55,6 +56,9 @@ export default function KanbanBoard() {
           ))}
         </div>
       </DragDropContext>
+
+      {/* Manual Control Drawer */}
+      <KanbanManualDrawer />
     </div>
   );
 }
