@@ -10,6 +10,9 @@ export default function HomePage() {
         <Link href="/langgraph-agent">
           <Button>Go to LangGraph Agent</Button>
         </Link>
+        <Link href="/operations">
+          <Button>Go to Operations</Button>
+        </Link>
       </div>
     </section>
   );
