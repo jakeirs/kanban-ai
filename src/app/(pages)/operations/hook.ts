@@ -6,17 +6,27 @@ const STORAGE_KEY = "shopping-list";
 
 export const useShoppingList = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingCategory[]>(initialShoppingList);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Load from localStorage only on client side
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      setShoppingList(JSON.parse(saved));
+      try {
+        setShoppingList(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse shopping list from localStorage:", e);
+      }
     }
+    setIsLoading(false);
   }, []);
 
+  // Save to localStorage whenever shoppingList changes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(shoppingList));
-  }, [shoppingList]);
+    if (!isLoading) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(shoppingList));
+    }
+  }, [shoppingList, isLoading]);
 
   const handleCheckboxChange = (categoryIndex: number, itemIndex: number) => {
     setShoppingList(prevList => {
@@ -38,6 +48,7 @@ export const useShoppingList = () => {
   return {
     shoppingList,
     handleCheckboxChange,
+    isLoading,
     ...crudOperations,
   };
 }

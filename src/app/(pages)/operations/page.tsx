@@ -1,16 +1,21 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useShoppingList } from "./hook";
-
-const ShoppingListPanel = dynamic(
-  () => import("./panel").then((mod) => mod.ShoppingListPanel),
-  { ssr: false }
-);
+import { ShoppingListPanel } from "./panel";
 
 export default function OperationsPage() {
-  const { shoppingList, handleCheckboxChange } = useShoppingList();
+  const { shoppingList, handleCheckboxChange, isLoading } = useShoppingList();
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-8">Shopping List Manager</h1>
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-6 space-y-8">
@@ -19,7 +24,9 @@ export default function OperationsPage() {
       {/* Management Panel */}
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Management Panel</h2>
-        <ShoppingListPanel />
+        <Suspense fallback={<div>Loading panel...</div>}>
+          <ShoppingListPanel />
+        </Suspense>
       </section>
 
       {/* Shopping List Display */}
