@@ -37,6 +37,7 @@ export default function ChatWithTools() {
             }`}
           >
             <div className="font-semibold mb-2 text-sm text-gray-600">
+              {/* ROLE */}
               {m.role.charAt(0).toUpperCase() + m.role.slice(1)}
             </div>
             <div className="text-gray-800">{m.content}</div>
@@ -46,8 +47,7 @@ export default function ChatWithTools() {
               const toolCallId = toolInvocation.toolCallId;
               const addResult = (result: string) =>
                 addToolResult({ toolCallId, result });
-
-              // Render confirmation tool (client-side tool with user interaction)
+              // Render confirmation tool (client-side tool with user interaction BUTTON)
               if (toolInvocation.toolName === "askForConfirmation") {
                 return (
                   <div
@@ -64,6 +64,7 @@ export default function ChatWithTools() {
                         </span>
                       ) : (
                         <>
+                          {/** BUTTON */}
                           <Button
                             onClick={() => addResult("Yes")}
                             variant="default"
@@ -94,7 +95,7 @@ export default function ChatWithTools() {
                   {"result" in toolInvocation ? (
                     <>
                       <span className="font-medium">
-                        {toolInvocation.toolName}:
+                        {toolInvocation.toolName}
                       </span>{" "}
                       {toolInvocation.result}
                     </>
