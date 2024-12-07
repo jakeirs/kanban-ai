@@ -9,6 +9,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { useKanbanBoard } from "./hooks";
 import { KanbanManualDrawer } from "./drawer-manual";
+import { KanbanAIDrawer } from "./drawer-ai";
 
 export default function KanbanBoard() {
   const { columns, onDragEnd } = useKanbanBoard();
@@ -59,6 +60,9 @@ export default function KanbanBoard() {
 
       {/* Manual Control Drawer */}
       <KanbanManualDrawer />
+      
+      {/* AI Chat Drawer */}
+      <KanbanAIDrawer />
     </div>
   );
 }
