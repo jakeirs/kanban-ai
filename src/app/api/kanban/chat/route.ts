@@ -1,4 +1,4 @@
-import { streamText } from "ai";
+import { streamText, tool } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { z } from "zod";
 import { Message } from "ai";
@@ -22,38 +22,83 @@ export async function POST(req: Request) {
       experimental_toolCallStreaming: true,
       maxSteps: 2,
       tools: {
-        // Server-side tool with execute function
-        getKanbanState: {
+        getKanbanState: tool({
           description: "Get the current state of the Kanban board including columns and items",
-          parameters: z.object({}),
-          execute: async () => {
+          parameters: z.object({
+            boardId: z.string().optional().describe("Optional board ID to get specific board state"),
+          }),
+          execute: async ({ boardId }) => {
             // This is a placeholder - in a real implementation, 
             // we would fetch the actual state from the database
-            return JSON.stringify({
+            return {
               columns: [
                 { id: "todo", title: "To Do", items: [] },
                 { id: "in-progress", title: "In Progress", items: [] },
                 { id: "done", title: "Done", items: [] }
               ]
-            });
+            };
           },
-        },
-        // Client-side tool that starts user interaction
-        askForConfirmation: {
-          description: "Ask the user for confirmation before making changes to the board.",
+        }),
+
+        createKanbanItem: tool({
+          description: "Create a new item in the Kanban board",
           parameters: z.object({
-            message: z.string().describe("The message to ask for confirmation."),
+            columnId: z.string().describe("The ID of the column to add the item to"),
+            content: z.string().describe("The content of the item"),
+            description: z.string().optional().describe("Optional description for the item"),
+            priority: z.enum(["low", "medium", "high"]).optional().describe("Priority level of the item"),
           }),
-        },
-        // Client-side tool that is automatically executed on the client
-        getCurrentView: {
+          execute: async ({ columnId, content, description, priority }) => {
+            // Placeholder for actual implementation
+            return {
+              success: true,
+              item: {
+                id: Date.now().toString(),
+                columnId,
+                content,
+                description,
+                priority,
+              },
+            };
+          },
+        }),
+
+        moveKanbanItem: tool({
+          description: "Move an item from one column to another in the Kanban board",
+          parameters: z.object({
+            itemId: z.string().describe("The ID of the item to move"),
+            targetColumnId: z.string().describe("The ID of the column to move the item to"),
+          }),
+          execute: async ({ itemId, targetColumnId }) => {
+            // Placeholder for actual implementation
+            return {
+              success: true,
+              message: `Item ${itemId} moved to column ${targetColumnId}`,
+            };
+          },
+        }),
+
+        askForConfirmation: tool({
+          description: "Ask the user for confirmation before making changes to the board",
+          parameters: z.object({
+            message: z.string().describe("The message to ask for confirmation"),
+            action: z.string().describe("The action being confirmed"),
+          }),
+        }),
+
+        getCurrentView: tool({
           description: "Get the current view of the Kanban board that the user is looking at",
           parameters: z.object({}),
-        },
+        }),
       },
     });
 
-    return result.toDataStreamResponse();
+    return result.toDataStreamResponse({
+      getErrorMessage: (error) => {
+        // Provide user-friendly error messages
+        return "An error occurred while processing your request. Please try again.";
+      },
+    });
   } catch (error) {
     console.error("Error in kanban chat API route:", error);
     return new Response(
