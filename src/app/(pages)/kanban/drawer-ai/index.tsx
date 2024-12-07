@@ -15,6 +15,16 @@ import {
 export const KanbanAIDrawer = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/kanban/chat",
+    onToolCall: async ({toolCall}) {
+      // later put this SWITCH
+      if (toolCall.toolName === "tool1" ) {// put here enums (from Zod) for AI Tools functions
+        // try to put this inside the tool fn
+      }
+
+      // remember that you need to return sth to the LLM AI
+      // maybe let results = toolResult ?? "Error! No tool was invoked, but AI requested one,
+      // because we are in onToolCall fn now"
+    }
   });
 
   return (

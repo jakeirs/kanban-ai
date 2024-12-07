@@ -16,6 +16,8 @@ import type {
 } from "convex/server";
 import type * as http from "../http.js";
 import type * as kanban from "../kanban.js";
+import type * as kanbanMutations from "../kanbanMutations.js";
+import type * as kanbanQueries from "../kanbanQueries.js";
 import type * as stripe from "../stripe.js";
 import type * as users from "../users.js";
 
@@ -30,6 +32,8 @@ import type * as users from "../users.js";
 declare const fullApi: ApiFromModules<{
   http: typeof http;
   kanban: typeof kanban;
+  kanbanMutations: typeof kanbanMutations;
+  kanbanQueries: typeof kanbanQueries;
   stripe: typeof stripe;
   users: typeof users;
 }>;
