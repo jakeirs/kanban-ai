@@ -2,13 +2,10 @@ import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { z } from "zod";
 import { Message } from "ai";
-import {
-  getKanbanState,
-  createKanbanItem,
-  moveKanbanItem,
-  askForConfirmation,
-  getCurrentView,
-} from "./tools";
+import { getKanbanState, createKanbanItem } from "./tools-client-side";
+// Uncomment for variant "tools in the server-side"
+// difference: useQuery & useMutation vs. api.call
+// import { getKanbanState, createKanbanItem } from "./tools-server-side";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -31,9 +28,6 @@ export async function POST(req: Request) {
       tools: {
         getKanbanState,
         createKanbanItem,
-        moveKanbanItem,
-        askForConfirmation,
-        getCurrentView,
       },
     });
 
