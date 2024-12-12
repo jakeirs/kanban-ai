@@ -10,31 +10,30 @@ export default defineSchema({
 
   sessions: defineTable({
     userId: v.id("users"),
-    token: v.string(),
+    sessionId: v.string(),
     deviceInfo: v.optional(v.string()),
-    isActive: v.optional(v.boolean()),
-    lastActivity: v.optional( v.number()),
-    expiresAt:v.optional(v.number()),
-    createdAt:v.optional(v.number()),
-  }),
-
-  userProfiles: defineTable({
-    userId: v.id("users"),
-    firstName: v.optional(v.string()),
-    lastName: v.optional(v.string()),
-    phoneNumber: v.optional(v.string()),
-    timezone: v.optional(v.string()),
-    language: v.optional(v.string()),
-    bio: v.optional(v.string()),
-    socialLinks: v.optional(
+    lastActivityAt: v.optional(v.number()),
+    expiresAt: v.optional(v.number()),
+    createdAt: v.optional(v.number()),
+    passwordHash: v.optional(v.string()),
+    salt: v.optional(v.string()),
+    oAuthProviders: v.optional(
       v.object({
-        linkedin: v.optional(v.string()),
-        github: v.optional(v.string()),
-        twitter: v.optional(v.string()),
+        googleId: v.optional(v.string()),
       })
     ),
-  }).index("by_user", ["userId"]),
+  }),
 
+  userAccountStatus: defineTable({
+    userId: v.id("users"),
+    createdAt: v.optional(v.number()),
+    lastActivityAt: v.optional(v.number()),
+    failedLoginAttemptsAt: v.optional(v.string()),
+    lastFailedLoginAt: v.optional(v.string()),
+    isBanned: v.optional(v.boolean()),
+    isActiveNow: v.optional(v.boolean()),
+    isEmailVerified: v.optional(v.boolean()),
+  }),
 
   kanbanBoards: defineTable({
     userId: v.id("users"),
@@ -49,10 +48,13 @@ export default defineSchema({
           v.object({
             id: v.string(),
             title: v.string(),
-            labels: v.array(v.string()),
-            hasDescription: v.boolean(),
+            labels: v.optional(v.array(v.string())),
+            hasDescription: v.optional(v.boolean()),
             dueDate: v.optional(v.number()),
             priority: v.optional(v.string()),
+            createdAt: v.optional(v.string()),
+            updatedAt: v.optional(v.string()),
+            updatedBy: v.optional(v.string()),
           })
         ),
       })
@@ -62,23 +64,40 @@ export default defineSchema({
     updatedAt: v.number(),
   }).index("by_user", ["userId"]),
 
-  itemDescriptions: defineTable({
-    itemId: v.string(),
-    boardId: v.id("kanbanBoards"),
-    description: v.string(),
-    attachments: v.optional(v.array(v.string())),
-    comments: v.optional(
-      v.array(
-        v.object({
-          userId: v.id("users"),
-          content: v.string(),
-          createdAt: v.number(),
-        })
-      )
-    ),
-  }).index("by_board", ["boardId"]),
+  // itemDescriptions: defineTable({
+  //   itemId: v.string(),
+  //   boardId: v.id("kanbanBoards"),
+  //   description: v.string(),
+  //   attachments: v.optional(v.array(v.string())),
+  //   comments: v.optional(
+  //     v.array(
+  //       v.object({
+  //         userId: v.id("users"),
+  //         content: v.string(),
+  //         createdAt: v.number(),
+  //       })
+  //     )
+  //   ),
+  // }).index("by_board", ["boardId"]),
 
-    // userPreferences: defineTable({
+  // userProfiles: defineTable({
+  //   userId: v.id("users"),
+  //   firstName: v.optional(v.string()),
+  //   lastName: v.optional(v.string()),
+  //   phoneNumber: v.optional(v.string()),
+  //   timezone: v.optional(v.string()),
+  //   language: v.optional(v.string()),
+  //   bio: v.optional(v.string()),
+  //   socialLinks: v.optional(
+  //     v.object({
+  //       linkedin: v.optional(v.string()),
+  //       github: v.optional(v.string()),
+  //       twitter: v.optional(v.string()),
+  //     })
+  //   ),
+  // }).index("by_user", ["userId"]),
+
+  // userPreferences: defineTable({
   //   userId: v.id("users"),
   //   theme: v.string(),
   //   notifications: v.object({
