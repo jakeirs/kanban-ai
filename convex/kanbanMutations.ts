@@ -1,3 +1,4 @@
+import { Id } from "./_generated/dataModel";
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
@@ -19,23 +20,34 @@ const initializeColumns = mutation({
 const createItem = mutation({
   args: {
     content: v.string(),
-    columnId: v.id("kanbanColumns"),
+    columnName: v.string(),
     description: v.optional(v.string()),
     dueDate: v.optional(v.number()),
     labels: v.optional(v.array(v.string())),
     priority: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const items = await ctx.db
-      .query("kanbanItems")
-      .filter((q) => q.eq(q.field("columnId"), args.columnId))
-      .collect();
+    // ORDER
+    // const items = await ctx.db
+    //   .query("kanbanItems")
+    //   .filter((q) => q.eq(q.field("columnId"), args.columnId))
+    //   .collect();
 
-    const order = items.length;
+    // const order = items.length;
+
+    // GET ID of COLUMN OR FROM THE REDUX
+    const columns = await ctx.db.query("kanbanColumns").collect();
+    const columnId = columns.find((column) =>
+      // APPLY SEARCH - Similar words search
+      // column.title === args.columnName
+      column.title.includes(args.columnName)
+    )?._id as Id<"kanbanColumns">;
 
     return await ctx.db.insert("kanbanItems", {
-      ...args,
-      order,
+      content: args.content,
+      columnId,
+      order: 0,
+      // order,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -106,10 +118,4 @@ const deleteItem = mutation({
   },
 });
 
-export {
-  initializeColumns,
-  createItem,
-  updateItem,
-  moveItem,
-  deleteItem,
-};
+export { initializeColumns, createItem, updateItem, moveItem, deleteItem };

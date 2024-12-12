@@ -11,20 +11,29 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { createKanbanItemToolClient, getKanbanStateToolClient } from "./tools";
 
 export const KanbanAIDrawer = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/kanban/chat",
-    onToolCall: async ({toolCall}) {
-      // later put this SWITCH
-      if (toolCall.toolName === "tool1" ) {// put here enums (from Zod) for AI Tools functions
+    onToolCall: async ({ toolCall }) => {
+      const { args, toolName } = toolCall;
+      let results;
+
+      results = getKanbanStateToolClient(toolName, args) ?? results;
+      results = createKanbanItemToolClient(toolName, args) ?? results;
+      // OR PUT SWITCH case default
+      if (toolCall.toolName === "tool1") {
+        // put here enums (from Zod) for AI Tools functions
         // try to put this inside the tool fn
       }
 
       // remember that you need to return sth to the LLM AI
       // maybe let results = toolResult ?? "Error! No tool was invoked, but AI requested one,
       // because we are in onToolCall fn now"
-    }
+
+      return results;
+    },
   });
 
   return (
@@ -49,7 +58,9 @@ export const KanbanAIDrawer = () => {
                 <div
                   key={m.id}
                   className={`p-4 rounded-lg ${
-                    m.role === "assistant" ? "bg-gray-100 ml-4" : "bg-blue-100 mr-4"
+                    m.role === "assistant"
+                      ? "bg-gray-100 ml-4"
+                      : "bg-blue-100 mr-4"
                   }`}
                 >
                   <div className="font-semibold mb-2 text-sm text-gray-600">
