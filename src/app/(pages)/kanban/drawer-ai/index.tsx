@@ -39,7 +39,7 @@ export const KanbanAIDrawer = () => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="fixed bottom-4 right-36">
+        <Button variant="outline" className="fixed bottom-4 left-4">
           Open AI Assistant
         </Button>
       </DrawerTrigger>
@@ -53,7 +53,7 @@ export const KanbanAIDrawer = () => {
         <div className="px-4 pb-4">
           <div className="flex flex-col h-[500px]">
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+            <div className="flex-1 mb-4 space-y-4 overflow-y-auto">
               {messages?.map((m: Message) => (
                 <div
                   key={m.id}
@@ -63,7 +63,7 @@ export const KanbanAIDrawer = () => {
                       : "bg-blue-100 mr-4"
                   }`}
                 >
-                  <div className="font-semibold mb-2 text-sm text-gray-600">
+                  <div className="mb-2 text-sm font-semibold text-gray-600">
                     {m.role.charAt(0).toUpperCase() + m.role.slice(1)}
                   </div>
                   <div className="text-gray-800">{m.content}</div>
@@ -74,7 +74,7 @@ export const KanbanAIDrawer = () => {
             {/* Chat Input Form */}
             <form
               onSubmit={handleSubmit}
-              className="flex gap-2 sticky bottom-0 bg-white p-2 rounded-lg shadow"
+              className="sticky bottom-0 flex gap-2 p-2 bg-white rounded-lg shadow"
             >
               <Input
                 value={input}

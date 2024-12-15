@@ -5,9 +5,9 @@ export const createKanbanItemToolClient = (toolName: string, args: any) => {
   if (toolName !== "createKanbanItem") {
     throw new Error("Wrong Tool was invoked");
   }
-  const createItem = fetchMutation(api.kanban.createItem, {
-    ...args,
-  });
+  // const createItem = fetchMutation(api.kanban.createItem, {
+  //   ...args,
+  // });
 
-  return createItem;
+  // return createItem;
 };

@@ -1,27 +1,28 @@
 "use client";
 
 import React from "react";
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-} from "@hello-pangea/dnd";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { Card, CardContent } from "@/components/ui/card";
 import { useKanbanBoard } from "./hooks";
 import { KanbanManualDrawer } from "./drawer-manual";
 import { KanbanAIDrawer } from "./drawer-ai";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 export default function KanbanBoard() {
-  const { columns, onDragEnd } = useKanbanBoard();
+  const userId = localStorage.getItem("userId") as Id<"users">;
+  const kanbanBoard = useQuery(api.kanban.getAllBoardsForUserId, { userId });
+  console.log("kanbanBoard", kanbanBoard);
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Kanban Board</h1>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex space-x-4">
-          {Object.values(columns).map((column) => (
+      <h1 className="mb-4 text-2xl font-bold">Kanban Board</h1>
+      {/* <DragDropContext onDragEnd={onDragEnd}> */}
+      <div className="flex space-x-4">
+        {/* {Object.values(columns).map((column) => (
             <div key={column.id} className="flex-1">
-              <h2 className="font-semibold mb-2">{column.title}</h2>
+              <h2 className="mb-2 font-semibold">{column.title}</h2>
               <Droppable droppableId={column.id}>
                 {(provided) => (
                   <div
@@ -54,15 +55,13 @@ export default function KanbanBoard() {
                 )}
               </Droppable>
             </div>
-          ))}
-        </div>
-      </DragDropContext>
-
-      {/* Manual Control Drawer */}
-      <KanbanManualDrawer />
-      
-      {/* AI Chat Drawer */}
-      <KanbanAIDrawer />
+          ))} */}
+      </div>
+      {/* </DragDropContext> */}
+      <div className="flex">
+        <KanbanManualDrawer />
+        <KanbanAIDrawer />
+      </div>
     </div>
   );
 }

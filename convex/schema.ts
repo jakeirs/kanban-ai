@@ -1,12 +1,14 @@
+import { Table } from "convex-helpers/server";
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { kanbanBoardsTable } from "./tables/kanban/table";
+import { userTable } from "./tables/users/table";
+import { userKanbanBoardsTable } from "./tables/userKanbanBoard/table";
 
 export default defineSchema({
-  users: defineTable({
-    email: v.string(),
-    firstName: v.optional(v.string()),
-    lastName: v.optional(v.string()),
-  }).index("by_email", ["email"]),
+  users: userTable.table.index("by_email", ["email"]),
+  kanbanBoards: kanbanBoardsTable.table.index("by_owner", ["ownerUserId"]),
+  userKanbanBoards: userKanbanBoardsTable.table.index("by_userId", ["userId"]),
 
   sessions: defineTable({
     userId: v.id("users"),
@@ -24,46 +26,6 @@ export default defineSchema({
     ),
   }),
 
-  userAccountStatus: defineTable({
-    userId: v.id("users"),
-    createdAt: v.optional(v.number()),
-    lastActivityAt: v.optional(v.number()),
-    failedLoginAttemptsAt: v.optional(v.string()),
-    lastFailedLoginAt: v.optional(v.string()),
-    isBanned: v.optional(v.boolean()),
-    isActiveNow: v.optional(v.boolean()),
-    isEmailVerified: v.optional(v.boolean()),
-  }),
-
-  kanbanBoards: defineTable({
-    userId: v.id("users"),
-    name: v.string(),
-    description: v.optional(v.string()),
-    isPrivate: v.boolean(),
-    columns: v.array(
-      v.object({
-        id: v.string(),
-        name: v.string(),
-        items: v.array(
-          v.object({
-            id: v.string(),
-            title: v.string(),
-            labels: v.optional(v.array(v.string())),
-            hasDescription: v.optional(v.boolean()),
-            dueDate: v.optional(v.number()),
-            priority: v.optional(v.string()),
-            createdAt: v.optional(v.string()),
-            updatedAt: v.optional(v.string()),
-            updatedBy: v.optional(v.string()),
-          })
-        ),
-      })
-    ),
-    sharedWith: v.optional(v.array(v.id("users"))),
-    createdAt: v.number(),
-    updatedAt: v.number(),
-  }).index("by_user", ["userId"]),
-
   // itemDescriptions: defineTable({
   //   itemId: v.string(),
   //   boardId: v.id("kanbanBoards"),
@@ -79,6 +41,17 @@ export default defineSchema({
   //     )
   //   ),
   // }).index("by_board", ["boardId"]),
+
+  // userAccountStatus: defineTable({
+  //   userId: v.id("users"),
+  //   createdAt: v.optional(v.number()),
+  //   lastActivityAt: v.optional(v.number()),
+  //   failedLoginAttemptsAt: v.optional(v.string()),
+  //   lastFailedLoginAt: v.optional(v.string()),
+  //   isBanned: v.optional(v.boolean()),
+  //   isActiveNow: v.optional(v.boolean()),
+  //   isEmailVerified: v.optional(v.boolean()),
+  // }),
 
   // userProfiles: defineTable({
   //   userId: v.id("users"),

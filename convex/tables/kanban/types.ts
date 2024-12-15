@@ -1,0 +1,21 @@
+import { v, Infer } from "convex/values";
+
+export const kanbanItemValidator = v.object({
+  id: v.string(),
+  title: v.string(),
+  labels: v.optional(v.array(v.string())),
+  hasDescription: v.optional(v.boolean()),
+  dueDate: v.optional(v.number()),
+  priority: v.optional(v.string()),
+  createdAt: v.optional(v.number()),
+  updatedAt: v.optional(v.number()),
+  updatedBy: v.optional(v.number()),
+});
+
+export type KanbanItem = Infer<typeof kanbanItemValidator>;
+
+export interface KanbanColumn {
+  id: string;
+  name: string;
+  items: KanbanItem[];
+}

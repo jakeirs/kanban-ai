@@ -1061,6 +1061,11 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+convex-helpers@^0.1.66:
+  version "0.1.66"
+  resolved "https://registry.npmjs.org/convex-helpers/-/convex-helpers-0.1.66.tgz"
+  integrity sha512-lFm4zgSdwrh2Mv2Dm/4EdelfL/JILA2D3uzUqU6ed6rGqsUcXaaaK6i8VMBddf1HCQRJDG9MDDVZbT+Bt7rPzg==
+
 convex@^1.13.0:
   version "1.13.0"
   resolved "https://registry.npmjs.org/convex/-/convex-1.13.0.tgz"
