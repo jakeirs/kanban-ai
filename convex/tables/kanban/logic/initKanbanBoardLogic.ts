@@ -4,7 +4,7 @@ import { v } from "convex/values";
 import { mutation } from "../../../_generated/server";
 import { defaultKanbanColumns } from "../defaultValues";
 
-const createDefaultKanbanBoardLogic = mutation({
+export const initKanbanBoardLogic = mutation({
   args: {
     userId: v.id("users"),
   },
@@ -29,5 +29,3 @@ const createDefaultKanbanBoardLogic = mutation({
     return kanbanBoardId;
   },
 });
-
-export { createDefaultKanbanBoardLogic };
