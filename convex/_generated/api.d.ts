@@ -17,6 +17,7 @@ import type {
 import type * as tables_kanban_defaultValues from "../tables/kanban/defaultValues.js";
 import type * as tables_kanban_logic_initKanbanBoardLogic from "../tables/kanban/logic/initKanbanBoardLogic.js";
 import type * as tables_kanban_logic_visitKanbanPageLogic from "../tables/kanban/logic/visitKanbanPageLogic.js";
+import type * as tables_kanban_mutations_moveItemToColumn from "../tables/kanban/mutations/moveItemToColumn.js";
 import type * as tables_kanban_queries_queries from "../tables/kanban/queries/queries.js";
 import type * as tables_kanban_table from "../tables/kanban/table.js";
 import type * as tables_kanban_types from "../tables/kanban/types.js";
@@ -39,6 +40,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanban/defaultValues": typeof tables_kanban_defaultValues;
   "tables/kanban/logic/initKanbanBoardLogic": typeof tables_kanban_logic_initKanbanBoardLogic;
   "tables/kanban/logic/visitKanbanPageLogic": typeof tables_kanban_logic_visitKanbanPageLogic;
+  "tables/kanban/mutations/moveItemToColumn": typeof tables_kanban_mutations_moveItemToColumn;
   "tables/kanban/queries/queries": typeof tables_kanban_queries_queries;
   "tables/kanban/table": typeof tables_kanban_table;
   "tables/kanban/types": typeof tables_kanban_types;
