@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
-import { KanbanManualDrawer } from "./drawer-manual";
 import { KanbanAIDrawer } from "./drawer-ai";
 import { useQuery, useMutation } from "convex/react";
 import { Doc, Id } from "@/convex/_generated/dataModel";
@@ -15,6 +14,8 @@ export default function KanbanBoard() {
   const [columns, setColumns] = useState<KanbanColumn[]>([]);
   const [userId, setUserId] = useState<Id<"users"> | null>(null);
 
+  // get userId from localStorage
+  // imitade session for user
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId") as Id<"users">;
     if (storedUserId) {
@@ -32,6 +33,7 @@ export default function KanbanBoard() {
     api.tables.kanban.mutations.moveItemToColumn.moveItemToColumn
   );
 
+  // set locally kanbanBoard
   useEffect(() => {
     if (kanbanBoard?.columns) {
       setColumns(kanbanBoard.columns);
@@ -43,10 +45,6 @@ export default function KanbanBoard() {
     moveItemMutation,
     kanbanBoard,
   });
-
-  if (!userId) {
-    return <div>Loading user...</div>;
-  }
 
   if (!kanbanBoard) {
     return <div>Loading board...</div>;
@@ -61,7 +59,6 @@ export default function KanbanBoard() {
         <KanbanColumns columns={columns} />
       </DragDropContext>
       <div className="flex mt-4">
-        <KanbanManualDrawer />
         <KanbanAIDrawer />
       </div>
     </div>
