@@ -5,8 +5,8 @@ const moveItemToColumnValidator = v.object({
   kanbanBoardId: v.id("kanbanBoards"),
   sourceColumnId: v.string(),
   destinationColumnId: v.string(),
-  order: v.number(),
-  destinationOrder: v.number(),
+  itemId: v.string(),
+  destinationOrder: v.optional(v.number()),
 });
 
 export type MoveItemToColumnMutationArgs = Infer<
@@ -37,11 +37,16 @@ export const moveItemToColumn = mutation({
       throw new Error("Source or destination column not found");
     }
 
-    // Move the item
+    // Find Move the item by itemId
+    const movedItemIndex = sourceColumn.items.findIndex(
+      (item) => item.id === args.itemId
+    );
     // remove old position of the column
-    const [movedItem] = sourceColumn.items.splice(args.order, 1);
-    // add new position of the column
-    destColumn.items.splice(args.destinationOrder, 0, movedItem);
+    const [movedItem] = sourceColumn.items.splice(movedItemIndex, 1);
+
+    // add item to destination column | default order = 0
+    const destinationOrder = args.destinationOrder ?? 0;
+    destColumn.items.splice(destinationOrder, 0, movedItem);
 
     // Update the board
     await ctx.db.patch(kanbanBoard._id, {

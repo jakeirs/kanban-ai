@@ -4,7 +4,6 @@ import { v, Infer } from "convex/values";
 export const kanbanItemValidator = v.object({
   id: v.string(),
   title: v.string(),
-  order: v.optional(v.number()),
   labels: v.optional(v.array(v.string())),
   hasDescription: v.optional(v.boolean()),
   dueDate: v.optional(v.number()),

@@ -40,7 +40,7 @@ export const useKanbanLogic = ({
 
     // Remove from source column
     const [movedItem] = sourceColumn.items.splice(source.index, 1);
-
+    movedItem.id;
     // Add to destination column
     // Remove 0 items, add movedItem on index === destination.index
     destColumn.items.splice(destination.index, 0, movedItem);
@@ -53,7 +53,7 @@ export const useKanbanLogic = ({
         kanbanBoardId: kanbanBoard._id,
         sourceColumnId: source.droppableId,
         destinationColumnId: destination.droppableId,
-        order: source.index,
+        itemId: movedItem.id,
         destinationOrder: destination.index,
       });
     } catch (error) {

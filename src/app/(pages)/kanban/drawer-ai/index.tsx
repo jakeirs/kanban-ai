@@ -11,29 +11,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { createKanbanItemToolClient, getKanbanStateToolClient } from "./tools";
 
 export const KanbanAIDrawer = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/kanban/chat",
-    onToolCall: async ({ toolCall }) => {
-      const { args, toolName } = toolCall;
-      let results;
-
-      results = getKanbanStateToolClient(toolName, args) ?? results;
-      results = createKanbanItemToolClient(toolName, args) ?? results;
-      // OR PUT SWITCH case default
-      if (toolCall.toolName === "tool1") {
-        // put here enums (from Zod) for AI Tools functions
-        // try to put this inside the tool fn
-      }
-
-      // remember that you need to return sth to the LLM AI
-      // maybe let results = toolResult ?? "Error! No tool was invoked, but AI requested one,
-      // because we are in onToolCall fn now"
-
-      return results;
-    },
   });
 
   return (
