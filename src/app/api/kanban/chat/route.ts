@@ -25,11 +25,14 @@ export async function POST(req: Request) {
       model: anthropic("claude-3-5-sonnet-20241022"),
       messages,
       // experimental_toolCallStreaming: true,
-      maxSteps: 2,
+      maxSteps: 5,
       tools: {
         moveKanbanItem,
         getKanbanBoard,
       },
+      system: `You are friendly assistant of Kanban board for the user. Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
+        If you have to do many operations like move couple of tasks from one column to another, you can use tools many time if needed.
+      `,
     });
 
     return result.toDataStreamResponse({
