@@ -4,7 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { ConvexHttpClient } from "convex/browser";
 import { anthropic } from "@ai-sdk/anthropic";
-import { kanbanColumnsZod } from "@/convex/tables/kanban/types";
+import { kanbanColumnZod } from "@/convex/tables/kanban/types";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -35,37 +35,44 @@ export const updateKanbanColumns = tool({
     const currentColumnsStringified = JSON.stringify({
       ...currentKanbanBoardState?.columns,
     });
-    console.log(
-      "currentColumnsStringified",
-      JSON.stringify(currentColumnsStringified, null, 2)
-    );
 
     try {
       // generate Object with AI
-      const { object, finishReason } = await generateObject({
+      const { object } = await generateObject({
         model: anthropic("claude-3-5-sonnet-20241022"),
         system: `You are friendly assistant of Kanban board for the user. Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
         If you have to do many operations like move couple of tasks from one column to another, you can use tools many time if needed.
 
         Generate Object that will match the schema and the task you were given changing current Kanban Board State.
+
+        Remember, never change createdAt time, never change any id of the item or column or title.
       `,
         prompt: `This is current state of the columns in Kanban Board: ${currentColumnsStringified}
       And this is what you need to do: "${message}.
       "
       `,
-        schema: kanbanColumnsZod,
+        schema: z.object({
+          idsOfTasksThatWillBeAffected: z
+            .array(
+              z
+                .string()
+                .describe("Id of the tasks / item that will be affected")
+            )
+            .describe("Array of Ids of the tasks that will be affcted"),
+          columns: z.array(kanbanColumnZod),
+        }),
+        // output: "array",
       });
 
       console.log(
-        "generateObject",
-        JSON.stringify(object, null, 2),
-        console.log("finishReason", JSON.stringify(finishReason, null, 2))
+        "idsOfTasksThatWillBeAffected",
+        JSON.stringify(object.idsOfTasksThatWillBeAffected, null, 2)
       );
 
       // make mutation with generated Object from AI
       const patchColumns = await convex.mutation(
         api.tables.kanban.mutations.patchColumns.patchColumns,
-        { columns: object, kanbanBoardId: kanbanBoardId }
+        { columns: object.columns, kanbanBoardId: kanbanBoardId }
       );
 
       return {

@@ -44,10 +44,8 @@ export const kanbanItemZod = z.object({
   updatedBy: z.number().optional(),
 });
 
-export const kanbanColumnsZod = z.array(
-  z.object({
-    id: z.string(),
-    name: z.string(),
-    items: z.array(kanbanItemZod),
-  })
-);
+export const kanbanColumnZod = z.object({
+  id: z.string(),
+  name: z.string(),
+  items: z.array(kanbanItemZod),
+});
