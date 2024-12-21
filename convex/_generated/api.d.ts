@@ -18,6 +18,7 @@ import type * as tables_kanban_defaultValues from "../tables/kanban/defaultValue
 import type * as tables_kanban_logic_initKanbanBoardLogic from "../tables/kanban/logic/initKanbanBoardLogic.js";
 import type * as tables_kanban_logic_visitKanbanPageLogic from "../tables/kanban/logic/visitKanbanPageLogic.js";
 import type * as tables_kanban_mutations_moveItemToColumn from "../tables/kanban/mutations/moveItemToColumn.js";
+import type * as tables_kanban_mutations_patchColumns from "../tables/kanban/mutations/patchColumns.js";
 import type * as tables_kanban_queries_getBoardById from "../tables/kanban/queries/getBoardById.js";
 import type * as tables_kanban_table from "../tables/kanban/table.js";
 import type * as tables_kanban_types from "../tables/kanban/types.js";
@@ -41,6 +42,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanban/logic/initKanbanBoardLogic": typeof tables_kanban_logic_initKanbanBoardLogic;
   "tables/kanban/logic/visitKanbanPageLogic": typeof tables_kanban_logic_visitKanbanPageLogic;
   "tables/kanban/mutations/moveItemToColumn": typeof tables_kanban_mutations_moveItemToColumn;
+  "tables/kanban/mutations/patchColumns": typeof tables_kanban_mutations_patchColumns;
   "tables/kanban/queries/getBoardById": typeof tables_kanban_queries_getBoardById;
   "tables/kanban/table": typeof tables_kanban_table;
   "tables/kanban/types": typeof tables_kanban_types;
