@@ -2,6 +2,7 @@ import { v, Infer } from "convex/values";
 import { z } from "zod";
 import { kanbanBoardsTable } from "./table";
 
+// COLUMN ITEM
 export const kanbanItemValidator = v.object({
   id: v.string(),
   title: v.string(),
@@ -11,9 +12,10 @@ export const kanbanItemValidator = v.object({
   priority: v.optional(v.string()),
   createdAt: v.optional(v.number()),
   updatedAt: v.optional(v.number()),
-  updatedBy: v.optional(v.number()),
+  updatedBy: v.optional(v.string()),
 });
 
+// COLUMN
 export const kanbanColumnsValidator = v.array(
   v.object({
     id: v.string(),
@@ -41,7 +43,7 @@ export const kanbanItemZod = z.object({
   priority: z.string().optional(),
   createdAt: z.number().optional(),
   updatedAt: z.number().optional(),
-  updatedBy: z.number().optional(),
+  updatedBy: z.string().optional(),
 });
 
 export const kanbanColumnZod = z.object({

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       model: anthropic("claude-3-5-sonnet-20241022"),
       messages,
       experimental_toolCallStreaming: true,
-      maxSteps: 5,
+      maxSteps: 10,
       tools: {
         // moveKanbanItem,
         // getKanbanBoard,

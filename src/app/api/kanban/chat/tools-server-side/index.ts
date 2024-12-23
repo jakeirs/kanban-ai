@@ -1,3 +1,3 @@
 export { getKanbanBoard } from "./_getKanbanBoard";
 export { moveKanbanItem } from "./_moveKanbanItem";
-export { updateKanbanColumns } from "./_updateKanbanColumns";
+export { updateKanbanColumns } from "./updateKanbanColumn/_updateKanbanColumns";
