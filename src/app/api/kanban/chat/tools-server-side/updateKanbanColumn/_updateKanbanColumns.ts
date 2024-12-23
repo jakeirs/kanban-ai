@@ -60,11 +60,6 @@ export const updateKanbanColumns = tool({
         }),
       });
 
-      console.log(
-        "idsOfTasksThatWillBeAffected",
-        JSON.stringify(object.idsOfTasksThatWillBeAffected, null, 2)
-      );
-
       // updated properties such as updatedAt, createdAt, createdBy
       const columnsWithUpdatedProperties = addUpdatedPropertiesToItems({
         columns: object.columns,
