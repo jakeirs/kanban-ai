@@ -26,8 +26,8 @@ export const updateKanbanColumns = tool({
     );
 
     const kanbanBoardId =
-      "jh7ernq6xs05pn0dgzvcszq9h176jrx1" as Id<"kanbanBoards">;
-    const userId = "j573b86fma8pajqzn01ba9mtpd76kvba" as Id<"users">;
+      "j578qy36zqaxw3yv064rssmke97728gg" as Id<"kanbanBoards">;
+    const userId = "jd7d0eq069mpgad3s5wr00jck57720gp" as Id<"users">;
 
     // get current state of Kanban Board
     const currentKanbanBoardState = await convex.query(
