@@ -20,26 +20,20 @@ export const updateKanbanColumns = tool({
          what exactly it has to be done in order to achieve given goal`),
   }),
   execute: async ({ message }) => {
-    console.log(
-      "message in updateKanbanColumns",
-      JSON.stringify(message, null, 2)
-    );
-
     const kanbanBoardId =
       "j578qy36zqaxw3yv064rssmke97728gg" as Id<"kanbanBoards">;
     const userId = "jd7d0eq069mpgad3s5wr00jck57720gp" as Id<"users">;
-
-    // get current state of Kanban Board
-    const currentKanbanBoardState = await convex.query(
-      api.tables.kanban.queries.getBoardById.getBoardById,
-      { boardId: kanbanBoardId }
-    );
-
-    const currentColumnsStringified = JSON.stringify({
-      ...currentKanbanBoardState?.columns,
-    });
-
     try {
+      // get current state of Kanban Board
+      const currentKanbanBoardState = await convex.query(
+        api.tables.kanban.queries.getBoardById.getBoardById,
+        { boardId: kanbanBoardId }
+      );
+
+      const currentColumnsStringified = JSON.stringify({
+        ...currentKanbanBoardState?.columns,
+      });
+
       // generate Object with AI
       const { object } = await generateObject({
         model: anthropic("claude-3-5-sonnet-20241022"),
@@ -80,6 +74,11 @@ export const updateKanbanColumns = tool({
       };
     } catch (error) {
       console.error("Error in updateKanbanColumns Tool", error);
+      return {
+        success: false,
+        // message: `The columns has been changed. Generated this ${object}`,
+        message: `There was an error updating Kanban items. Please try again now or later. Sorry mate!`,
+      };
     }
   },
 });

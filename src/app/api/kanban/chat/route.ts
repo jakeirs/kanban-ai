@@ -1,23 +1,7 @@
 import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
-import { z } from "zod";
 import { Message } from "ai";
-import {
-  moveKanbanItem,
-  getKanbanBoard,
-  updateKanbanColumns,
-} from "./tools-server-side";
-// import { getKanbanState, createKanbanItem } from "./tools-client-side";
-// Uncomment for variant "tools in the server-side"
-// difference: useQuery & useMutation vs. api.call
-
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
-
-// Define the request body schema using Message type
-const RequestSchema = z.object({
-  messages: z.array(z.custom<Message>()),
-});
+import { updateKanbanColumns } from "./tools";
 
 export async function POST(req: Request) {
   try {
@@ -31,8 +15,6 @@ export async function POST(req: Request) {
       experimental_toolCallStreaming: true,
       maxSteps: 10,
       tools: {
-        // moveKanbanItem,
-        // getKanbanBoard,
         updateKanbanColumns,
       },
       system: `You are friendly assistant of Kanban board for the user.

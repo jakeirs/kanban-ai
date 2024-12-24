@@ -1,4 +1,4 @@
-import { IdsOfTasksThatWillBeAffected } from "@/app/api/kanban/chat/tools-server-side/updateKanbanColumn/types";
+import { IdsOfTasksThatWillBeAffected } from "@/app/api/kanban/chat/tools/updateKanbanColumn/types";
 import { generateId } from "ai";
 import { KanbanColumn } from "@/convex/tables/kanban/types";
 
@@ -28,7 +28,7 @@ export const addUpdatedPropertiesToItems = ({
           // If it's a newly created item, set createdAt
           ...(affectedTask.action === "created" && {
             createdAt: currentTimestamp,
-            id: generateId(20)
+            id: generateId(20),
           }),
         };
       }
