@@ -1,30 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { Button } from "@/components/ui/button";
+import { useAuthActions, useAuthToken } from "@convex-dev/auth/react";
+import { useEffect, useState } from "react";
 
 export default function CreateUser() {
-  const [email, setEmail] = useState("");
-  const createUser = useMutation(
-    api.tables.users.mutations.createUser.createUser
-  );
+  const { signIn } = useAuthActions();
+  const [tokenState, setState] = useState<any>();
+  const token = useAuthToken();
+
+  useEffect(() => {
+    setState(token);
+  }, [token]);
+
+  console.log("token", token);
+
   const initKanbanBoard = useMutation(
     api.tables.kanban.logic.initKanbanBoardLogic.initKanbanBoardLogic
   );
-
-  const handleCreateUser = async () => {
-    try {
-      const userId = await createUser({ email });
-      localStorage.setItem("userId", String(userId));
-      setEmail("");
-    } catch (error) {
-      console.error("Error creating user:", error);
-    }
-  };
 
   const handleCreateKanbanBoard = async () => {
     try {
@@ -39,14 +35,14 @@ export default function CreateUser() {
 
   return (
     <div className="flex items-center gap-4">
-      <Input
-        type="email"
-        placeholder="Enter email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-[300px]"
-      />
-      <Button onClick={handleCreateUser}>Create user</Button>
+      <Button
+        className="flex-1"
+        variant="outline"
+        type="button"
+        onClick={() => void signIn("github", { redirectTo: "/kanban" })}
+      >
+        GitHub
+      </Button>
       <Button onClick={handleCreateKanbanBoard}>Create Kanban Board</Button>
     </div>
   );

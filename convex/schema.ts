@@ -2,29 +2,13 @@ import { Table } from "convex-helpers/server";
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import { kanbanBoardsTable } from "./tables/kanban/table";
-import { userTable } from "./tables/users/table";
 import { userKanbanBoardsTable } from "./tables/userKanbanBoard/table";
+import { authTables } from "@convex-dev/auth/server";
 
 export default defineSchema({
-  users: userTable.table.index("by_email", ["email"]),
+  ...authTables,
   kanbanBoards: kanbanBoardsTable.table.index("by_owner", ["ownerUserId"]),
   userKanbanBoards: userKanbanBoardsTable.table.index("by_userId", ["userId"]),
-
-  sessions: defineTable({
-    userId: v.id("users"),
-    sessionId: v.string(),
-    deviceInfo: v.optional(v.string()),
-    lastActivityAt: v.optional(v.number()),
-    expiresAt: v.optional(v.number()),
-    createdAt: v.optional(v.number()),
-    passwordHash: v.optional(v.string()),
-    salt: v.optional(v.string()),
-    oAuthProviders: v.optional(
-      v.object({
-        googleId: v.optional(v.string()),
-      })
-    ),
-  }),
 
   // itemDescriptions: defineTable({
   //   itemId: v.string(),

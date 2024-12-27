@@ -20,15 +20,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/convex/*": ["./convex/*"],
+      "@/convex/*": ["./convex/*"]
+      // "@convex-dev/auth/react": ["./node_modules/@convex-dev/auth/src/react/index.tsx"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/api/about/route.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
