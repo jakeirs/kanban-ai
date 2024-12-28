@@ -1,9 +1,12 @@
 import { v } from "convex/values";
 import { query } from "../../../_generated/server";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
-export const visitKanbanPageLogic = query({
-  args: { userId: v.id("users") },
-  handler: async (ctx, { userId }) => {
+const visitKanbanPageLogic = query({
+  args: {},
+  handler: async (ctx) => {
+
+    const userId = await getAuthUserId(ctx);
     const kanbanBoard = await ctx.db
       .query("kanbanBoards")
       .filter((q) => q.eq(q.field("ownerUserId"), userId))
@@ -12,3 +15,5 @@ export const visitKanbanPageLogic = query({
     return kanbanBoard;
   },
 });
+
+export default visitKanbanPageLogic;

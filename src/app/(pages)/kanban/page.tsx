@@ -24,10 +24,7 @@ export default function KanbanBoard() {
   }, []);
 
   const kanbanBoard = useQuery(
-    api.tables.kanban.logic.visitKanbanPageLogic.visitKanbanPageLogic,
-    {
-      userId: userId as Id<"users">,
-    }
+    api.tables.kanban.logic.visitKanbanPageLogic.default
   ) as Doc<"kanbanBoards">;
   const moveItemMutation = useMutation(
     api.tables.kanban.mutations.moveItemToColumn.moveItemToColumn

@@ -1,14 +1,20 @@
 // user enters page
 
 import { v } from "convex/values";
-import { mutation } from "../../../_generated/server";
+import { internalMutation } from "../../../_generated/server";
 import { defaultKanbanColumns } from "../defaultValues";
 
-export const initKanbanBoardLogic = mutation({
+const initKanbanBoardLogic = internalMutation({
   args: {
     userId: v.id("users"),
   },
   handler: async (ctx, args) => {
+    // Get user by ID - args.userId is already a proper users ID
+    const user = await ctx.db.get(args.userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     const defaultColumns = defaultKanbanColumns;
 
     const kanbanBoardId = await ctx.db.insert("kanbanBoards", {
@@ -29,3 +35,5 @@ export const initKanbanBoardLogic = mutation({
     return kanbanBoardId;
   },
 });
+
+export default initKanbanBoardLogic;
