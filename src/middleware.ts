@@ -8,9 +8,6 @@ const isSignInPage = createRouteMatcher(["/"]);
 const isProtectedRoute = createRouteMatcher(["/kanban(.*)"]);
 
 export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
-  if (isSignInPage(request) && (await convexAuth.isAuthenticated())) {
-    return nextjsMiddlewareRedirect(request, "/kanban");
-  }
   if (isProtectedRoute(request) && !(await convexAuth.isAuthenticated())) {
     return nextjsMiddlewareRedirect(request, "/");
   }

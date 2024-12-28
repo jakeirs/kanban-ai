@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { KanbanAIDrawer } from "./drawer-ai";
 import { useQuery, useMutation } from "convex/react";
-import { Doc, Id } from "@/convex/_generated/dataModel";
+import { Doc } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
 import type { KanbanColumn } from "@/convex/tables/kanban/types";
 import { KanbanColumns } from "@/components/blocks/kanban/KanbanColumns";
@@ -12,16 +12,6 @@ import { useKanbanLogic } from "@/components/blocks/kanban/logic";
 
 export default function KanbanBoard() {
   const [columns, setColumns] = useState<KanbanColumn[]>([]);
-  const [userId, setUserId] = useState<Id<"users"> | null>(null);
-
-  // get userId from localStorage
-  // imitade session for user
-  useEffect(() => {
-    const storedUserId = localStorage.getItem("userId") as Id<"users">;
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-  }, []);
 
   const kanbanBoard = useQuery(
     api.tables.kanban.logic.visitKanbanPageLogic.default

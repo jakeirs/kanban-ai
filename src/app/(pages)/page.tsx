@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import CreateUser from "./_root/CreateUser";
 
 export default function HomePage() {
