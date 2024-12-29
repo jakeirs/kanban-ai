@@ -14,7 +14,6 @@ export default convexAuthNextjsMiddleware(
       return nextjsMiddlewareRedirect(request, "/");
     }
   },
-  { verbose: true }
 );
 
 export const config = {

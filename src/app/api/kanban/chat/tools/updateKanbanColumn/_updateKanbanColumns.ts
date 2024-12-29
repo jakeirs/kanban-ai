@@ -24,21 +24,20 @@ export const updateKanbanColumns = tool({
          what exactly it has to be done in order to achieve given goal`),
   }),
   execute: async ({ message }) => {
-    const tokenNextJs = convexAuthNextjsToken();
-    const isAuthenticated = isAuthenticatedNextjs();
+    const tokenNextJs = await convexAuthNextjsToken();
+    const isAuthenticated = await isAuthenticatedNextjs();
 
-    console.log("tokenNextJs tools", JSON.stringify(tokenNextJs, null, 2));
-    console.log(
-      "isAuthenticated tools",
-      JSON.stringify(isAuthenticated, null, 2)
-    );
+    if (!isAuthenticated) {
+      return {
+        success: false,
+        message: "User is not authorized.",
+      };
+    }
 
+    convex.setAuth(tokenNextJs!);
     const { currentKanbanId: kanbanBoardId, userId } = await convex.query(
       api.tables.kanban.queries.getCurrentUserKanbanId.default
     );
-
-    console.log("kanbanBoardId tools", JSON.stringify(kanbanBoardId, null, 2));
-    console.log("userId tools", JSON.stringify(userId, null, 2));
 
     if (!userId) {
       return {
