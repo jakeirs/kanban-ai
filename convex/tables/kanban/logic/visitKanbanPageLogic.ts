@@ -5,6 +5,9 @@ const visitKanbanPageLogic = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
+
+    console.log("visitKanbanPageLogic.ts", JSON.stringify(userId, null, 2));
+
     const kanbanBoard = await ctx.db
       .query("kanbanBoards")
       .filter((q) => q.eq(q.field("ownerUserId"), userId))

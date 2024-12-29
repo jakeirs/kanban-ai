@@ -1,4 +1,3 @@
-import { kanbanBoardsTable } from "./tables/kanban/table";
 import GitHub from "@auth/core/providers/github";
 import { convexAuth } from "@convex-dev/auth/server";
 import { MutationCtx } from "./_generated/server";

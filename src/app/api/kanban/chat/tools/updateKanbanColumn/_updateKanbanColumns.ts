@@ -1,12 +1,16 @@
 import { generateObject, tool } from "ai";
 import { z } from "zod";
 import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
 import { ConvexHttpClient } from "convex/browser";
 import { anthropic } from "@ai-sdk/anthropic";
 import { addUpdatedPropertiesToItems } from "@/lib/kanban/addPropertiesToItems";
 import { idsOfTasksThatWillBeAffectedZod } from "./types";
 import { kanbanColumnZod } from "@/convex/tables/kanban/types";
+import { preloadQuery } from "convex/nextjs";
+import {
+  convexAuthNextjsToken,
+  isAuthenticatedNextjs,
+} from "@convex-dev/auth/nextjs/server";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -20,14 +24,34 @@ export const updateKanbanColumns = tool({
          what exactly it has to be done in order to achieve given goal`),
   }),
   execute: async ({ message }) => {
-    const kanbanBoardId =
-      "j578qy36zqaxw3yv064rssmke97728gg" as Id<"kanbanBoards">;
-    const userId = "jd7d0eq069mpgad3s5wr00jck57720gp" as Id<"users">;
+    const tokenNextJs = convexAuthNextjsToken();
+    const isAuthenticated = isAuthenticatedNextjs();
+
+    console.log("tokenNextJs tools", JSON.stringify(tokenNextJs, null, 2));
+    console.log(
+      "isAuthenticated tools",
+      JSON.stringify(isAuthenticated, null, 2)
+    );
+
+    const { currentKanbanId: kanbanBoardId, userId } = await convex.query(
+      api.tables.kanban.queries.getCurrentUserKanbanId.default
+    );
+
+    console.log("kanbanBoardId tools", JSON.stringify(kanbanBoardId, null, 2));
+    console.log("userId tools", JSON.stringify(userId, null, 2));
+
+    if (!userId) {
+      return {
+        success: false,
+        message: "User is not authorized.",
+      };
+    }
+
     try {
       // get current state of Kanban Board
       const currentKanbanBoardState = await convex.query(
-        api.tables.kanban.queries.getBoardById.getBoardById,
-        { boardId: kanbanBoardId }
+        api.tables.kanban.queries.getKanbanBoard.default,
+        { kanbanBoardId: kanbanBoardId }
       );
 
       const currentColumnsStringified = JSON.stringify({

@@ -32,6 +32,11 @@ const initKanbanBoardLogic = internalMutation({
       accessToOtherKanbanBoards: [],
     });
 
+    await ctx.db.insert("userSettings", {
+      userId: args.userId,
+      currentKanbanBoard: kanbanBoardId,
+    });
+
     return kanbanBoardId;
   },
 });

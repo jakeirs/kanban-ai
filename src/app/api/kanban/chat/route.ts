@@ -5,9 +5,11 @@ import { updateKanbanColumns } from "./tools";
 
 export async function POST(req: Request) {
   try {
+    req.headers;
     const body = await req.json();
     const { messages } = body as { messages: Message[] };
     console.log("body", body);
+    console.log("req.headers", JSON.stringify(req.headers, null, 2));
 
     const result = streamText({
       model: anthropic("claude-3-5-sonnet-20241022"),

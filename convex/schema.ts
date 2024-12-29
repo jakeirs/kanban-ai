@@ -1,12 +1,12 @@
-import { Table } from "convex-helpers/server";
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
+import { defineSchema } from "convex/server";
+import { authTables } from "@convex-dev/auth/server";
 import { kanbanBoardsTable } from "./tables/kanban/table";
 import { userKanbanBoardsTable } from "./tables/userKanbanBoard/table";
-import { authTables } from "@convex-dev/auth/server";
+import { userSettingsTable } from "./tables/users/table";
 
 export default defineSchema({
   ...authTables,
+  userSettings: userSettingsTable.table.index("by_userId", ["userId"]),
   kanbanBoards: kanbanBoardsTable.table.index("by_owner", ["ownerUserId"]),
   userKanbanBoards: userKanbanBoardsTable.table.index("by_userId", ["userId"]),
 
