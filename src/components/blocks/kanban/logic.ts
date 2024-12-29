@@ -15,7 +15,6 @@ export const useKanbanLogic = ({
 }: UseKanbanLogicProps) => {
   const onDragEnd = async (result: DropResult) => {
     const { destination, source } = result;
-    console.log("destination", destination);
 
     // If dropped outside of a droppable area
     if (!destination) return;

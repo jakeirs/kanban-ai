@@ -5,9 +5,6 @@ import { Id } from "../../../_generated/dataModel";
 const getCurrentUserKanbanId = query({
   handler: async (ctx) => {
     const userId = (await getAuthUserId(ctx)) as Id<"users">;
-
-    console.log("userId query convex", JSON.stringify(userId, null, 2));
-
     const currentKanbanId = (
       await ctx.db
         .query("userSettings")

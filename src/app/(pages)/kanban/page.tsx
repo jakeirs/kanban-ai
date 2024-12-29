@@ -9,13 +9,8 @@ import { api } from "@/convex/_generated/api";
 import type { KanbanColumn } from "@/convex/tables/kanban/types";
 import { KanbanColumns } from "@/components/blocks/kanban/KanbanColumns";
 import { useKanbanLogic } from "@/components/blocks/kanban/logic";
-import { useAuthToken } from "@convex-dev/auth/react";
-import ServerSideComponent from "../_root/server-side-component";
 
 export default function KanbanBoard() {
-  const authTokenHook = useAuthToken();
-
-  console.log("authTokenHook", authTokenHook);
   const [columns, setColumns] = useState<KanbanColumn[]>([]);
 
   const kanbanBoard = useQuery(
