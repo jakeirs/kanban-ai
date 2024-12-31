@@ -2,7 +2,7 @@ import { internalMutation } from "../../../_generated/server";
 import { userKanbanBoardsTable } from "../table";
 import { Doc } from "../../../_generated/dataModel";
 
-const addKanbanBoardsRelation = internalMutation({
+const patchKanbanBoardsRelation = internalMutation({
   args: userKanbanBoardsTable.withoutSystemFields,
   handler: async (ctx, args) => {
     const userKanbanBoardsDoc = (await ctx.db
@@ -23,6 +23,4 @@ const addKanbanBoardsRelation = internalMutation({
   },
 });
 
-// const removeKanbanBoardsRelation
-
-export { addKanbanBoardsRelation };
+export default patchKanbanBoardsRelation;

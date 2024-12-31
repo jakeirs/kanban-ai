@@ -6,7 +6,6 @@ import { anthropic } from "@ai-sdk/anthropic";
 import { addUpdatedPropertiesToItems } from "@/lib/kanban/addPropertiesToItems";
 import { idsOfTasksThatWillBeAffectedZod } from "./types";
 import { kanbanColumnZod } from "@/convex/tables/kanban/types";
-import { preloadQuery } from "convex/nextjs";
 import {
   convexAuthNextjsToken,
   isAuthenticatedNextjs,
@@ -35,8 +34,13 @@ export const updateKanbanColumns = tool({
     }
 
     convex.setAuth(tokenNextJs!);
-    const { currentKanbanId: kanbanBoardId, userId } = await convex.query(
-      api.tables.kanban.queries.getCurrentUserKanbanId.default
+
+    const {
+      currentKanbanId: kanbanBoardId,
+      userId,
+      currentKanbanColumnsStringified,
+    } = await convex.query(
+      api.tables.kanban.queries.getCurrentUserForUpdateKanbanBoard.default
     );
 
     if (!userId) {
@@ -47,16 +51,6 @@ export const updateKanbanColumns = tool({
     }
 
     try {
-      // get current state of Kanban Board
-      const currentKanbanBoardState = await convex.query(
-        api.tables.kanban.queries.getKanbanBoard.default,
-        { kanbanBoardId: kanbanBoardId }
-      );
-
-      const currentColumnsStringified = JSON.stringify({
-        ...currentKanbanBoardState?.columns,
-      });
-
       // generate Object with AI
       const { object } = await generateObject({
         model: anthropic("claude-3-5-sonnet-20241022"),
@@ -67,7 +61,7 @@ export const updateKanbanColumns = tool({
 
         Remember, never change createdAt time, never change any id of the item or column or title.
       `,
-        prompt: `This is current state of the columns in Kanban Board: ${currentColumnsStringified}
+        prompt: `This is current state of the columns in Kanban Board: ${currentKanbanColumnsStringified}
       And this is what you need to do: "${message}.
       "
       `,
@@ -86,8 +80,11 @@ export const updateKanbanColumns = tool({
 
       // make mutation with generated Object from AI
       const patchColumns = await convex.mutation(
-        api.tables.kanban.mutations.patchColumns.patchColumns,
-        { columns: columnsWithUpdatedProperties, kanbanBoardId: kanbanBoardId }
+        api.tables.kanban.mutations.patchColumns.default,
+        {
+          columns: columnsWithUpdatedProperties,
+          kanbanBoardId: kanbanBoardId,
+        }
       );
 
       return {

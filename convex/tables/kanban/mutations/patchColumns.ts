@@ -7,7 +7,7 @@ const patchColumnsArgs = v.object({
   columns: kanbanColumnsValidator,
 });
 
-export const patchColumns = mutation({
+const patchColumns = mutation({
   args: patchColumnsArgs,
   handler: async (ctx, args) => {
     // Update the board
@@ -19,3 +19,5 @@ export const patchColumns = mutation({
     return { success: true };
   },
 });
+
+export default patchColumns;
