@@ -6,7 +6,6 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  DrawerDescription,
   DrawerFooter,
   DrawerClose,
 } from "../../../ui/drawer";
@@ -39,9 +38,9 @@ export function KanbanContent({
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
       <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>{selectedItem?.title}</DrawerTitle>
-          <DrawerDescription>
+        <div className="max-h-[75vh] overflow-y-auto">
+          <DrawerHeader>
+            <DrawerTitle>{selectedItem?.title}</DrawerTitle>
             {selectedItem?.labels && selectedItem.labels.length > 0 && (
               <div className="flex gap-1 mt-2">
                 {selectedItem.labels.map((label: string, i: number) => (
@@ -63,9 +62,9 @@ export function KanbanContent({
                 Due: {new Date(selectedItem.dueDate).toLocaleDateString()}
               </div>
             )}
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
+          </DrawerHeader>
+        </div>
+        <DrawerFooter className="border-t">
           <DrawerClose className="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md">
             Close
           </DrawerClose>
