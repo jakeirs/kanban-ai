@@ -10,10 +10,13 @@ export const addUpdatedPropertiesToItems = ({
   columns: KanbanColumn[];
   idsOfTasksThatWillBeAffected: IdsOfTasksThatWillBeAffected;
   userId: string;
-}): KanbanColumn[] => {
+}): {
+  columns: KanbanColumn[];
+  idsOfTasksThatWillBeAffected: IdsOfTasksThatWillBeAffected;
+} => {
   const currentTimestamp = Date.now();
 
-  return columns.map((column) => ({
+  const newColumns = columns.map((column) => ({
     ...column,
     items: column.items.map((item) => {
       const affectedTask = idsOfTasksThatWillBeAffected.find(
@@ -28,11 +31,21 @@ export const addUpdatedPropertiesToItems = ({
           // If it's a newly created item, set createdAt
           ...(affectedTask.action === "created" && {
             createdAt: currentTimestamp,
-            id: generateId(20),
+            id: (() => {
+              const newId = generateId(20);
+              // Update the task ID in idsOfTasksThatWillBeAffected
+              affectedTask.id = newId;
+              return newId;
+            })(),
           }),
         };
       }
       return item;
     }),
   }));
+
+  return {
+    columns: newColumns,
+    idsOfTasksThatWillBeAffected
+  };
 };

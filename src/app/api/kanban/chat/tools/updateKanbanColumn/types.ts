@@ -12,10 +12,15 @@ export const idsOfTasksThatWillBeAffectedZod = z
           z
             .literal("updated")
             .describe("use this literal for items that was only updated"),
+          z
+            .literal("deleted")
+            .describe("use this literal for items that was deleted"),
         ])
         .describe("action that "),
     })
   )
   .describe("Array of Ids of the tasks that will be affcted");
 
-  export type IdsOfTasksThatWillBeAffected = z.infer<typeof idsOfTasksThatWillBeAffectedZod>;
+export type IdsOfTasksThatWillBeAffected = z.infer<
+  typeof idsOfTasksThatWillBeAffectedZod
+>;

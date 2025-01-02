@@ -11,6 +11,8 @@ import {
   DrawerClose,
 } from "../../../ui/drawer";
 import type { KanbanItem } from "@/convex/tables/kanban/types";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 interface KanbanContentProps {
   isOpen: boolean;
@@ -23,6 +25,18 @@ export function KanbanContent({
   onOpenChange,
   selectedItem,
 }: KanbanContentProps) {
+  if (!isOpen && !selectedItem) {
+    return null;
+  }
+
+  const content = useQuery(
+    api.tables.kanbanDescription.queries.getCurrentUserKanbanDescriptionForTask
+      .default,
+    { taskId: selectedItem?.id! }
+  );
+
+  console.log("content", content, selectedItem?.id);
+
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
       <DrawerContent>
@@ -41,6 +55,7 @@ export function KanbanContent({
                 ))}
               </div>
             )}
+            {content ? content?.content : "...Loading"}
             {selectedItem?.priority && (
               <div className="mt-2">Priority: {selectedItem.priority}</div>
             )}

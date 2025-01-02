@@ -6,6 +6,6 @@ export const kanbanDescriptionTable = Table("kanbanDescriptions", {
   taskId: v.string(), // This matches the id field in kanbanItemValidator
   content: v.string(),
   createdAt: v.number(),
-  updatedAt: v.number(),
+  updatedAt: v.optional(v.number()),
   updatedBy: v.id("users"),
 });

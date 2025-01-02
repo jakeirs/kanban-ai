@@ -72,17 +72,37 @@ export const updateKanbanColumns = tool({
       });
 
       // updated properties such as updatedAt, createdAt, createdBy
-      const columnsWithUpdatedProperties = addUpdatedPropertiesToItems({
-        columns: object.columns,
-        idsOfTasksThatWillBeAffected: object.idsOfTasksThatWillBeAffected,
-        userId,
+      const { columns, idsOfTasksThatWillBeAffected } =
+        addUpdatedPropertiesToItems({
+          columns: object.columns,
+          idsOfTasksThatWillBeAffected: object.idsOfTasksThatWillBeAffected,
+          userId,
+        });
+
+      // create or delete descriptions for the tasks
+      idsOfTasksThatWillBeAffected.every(async (task) => {
+        if (task.action === "created") {
+          await convex.mutation(
+            api.tables.kanbanDescription.mutations.createDescription.default,
+            { kanbanBoardId, taskId: task.id }
+          );
+        }
+        if (task.action === "deleted") {
+          await convex.mutation(
+            api.tables.kanbanDescription.mutations.deleteDescription.default,
+            {
+              kanbanBoardId,
+              taskId: task.id,
+            }
+          );
+        }
       });
 
-      // make mutation with generated Object from AI
+      // Update Columns
       const patchColumns = await convex.mutation(
         api.tables.kanban.mutations.patchColumns.default,
         {
-          columns: columnsWithUpdatedProperties,
+          columns: columns,
           kanbanBoardId: kanbanBoardId,
         }
       );

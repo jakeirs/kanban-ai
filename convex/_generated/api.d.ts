@@ -23,7 +23,9 @@ import type * as tables_kanban_mutations_patchColumns from "../tables/kanban/mut
 import type * as tables_kanban_queries_getCurrentUserForUpdateKanbanBoard from "../tables/kanban/queries/getCurrentUserForUpdateKanbanBoard.js";
 import type * as tables_kanban_table from "../tables/kanban/table.js";
 import type * as tables_kanban_types from "../tables/kanban/types.js";
-import type * as tables_kanbanDescription_mutations_patchColumns from "../tables/kanbanDescription/mutations/patchColumns.js";
+import type * as tables_kanbanDescription_mutations_createDescription from "../tables/kanbanDescription/mutations/createDescription.js";
+import type * as tables_kanbanDescription_mutations_deleteDescription from "../tables/kanbanDescription/mutations/deleteDescription.js";
+import type * as tables_kanbanDescription_mutations_patchDescription from "../tables/kanbanDescription/mutations/patchDescription.js";
 import type * as tables_kanbanDescription_queries_getCurrentUserKanbanDescriptionForTask from "../tables/kanbanDescription/queries/getCurrentUserKanbanDescriptionForTask.js";
 import type * as tables_kanbanDescription_table from "../tables/kanbanDescription/table.js";
 import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
@@ -51,7 +53,9 @@ declare const fullApi: ApiFromModules<{
   "tables/kanban/queries/getCurrentUserForUpdateKanbanBoard": typeof tables_kanban_queries_getCurrentUserForUpdateKanbanBoard;
   "tables/kanban/table": typeof tables_kanban_table;
   "tables/kanban/types": typeof tables_kanban_types;
-  "tables/kanbanDescription/mutations/patchColumns": typeof tables_kanbanDescription_mutations_patchColumns;
+  "tables/kanbanDescription/mutations/createDescription": typeof tables_kanbanDescription_mutations_createDescription;
+  "tables/kanbanDescription/mutations/deleteDescription": typeof tables_kanbanDescription_mutations_deleteDescription;
+  "tables/kanbanDescription/mutations/patchDescription": typeof tables_kanbanDescription_mutations_patchDescription;
   "tables/kanbanDescription/queries/getCurrentUserKanbanDescriptionForTask": typeof tables_kanbanDescription_queries_getCurrentUserKanbanDescriptionForTask;
   "tables/kanbanDescription/table": typeof tables_kanbanDescription_table;
   "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
