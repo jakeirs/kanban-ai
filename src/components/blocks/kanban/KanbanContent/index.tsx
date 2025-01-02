@@ -35,8 +35,6 @@ export function KanbanContent({
     { taskId: selectedItem?.id! }
   );
 
-  console.log("content", content, selectedItem?.id);
-
   return (
     <Drawer open={isOpen} onOpenChange={onOpenChange}>
       <DrawerContent>

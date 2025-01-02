@@ -20,8 +20,6 @@ const getCurrentUserKanbanDescriptionForTask = query({
         .first()
     )?.currentKanbanBoard as Id<"kanbanBoards">;
 
-    console.log("currentKanbanId", JSON.stringify(currentKanbanId, null, 2));
-
     // get Description by currentKanbanBoard & taskId
     const description = await ctx.db
       .query("kanbanDescription")
@@ -29,8 +27,6 @@ const getCurrentUserKanbanDescriptionForTask = query({
         q.eq("kanbanBoardId", currentKanbanId).eq("taskId", args.taskId)
       )
       .first();
-
-    console.log("description", JSON.stringify(description, null, 2));
 
     return description;
   },
