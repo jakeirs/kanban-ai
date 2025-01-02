@@ -1,7 +1,7 @@
 import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
-import { updateKanbanColumns } from "./tools";
+import { updateKanbanColumns, updateContentForTask } from "./tools";
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       maxSteps: 10,
       tools: {
         updateKanbanColumns,
+        updateContentForTask,
       },
       system: `You are friendly assistant of Kanban board for the user.
        Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
