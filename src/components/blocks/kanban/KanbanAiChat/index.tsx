@@ -17,8 +17,6 @@ export const KanbanAIDrawer = () => {
     api: "/api/kanban/chat",
   });
 
-  console.log("messages", messages);
-
   return (
     <Drawer>
       <DrawerTrigger asChild>

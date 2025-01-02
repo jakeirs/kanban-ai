@@ -2,14 +2,15 @@
 
 import React from "react";
 import { Draggable } from "@hello-pangea/dnd";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../../../ui/card";
 import type { KanbanItem } from "@/convex/tables/kanban/types";
 
 interface KanbanItemsProps {
   items: KanbanItem[];
+  onItemClick?: (item: KanbanItem) => void;
 }
 
-export function KanbanItems({ items }: KanbanItemsProps) {
+export function KanbanItems({ items, onItemClick }: KanbanItemsProps) {
   return (
     <>
       {items.map((item: KanbanItem, index: number) => (
@@ -20,6 +21,7 @@ export function KanbanItems({ items }: KanbanItemsProps) {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               className="mb-2 cursor-grab active:cursor-grabbing"
+              onClick={() => onItemClick?.(item)}
             >
               <CardContent className="p-4">
                 <div className="space-y-2">

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
-import { KanbanAIDrawer } from "./drawer-ai";
+import { KanbanAIDrawer } from "@/components/blocks/kanban/KanbanAiChat";
 import { useQuery, useMutation } from "convex/react";
 import { Doc } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
