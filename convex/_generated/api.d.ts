@@ -23,6 +23,10 @@ import type * as tables_kanban_mutations_patchColumns from "../tables/kanban/mut
 import type * as tables_kanban_queries_getCurrentUserForUpdateKanbanBoard from "../tables/kanban/queries/getCurrentUserForUpdateKanbanBoard.js";
 import type * as tables_kanban_table from "../tables/kanban/table.js";
 import type * as tables_kanban_types from "../tables/kanban/types.js";
+import type * as tables_kanbanDescription_mutations_patchColumns from "../tables/kanbanDescription/mutations/patchColumns.js";
+import type * as tables_kanbanDescription_queries_getCurrentUserKanbanDescriptionForTask from "../tables/kanbanDescription/queries/getCurrentUserKanbanDescriptionForTask.js";
+import type * as tables_kanbanDescription_table from "../tables/kanbanDescription/table.js";
+import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
 import type * as tables_userKanbanBoard_mutations_patchKanbanBoardsRelation from "../tables/userKanbanBoard/mutations/patchKanbanBoardsRelation.js";
 import type * as tables_userKanbanBoard_table from "../tables/userKanbanBoard/table.js";
 import type * as tables_userKanbanBoard_types from "../tables/userKanbanBoard/types.js";
@@ -47,6 +51,10 @@ declare const fullApi: ApiFromModules<{
   "tables/kanban/queries/getCurrentUserForUpdateKanbanBoard": typeof tables_kanban_queries_getCurrentUserForUpdateKanbanBoard;
   "tables/kanban/table": typeof tables_kanban_table;
   "tables/kanban/types": typeof tables_kanban_types;
+  "tables/kanbanDescription/mutations/patchColumns": typeof tables_kanbanDescription_mutations_patchColumns;
+  "tables/kanbanDescription/queries/getCurrentUserKanbanDescriptionForTask": typeof tables_kanbanDescription_queries_getCurrentUserKanbanDescriptionForTask;
+  "tables/kanbanDescription/table": typeof tables_kanbanDescription_table;
+  "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
   "tables/userKanbanBoard/mutations/patchKanbanBoardsRelation": typeof tables_userKanbanBoard_mutations_patchKanbanBoardsRelation;
   "tables/userKanbanBoard/table": typeof tables_userKanbanBoard_table;
   "tables/userKanbanBoard/types": typeof tables_userKanbanBoard_types;

@@ -3,12 +3,17 @@ import { authTables } from "@convex-dev/auth/server";
 import { kanbanBoardsTable } from "./tables/kanban/table";
 import { userKanbanBoardsTable } from "./tables/userKanbanBoard/table";
 import { userSettingsTable } from "./tables/users/table";
+import { kanbanDescriptionTable } from "./tables/kanbanDescription/table";
 
 export default defineSchema({
   ...authTables,
   userSettings: userSettingsTable.table.index("by_userId", ["userId"]),
   kanbanBoards: kanbanBoardsTable.table.index("by_owner", ["ownerUserId"]),
   userKanbanBoards: userKanbanBoardsTable.table.index("by_userId", ["userId"]),
+  kanbanDescription: kanbanDescriptionTable.table.index("by_board_and_task", [
+    "kanbanBoardId",
+    "taskId",
+  ]),
 
   // itemDescriptions: defineTable({
   //   itemId: v.string(),
