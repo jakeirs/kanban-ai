@@ -13,6 +13,7 @@ import {
 import type { KanbanItem } from "@/convex/tables/kanban/types";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Markdown } from "./Markdown";
 
 interface KanbanContentProps {
   isOpen: boolean;
@@ -53,7 +54,7 @@ export function KanbanContent({
                 ))}
               </div>
             )}
-            {content ? content?.content : "...Loading"}
+            <Markdown content={content?.content} />
             {selectedItem?.priority && (
               <div className="mt-2">Priority: {selectedItem.priority}</div>
             )}
