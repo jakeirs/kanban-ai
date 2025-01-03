@@ -6,9 +6,7 @@ import { Mic } from "lucide-react";
 import { AudioPlayer } from "./audio-player/AudioPlayer";
 
 interface VoiceRecorderProps {
-  onRecordingComplete?: (blob: Blob) => void;
-  // Example of how to send to API
-  onSendToApi?: (blob: Blob) => Promise<void>;
+  onRecordingComplete?: (blob: Blob) => Promise<void>;
 }
 
 const formatTime = (seconds: number): string => {
@@ -17,10 +15,7 @@ const formatTime = (seconds: number): string => {
   return `${minutes.toString().padStart(2, "0")}.${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
-export const VoiceRecorder = ({
-  onRecordingComplete,
-  onSendToApi,
-}: VoiceRecorderProps) => {
+export const VoiceRecorder = ({ onRecordingComplete }: VoiceRecorderProps) => {
   const [audioBlob, setAudioBlob] = useState<Blob>();
 
   const handleComplete = useCallback(
@@ -29,29 +24,25 @@ export const VoiceRecorder = ({
       setAudioBlob(blob);
 
       // Needed to send to openAI
-      const formData = new FormData();
-      formData.append("file", blob);
+      // const formData = new FormData();
+      // formData.append("file", blob);
 
-      const response = await fetch("/api/whisper", {
-        method: "POST",
-        body: formData,
-      });
+      // const response = await fetch("/api/whisper", {
+      //   method: "POST",
+      //   body: formData,
+      // });
 
-      console.log("response json", await response.json());
+      // console.log("response json", await response.json());
 
       if (onRecordingComplete) {
-        onRecordingComplete(blob);
-      }
-
-      if (onSendToApi) {
         try {
-          await onSendToApi(blob);
+          await onRecordingComplete(blob);
         } catch (error) {
           console.error("Failed to send recording to API:", error);
         }
       }
     },
-    [onRecordingComplete, onSendToApi]
+    [onRecordingComplete]
   );
 
   const { isRecording, recordingTime, startRecording, stopRecording } =

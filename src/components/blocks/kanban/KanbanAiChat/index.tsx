@@ -12,12 +12,31 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { VoiceRecorder } from "@/components/blocks/voice-recorder";
+import { useState } from "react";
 
 export const KanbanAIDrawer = () => {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/kanban/chat",
-  });
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: "/api/kanban/chat",
+    });
 
+  const onRecordingComplete = async (blob: Blob) => {
+    const formData = new FormData();
+    formData.append("file", blob);
+    try {
+      const response = await fetch("/api/whisper", {
+        method: "POST",
+        body: formData,
+      });
+
+      const transcript = await response.json();
+      
+    } catch (error) {
+      console.error("Failed to send recording to API:", error);
+    }
+
+    console.log("response json");
+  };
   console.log("messages", messages);
 
   return (
@@ -54,7 +73,7 @@ export const KanbanAIDrawer = () => {
                 </div>
               ))}
             </div>
-            <VoiceRecorder />
+            <VoiceRecorder onRecordingComplete={onRecordingComplete} />
 
             {/* Chat Input Form */}
             <form
