@@ -38,6 +38,7 @@
     "react-error-boundary": "^5.0.0",
     "react-hook-form": "^7.52.1",
     "react-markdown": "^9.0.1",
+    "react-use-audio-recorder": "^0.4.1",
     "stripe": "^16.1.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
