@@ -1,52 +1,59 @@
-import { useCallback, useState } from "react"
-import { useAudioRecorder } from "react-audio-voice-recorder"
+import { useCallback, useState, useEffect } from "react";
+import { useAudioRecorder } from "react-audio-voice-recorder";
 
 interface UseVoiceRecorderReturn {
-  isRecording: boolean
-  recordingTime: number
-  startRecording: () => void
-  stopRecording: () => void
-  onRecordingComplete: (blob: Blob) => void
+  isRecording: boolean;
+  recordingTime: number;
+  startRecording: () => void;
+  stopRecording: () => void;
+  onRecordingComplete: (blob: Blob) => void;
 }
 
-export const useVoiceRecorder = (onComplete?: (blob: Blob) => void): UseVoiceRecorderReturn => {
-  const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null)
-  
-  const {
-    startRecording,
-    stopRecording,
-    recordingBlob: currentBlob,
-    isRecording,
-    recordingTime,
-  } = useAudioRecorder({
+export const useVoiceRecorder = (
+  onComplete?: (blob: Blob) => void
+): UseVoiceRecorderReturn => {
+  const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
+
+  const handleRecordingComplete = useCallback(
+    (blob: Blob) => {
+      setRecordingBlob(blob);
+      if (onComplete) {
+        onComplete(blob);
+      }
+    },
+    [onComplete]
+  );
+
+  const recorder = useAudioRecorder({
     noiseSuppression: true,
     echoCancellation: true,
-  })
+  });
 
-  const handleRecordingComplete = useCallback((blob: Blob) => {
-    setRecordingBlob(blob)
-    if (onComplete) {
-      onComplete(blob)
+  useEffect(() => {
+    if (recorder.recordingBlob) {
+      handleRecordingComplete(recorder.recordingBlob);
     }
-  }, [onComplete])
+  }, [recorder.recordingBlob, handleRecordingComplete]);
+
+  const { startRecording, stopRecording, isRecording, recordingTime } =
+    recorder;
+
+  console.log("recordingTime", JSON.stringify(recordingTime, null, 2));
 
   const handleStartRecording = useCallback(() => {
-    setRecordingBlob(null)
-    startRecording()
-  }, [startRecording])
+    setRecordingBlob(null);
+    startRecording();
+  }, [startRecording]);
 
   const handleStopRecording = useCallback(() => {
-    stopRecording()
-    if (currentBlob) {
-      handleRecordingComplete(currentBlob)
-    }
-  }, [stopRecording, currentBlob, handleRecordingComplete])
+    stopRecording();
+  }, [stopRecording]);
 
   return {
     isRecording,
     recordingTime,
     startRecording: handleStartRecording,
     stopRecording: handleStopRecording,
-    onRecordingComplete: handleRecordingComplete
-  }
-}
+    onRecordingComplete: handleRecordingComplete,
+  };
+};

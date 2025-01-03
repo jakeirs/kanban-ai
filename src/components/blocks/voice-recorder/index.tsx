@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useVoiceRecorder } from "./useVoiceRecorder";
 import { Mic } from "lucide-react";
+import { AudioPlayer } from "./AudioPlayer";
 
 interface VoiceRecorderProps {
   onRecordingComplete?: (blob: Blob) => void;
@@ -20,8 +21,12 @@ export const VoiceRecorder = ({
   onRecordingComplete,
   onSendToApi,
 }: VoiceRecorderProps) => {
+  const [audioBlob, setAudioBlob] = useState<Blob>();
+
   const handleComplete = useCallback(
     async (blob: Blob) => {
+      setAudioBlob(blob);
+
       if (onRecordingComplete) {
         onRecordingComplete(blob);
       }
@@ -41,7 +46,7 @@ export const VoiceRecorder = ({
     useVoiceRecorder(handleComplete);
 
   return (
-    <div className="flex flex-col items-center gap-2 p-10">
+    <div className="flex flex-col items-center gap-4 p-10">
       <button
         onClick={isRecording ? stopRecording : startRecording}
         className={`
@@ -59,30 +64,8 @@ export const VoiceRecorder = ({
       {isRecording && (
         <div className="text-lg font-medium">{formatTime(recordingTime)}</div>
       )}
+
+      {audioBlob && !isRecording && <AudioPlayer audioBlob={audioBlob} />}
     </div>
   );
 };
-
-// Example of how to use with an API:
-/*
-const YourComponent = () => {
-  const sendToApi = async (blob: Blob) => {
-    const formData = new FormData()
-    formData.append("audio", blob, "recording.webm")
-    
-    const response = await fetch("/api/your-endpoint", {
-      method: "POST",
-      body: formData
-    })
-    
-    if (!response.ok) {
-      throw new Error("Failed to upload audio")
-    }
-    
-    const data = await response.json()
-    return data
-  }
-  
-  return <VoiceRecorder onSendToApi={sendToApi} />
-}
-*/
