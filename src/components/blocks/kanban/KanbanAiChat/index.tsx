@@ -2,8 +2,8 @@
 
 import { Message, useChat } from "ai/react";
 import { generateId } from "ai";
-import { Button } from "'components/ui/button"' (see below for file content);
-import { Input } from "'components/ui/input"' (see below for file content);
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Drawer,
   DrawerContent,
@@ -11,15 +11,21 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "'components/ui/drawer"' (see below for file content);
-import { VoiceRecorder } from "'components/blocks/voice-recorder"' (see below for file content);
+} from "@/components/ui/drawer";
+import { VoiceRecorder } from "@/components/blocks/voice-recorder";
 import { useCallback } from "react";
 
 export const KanbanAIDrawer = () => {
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      api: "/api/kanban/chat",
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setMessages,
+    reload,
+  } = useChat({
+    api: "/api/kanban/chat",
+  });
 
   const onRecordingComplete = useCallback(async (blob: Blob) => {
     const formData = new FormData();
@@ -40,11 +46,12 @@ export const KanbanAIDrawer = () => {
           role: "user",
         },
       ]);
+      await reload();
     } catch (error) {
       console.error("Failed to send recording to API:", error);
     }
-  }, [setMessages]);
-  
+  }, []);
+
   console.log("messages", messages);
 
   return (
@@ -94,16 +101,6 @@ export const KanbanAIDrawer = () => {
                 placeholder="Ask about your Kanban board..."
                 className="flex-1"
               />
-              <Button type="submit">Send</Button>
-            </form>
-          </div>
-        </div>
-      </DrawerContent>
-    </Drawer>
-  );
-};
-
-export default KanbanAIDrawer;
               <Button type="submit">Send</Button>
             </form>
           </div>
