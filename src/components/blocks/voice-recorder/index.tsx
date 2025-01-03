@@ -45,29 +45,52 @@ export const VoiceRecorder = ({
   const { isRecording, recordingTime, startRecording, stopRecording } =
     useVoiceRecorder(handleComplete);
 
-  console.log("recordingTime", recordingTime);
-
   return (
     <div className="flex flex-col items-center gap-4 p-10">
-      <button
-        onClick={isRecording ? stopRecording : startRecording}
-        className={`
-          w-16 h-16 rounded-full flex items-center justify-center transition-all
-          ${
-            isRecording
-              ? "bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
-              : "bg-gradient-to-br from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600"
-          }
-          shadow-lg hover:shadow-xl
-        `}
-      >
-        <Mic className="w-8 h-8 text-white" />
-      </button>
+      <div className="relative">
+        {/* Outer ring with animation */}
+        <div
+          className={`absolute inset-0 rounded-full transition-all duration-300
+            ${isRecording ? "animate-pulse-ring" : ""}
+            ${isRecording ? "bg-red-500/20" : "bg-orange-400/20"}
+          `}
+          style={{
+            transform: "scale(1.6)",
+          }}
+        />
+        {/* Inner ring with animation */}
+        <div
+          className={`absolute inset-0 rounded-full transition-all duration-300
+            ${isRecording ? "animate-pulse-ring-delayed" : ""}
+            ${isRecording ? "bg-red-500/30" : "bg-orange-400/30"}
+          `}
+          style={{
+            transform: "scale(1.3)",
+          }}
+        />
+        {/* Main button */}
+        <button
+          onClick={isRecording ? stopRecording : startRecording}
+          className={`
+            relative w-16 h-16 rounded-full flex items-center justify-center transition-all
+            ${
+              isRecording
+                ? "bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 animate-pulse"
+                : "bg-gradient-to-br from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600"
+            }
+            shadow-lg hover:shadow-xl
+          `}
+        >
+          <Mic className="w-8 h-8 text-white" />
+        </button>
+      </div>
       {isRecording && (
         <div className="text-lg font-medium">{formatTime(recordingTime)}</div>
       )}
 
-      {audioBlob && !isRecording && <AudioPlayer audioBlob={audioBlob} duration={recordingTime} />}
+      {audioBlob && !isRecording && (
+        <AudioPlayer audioBlob={audioBlob} duration={recordingTime} />
+      )}
     </div>
   );
 };
