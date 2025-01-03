@@ -25,7 +25,19 @@ export const VoiceRecorder = ({
 
   const handleComplete = useCallback(
     async (blob: Blob) => {
+      // needed for Audio Player
       setAudioBlob(blob);
+
+      // Needed to send to openAI
+      const formData = new FormData();
+      formData.append("file", blob);
+
+      const response = await fetch("/api/whisper", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log("response json", await response.json());
 
       if (onRecordingComplete) {
         onRecordingComplete(blob);
