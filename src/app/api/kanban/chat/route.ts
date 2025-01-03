@@ -2,6 +2,7 @@ import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
 import { updateKanbanColumns, updateContentForTask } from "./tools";
+import { AI_MODEL_TO_USE } from "@/config/ai/model";
 
 export async function POST(req: Request) {
   try {
@@ -10,7 +11,7 @@ export async function POST(req: Request) {
     const { messages } = body as { messages: Message[] };
 
     const result = streamText({
-      model: anthropic("claude-3-5-sonnet-20241022"),
+      model: anthropic(AI_MODEL_TO_USE),
       messages,
       experimental_toolCallStreaming: true,
       maxSteps: 10,

@@ -7,6 +7,7 @@ import {
   convexAuthNextjsToken,
   isAuthenticatedNextjs,
 } from "@convex-dev/auth/nextjs/server";
+import { AI_MODEL_TO_USE } from "@/config/ai/model";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -47,7 +48,7 @@ export const updateContentForTask = tool({
     try {
       // generate Object with AI
       const { object } = await generateObject({
-        model: anthropic("claude-3-5-sonnet-20241022"),
+        model: anthropic(AI_MODEL_TO_USE),
         system: `You are friendly assistant of Kanban board for the user. Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
         If you have to do many operations like move couple of tasks from one column to another, you can use tools many time if needed.
 
