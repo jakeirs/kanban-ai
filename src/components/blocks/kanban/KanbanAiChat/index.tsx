@@ -11,6 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { VoiceRecorder } from "@/components/blocks/voice-recorder";
 
 export const KanbanAIDrawer = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -68,6 +69,7 @@ export const KanbanAIDrawer = () => {
               <Button type="submit">Send</Button>
             </form>
           </div>
+          <VoiceRecorder />
         </div>
       </DrawerContent>
     </Drawer>
