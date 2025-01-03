@@ -1,6 +1,7 @@
 "use client";
 
 import { Message, useChat } from "ai/react";
+import { generateId } from "ai";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,7 +13,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { VoiceRecorder } from "@/components/blocks/voice-recorder";
-import { useState } from "react";
 
 export const KanbanAIDrawer = () => {
   const { messages, input, handleInputChange, handleSubmit, setMessages } =
@@ -30,12 +30,18 @@ export const KanbanAIDrawer = () => {
       });
 
       const transcript = await response.json();
-      
+
+      setMessages((currentMessages: Message[]) => [
+        ...currentMessages,
+        {
+          id: generateId(),
+          content: transcript.text,
+          role: "user",
+        },
+      ]);
     } catch (error) {
       console.error("Failed to send recording to API:", error);
     }
-
-    console.log("response json");
   };
   console.log("messages", messages);
 
