@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { useVoiceRecorder } from "./useVoiceRecorder";
 import { Mic } from "lucide-react";
-import { AudioPlayer } from "./AudioPlayer";
+import { AudioPlayer } from "./audio-player/AudioPlayer";
 
 interface VoiceRecorderProps {
   onRecordingComplete?: (blob: Blob) => void;
