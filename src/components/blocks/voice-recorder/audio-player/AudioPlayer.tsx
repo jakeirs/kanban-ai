@@ -3,6 +3,7 @@ import { useAudioPlayer } from "./useAudioPlayer";
 
 interface AudioPlayerProps {
   audioBlob?: Blob;
+  duration?: number;
 }
 
 const formatTime = (time: number): string => {
@@ -12,8 +13,8 @@ const formatTime = (time: number): string => {
   return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 };
 
-export const AudioPlayer = ({ audioBlob }: AudioPlayerProps) => {
-  const { isPlaying, currentTime, duration, togglePlay, audioRef } =
+export const AudioPlayer = ({ audioBlob, duration }: AudioPlayerProps) => {
+  const { isPlaying, currentTime, togglePlay, audioRef } =
     useAudioPlayer(audioBlob);
 
   if (!audioBlob) return null;

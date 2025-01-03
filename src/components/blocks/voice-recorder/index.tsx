@@ -45,6 +45,8 @@ export const VoiceRecorder = ({
   const { isRecording, recordingTime, startRecording, stopRecording } =
     useVoiceRecorder(handleComplete);
 
+  console.log("recordingTime", recordingTime);
+
   return (
     <div className="flex flex-col items-center gap-4 p-10">
       <button
@@ -65,7 +67,7 @@ export const VoiceRecorder = ({
         <div className="text-lg font-medium">{formatTime(recordingTime)}</div>
       )}
 
-      {audioBlob && !isRecording && <AudioPlayer audioBlob={audioBlob} />}
+      {audioBlob && !isRecording && <AudioPlayer audioBlob={audioBlob} duration={recordingTime} />}
     </div>
   );
 };

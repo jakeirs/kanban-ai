@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { useAudioRecorder } from "react-audio-voice-recorder";
 
 interface UseVoiceRecorderReturn {
@@ -13,6 +13,7 @@ export const useVoiceRecorder = (
   onComplete?: (blob: Blob) => void
 ): UseVoiceRecorderReturn => {
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
+  const lastRecordingTimeRef = useRef<number>(0);
 
   const handleRecordingComplete = useCallback(
     (blob: Blob) => {
@@ -38,10 +39,15 @@ export const useVoiceRecorder = (
   const { startRecording, stopRecording, isRecording, recordingTime } =
     recorder;
 
-  console.log("recordingTime", JSON.stringify(recordingTime, null, 2));
+  useEffect(() => {
+    if (recordingTime > 0) {
+      lastRecordingTimeRef.current = recordingTime;
+    }
+  }, [recordingTime]);
 
   const handleStartRecording = useCallback(() => {
     setRecordingBlob(null);
+    lastRecordingTimeRef.current = 0;
     startRecording();
   }, [startRecording]);
 
@@ -51,7 +57,7 @@ export const useVoiceRecorder = (
 
   return {
     isRecording,
-    recordingTime,
+    recordingTime: lastRecordingTimeRef.current,
     startRecording: handleStartRecording,
     stopRecording: handleStopRecording,
     onRecordingComplete: handleRecordingComplete,
