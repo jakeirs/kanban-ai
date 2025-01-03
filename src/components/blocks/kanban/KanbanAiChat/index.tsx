@@ -54,6 +54,7 @@ export const KanbanAIDrawer = () => {
                 </div>
               ))}
             </div>
+            <VoiceRecorder />
 
             {/* Chat Input Form */}
             <form
@@ -69,7 +70,6 @@ export const KanbanAIDrawer = () => {
               <Button type="submit">Send</Button>
             </form>
           </div>
-          <VoiceRecorder />
         </div>
       </DrawerContent>
     </Drawer>
