@@ -13,7 +13,7 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export const updateContentForTask = tool({
   description: `Use this tools to write content or description for the task. It can be update, create or delete content for the task.
-   Not every task needs to have description or content`,
+   Not every task needs to have description or content. Don't use it if wasn't asked for it.`,
   parameters: z.object({
     message: z.string().describe(`Pass the message to this tool as clear order,
          what exactly it has to be done in order to achieve given goal`),

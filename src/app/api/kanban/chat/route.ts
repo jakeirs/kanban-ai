@@ -20,10 +20,13 @@ export async function POST(req: Request) {
         updateContentForTask,
       },
       system: `You are friendly assistant of Kanban board for the user.
+       Don't do more than it's expected from you. 
+       If the user told you to create only the task, just create the task. But don't do
+       any additional actions if you are not explicitly asked for it
        Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
         If you have to do many operations like move couple of tasks from one column to another,
         you can use tools many time if needed. If you see that you can batch some tasks then do it.
-        Like for example 
+        Don't do more than it's expected from you. 
       `,
     });
 
