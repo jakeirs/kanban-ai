@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Message } from "ai/react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Message } from "ai/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Drawer,
   DrawerContent,
@@ -10,10 +10,10 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import { VoiceRecorder } from "@/components/blocks/voice-recorder"
-import { useKanbanAiChat } from "./useKanbanAiChat"
-import { Mic, PenLine } from "lucide-react"
+} from "@/components/ui/drawer";
+import { VoiceRecorder } from "@/components/blocks/voice-recorder";
+import { useKanbanAiChat } from "./useKanbanAiChat";
+import { Mic, PenLine } from "lucide-react";
 
 export const KanbanAIDrawer = () => {
   const {
@@ -24,7 +24,7 @@ export const KanbanAIDrawer = () => {
     inputMode,
     toggleInputMode,
     onRecordingComplete,
-  } = useKanbanAiChat()
+  } = useKanbanAiChat();
 
   return (
     <Drawer>
@@ -41,7 +41,7 @@ export const KanbanAIDrawer = () => {
           </DrawerDescription>
         </DrawerHeader>
         <div className="px-4 pb-4">
-          <div className="flex flex-col h-[500px]">
+          <div className="flex flex-col h-[500px] pr-16">
             {/* Messages Container */}
             <div className="flex-1 mb-4 space-y-4 overflow-y-auto">
               {messages?.map((m: Message) => (
@@ -61,19 +61,20 @@ export const KanbanAIDrawer = () => {
               ))}
             </div>
 
-            {/* Mode Toggle Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4"
-              onClick={toggleInputMode}
-            >
-              {inputMode === "write" ? (
-                <Mic className="w-6 h-6" />
-              ) : (
-                <PenLine className="w-6 h-6" />
-              )}
-            </Button>
+            {/* Half Circle Toggle Button */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+              <Button
+                variant="ghost"
+                onClick={toggleInputMode}
+                className="h-48 w-24 bg-[#FF6B2C] hover:bg-[#FF8B4C] hover:scale-[1.03] rounded-l-full flex items-center justify-start pl-6 -mr-9 transition-all duration-300 ease-in-out transform group"
+              >
+                {inputMode === "write" ? (
+                  <Mic className="w-8 h-8 text-white transition-transform duration-300 ease-in-out group-hover:scale-110" />
+                ) : (
+                  <PenLine className="w-8 h-8 text-white transition-transform duration-300 ease-in-out group-hover:scale-110" />
+                )}
+              </Button>
+            </div>
 
             {/* Input Section */}
             {inputMode === "write" ? (
@@ -96,7 +97,7 @@ export const KanbanAIDrawer = () => {
         </div>
       </DrawerContent>
     </Drawer>
-  )
-}
+  );
+};
 
-export default KanbanAIDrawer
+export default KanbanAIDrawer;
