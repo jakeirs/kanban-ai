@@ -1,9 +1,8 @@
-"use client";
+"use client"
 
-import { Message, useChat } from "ai/react";
-import { generateId } from "ai";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Message } from "ai/react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Drawer,
   DrawerContent,
@@ -11,9 +10,10 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { VoiceRecorder } from "@/components/blocks/voice-recorder";
-import { useCallback } from "react";
+} from "@/components/ui/drawer"
+import { VoiceRecorder } from "@/components/blocks/voice-recorder"
+import { useKanbanAiChat } from "./useKanbanAiChat"
+import { Mic, PenLine } from "lucide-react"
 
 export const KanbanAIDrawer = () => {
   const {
@@ -21,38 +21,10 @@ export const KanbanAIDrawer = () => {
     input,
     handleInputChange,
     handleSubmit,
-    setMessages,
-    reload,
-  } = useChat({
-    api: "/api/kanban/chat",
-  });
-
-  const onRecordingComplete = useCallback(async (blob: Blob) => {
-    const formData = new FormData();
-    formData.append("file", blob);
-    try {
-      const response = await fetch("/api/whisper", {
-        method: "POST",
-        body: formData,
-      });
-
-      const transcript = await response.json();
-
-      setMessages((currentMessages: Message[]) => [
-        ...currentMessages,
-        {
-          id: generateId(),
-          content: transcript.text,
-          role: "user",
-        },
-      ]);
-      await reload();
-    } catch (error) {
-      console.error("Failed to send recording to API:", error);
-    }
-  }, []);
-
-  console.log("messages", messages);
+    inputMode,
+    toggleInputMode,
+    onRecordingComplete,
+  } = useKanbanAiChat()
 
   return (
     <Drawer>
@@ -88,26 +60,43 @@ export const KanbanAIDrawer = () => {
                 </div>
               ))}
             </div>
-            <VoiceRecorder onRecordingComplete={onRecordingComplete} />
 
-            {/* Chat Input Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="sticky bottom-0 flex gap-2 p-2 bg-white rounded-lg shadow"
+            {/* Mode Toggle Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4"
+              onClick={toggleInputMode}
             >
-              <Input
-                value={input}
-                onChange={handleInputChange}
-                placeholder="Ask about your Kanban board..."
-                className="flex-1"
-              />
-              <Button type="submit">Send</Button>
-            </form>
+              {inputMode === "write" ? (
+                <Mic className="w-6 h-6" />
+              ) : (
+                <PenLine className="w-6 h-6" />
+              )}
+            </Button>
+
+            {/* Input Section */}
+            {inputMode === "write" ? (
+              <form
+                onSubmit={handleSubmit}
+                className="sticky bottom-0 flex gap-2 p-2 bg-white rounded-lg shadow"
+              >
+                <Input
+                  value={input}
+                  onChange={handleInputChange}
+                  placeholder="Ask about your Kanban board..."
+                  className="flex-1"
+                />
+                <Button type="submit">Send</Button>
+              </form>
+            ) : (
+              <VoiceRecorder onRecordingComplete={onRecordingComplete} />
+            )}
           </div>
         </div>
       </DrawerContent>
     </Drawer>
-  );
-};
+  )
+}
 
-export default KanbanAIDrawer;
+export default KanbanAIDrawer

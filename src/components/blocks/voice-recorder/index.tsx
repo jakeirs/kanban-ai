@@ -91,9 +91,9 @@ export const VoiceRecorder = ({ onRecordingComplete }: VoiceRecorderProps) => {
         <div className="text-lg font-medium">{formatTime(recordingTime)}</div>
       )}
 
-      {audioBlob && !isRecording && (
+      {/* {audioBlob && !isRecording && (
         <AudioPlayer audioBlob={audioBlob} duration={recordingTime} />
-      )}
+      )} */}
     </div>
   );
 };
