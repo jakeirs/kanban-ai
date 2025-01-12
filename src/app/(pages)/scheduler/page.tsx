@@ -1,3 +1,7 @@
+import TimelineDemo, {
+  exampleSlots,
+} from "@/components/blocks/scheduler/Timeline";
+
 export default function SchedulerPage() {
-  return <div />;
+  return <TimelineDemo slots={exampleSlots} />;
 }
