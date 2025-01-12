@@ -1,89 +1,51 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import { Clock, LineChart, MoreVertical } from 'lucide-react'
+import React from "react";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/custom/badge";
+import { GlassWater } from "lucide-react";
 
 interface TaskCardProps {
-  status: "ongoing" | "future"
-  title: string
-  createdBy: {
-    name: string
-    image: string
-  }
-  variant?: "purple" | "light" | "dark"
-  iconUrl?: string
+  title: string;
+  createdBy: string;
+  avatarUrl?: string;
+  status?: "ongoing" | "completed" | "pending";
+  className?: string;
 }
 
-export default function TaskCard({
-  status,
+export const TaskCard: React.FC<TaskCardProps> = ({
   title,
   createdBy,
-  variant = "light",
-  iconUrl,
-}: TaskCardProps) {
-  const variants = {
-    purple: "bg-purple-500 text-white",
-    light: "bg-gray-100",
-    dark: "bg-gray-900 text-white",
-  }
-
+  avatarUrl = "/api/placeholder/32/32",
+  status = "ongoing",
+  className,
+}) => {
   return (
-    <Card className={`relative overflow-hidden w-full max-w-md ${variants[variant]}`}>
-      <div className="p-4 pb-6">
-        {/* Top section with status and chart */}
-        <div className="flex items-center justify-between mb-6 relative z-10">
-          <Badge
-            variant="outline"
-            className={`
-              flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium
-              ${variant === "light" ? "bg-white" : "bg-opacity-20 backdrop-blur-sm"}
-            `}
-          >
-            <Clock className="w-4 h-4" />
-            {status === "ongoing" ? "Ongoing" : "Future"}
-          </Badge>
-          <div className={`rounded-full p-2 ${
-            variant === "light" ? "bg-gray-200" : "bg-white/10"
-          }`}>
-            <LineChart className="w-4 h-4" />
+    <div className={cn("w-full max-w-md rounded-3xl flex flex-col", className)}>
+      {/* Top */}
+      {/* relative for (Absolute behind component)  */}
+      <div className="relative flex h-10 top-1 w-full">
+        {/* Top Left */}
+        {/* relative for (SVG)  */}
+        <div className="relative bg-gray-200 w-7/12 rounded-tl-3xl p-3 pl-5 pb-0">
+          <Badge icon={<GlassWater />}>Garden ordering</Badge>
+          {/* SVG */}
+          <div className="absolute top-0 -right-[64px] h-10 text-gray-200">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 73 45"
+              className="w-full h-full fill-current"
+            >
+              <path d="M29 18C26.3718 14.4121 14.1513 -0.00146822 0 1.48157e-07V44.8258L72.5 45C61.69 44.8258 49.8647 42.0967 43 34.5C36.1353 26.9033 31.6282 21.5879 29 18Z" />
+            </svg>
           </div>
         </div>
 
-        {/* Task content */}
-        <div className="flex items-center gap-4">
-          {iconUrl ? (
-            <div className="w-12 h-12 rounded-full overflow-hidden">
-              <img src={iconUrl} alt="" className="w-full h-full object-cover" />
-            </div>
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-              <span className="text-xl font-semibold">{title.charAt(0)}</span>
-            </div>
-          )}
-          <h3 className="text-lg font-semibold flex-1">{title}</h3>
-        </div>
-
-        {/* Created by section with wave effect */}
-        <div className="absolute top-0 right-0 h-16 flex items-center">
-          <div
-            className="h-full relative flex items-center pr-3 pl-8 
-            before:absolute before:inset-0 before:bg-gray-100 before:rounded-l-full"
-          >
-            <div className="relative flex items-center gap-2">
-              <span className="text-gray-600 text-sm">Created by {createdBy.name}</span>
-              <Avatar className="w-8 h-8">
-                <AvatarImage src={createdBy.image} />
-                <AvatarFallback>{createdBy.name[0]}</AvatarFallback>
-              </Avatar>
-              <span className="text-gray-400 text-lg font-medium">+</span>
-            </div>
-          </div>
-          <button className="p-2">
-            <MoreVertical className="w-5 h-5" />
-          </button>
+        {/* Absolute (behind) */}
+        <div className="-z-10">
+          <div className="absolute top-0 right-0 w-4/5 h-[140%] bg-green-300  rounded-tr-3xl rounded-bl-3xl -z-10 "></div>
         </div>
       </div>
-    </Card>
-  )
-}
-
+      {/* Bottom */}
+      <div className="rounded-tr-3xl rounded-br-3xl rounded-bl-3xl bg-gray-200 h-24"></div>
+    </div>
+  );
+};
