@@ -13,15 +13,15 @@ export function Badge({
 }: BadgeProps) {
   return (
     <div
-      className={`inline-flex items-center rounded-full border-2 border-black px-4 py-1.5 text-sm font-semibold bg-transparent ${className}`}
+      className={`inline-flex items-center rounded-full border-2 border-black px-4 py-1 text-xs font-semibold bg-transparent max-w-full ${className}`}
       {...props}
     >
       {Icon && (
-        <span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-black">
-          <Icon className="h-3 w-3 text-white" />
+        <span className="mr-2 flex-shrink-0 flex h-4 w-4 items-center justify-center rounded-full bg-black">
+          <Icon className="h-2.5 w-2.5 text-white" />
         </span>
       )}
-      {children}
+      <span className="truncate">{children}</span>
     </div>
   );
 }

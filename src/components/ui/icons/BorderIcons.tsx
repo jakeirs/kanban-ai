@@ -12,6 +12,7 @@ interface BorderedIconProps {
   iconName: LucideIconName;
   className?: string;
   whiteBorder?: boolean;
+  invertColors?: boolean;
 }
 
 const formatIconName = (name: string): LucideIconName => {
@@ -21,7 +22,7 @@ const formatIconName = (name: string): LucideIconName => {
     .join("") as LucideIconName;
 };
 
-export const BorderedIcon = ({ iconName = "Camera", className, whiteBorder = true }: BorderedIconProps) => {
+export const BorderedIcon = ({ iconName = "Camera", className, whiteBorder = true, invertColors = false }: BorderedIconProps) => {
   const formattedName = formatIconName(iconName);
   // Use HelpCircle as fallback
   const IconComponent = (LucideIcons[formattedName] ||
@@ -33,8 +34,8 @@ export const BorderedIcon = ({ iconName = "Camera", className, whiteBorder = tru
 
   return (
     <div className={cn("inline-flex items-center justify-center rounded-full bg-white", whiteBorder && "p-1")}>
-      <div className="rounded-full bg-gray-800 p-2">
-        <IconComponent className={cn("h-6 w-6 text-white", className)} />
+      <div className={cn("rounded-full p-2", invertColors ? "bg-gray-800" : "bg-white")}>
+        <IconComponent className={cn("h-6 w-6", invertColors ? "text-white" : "text-black", className)} />
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
       <div className="relative flex h-10 top-1 w-full">
         {/* Top Left */}
         {/* relative for (SVG)  */}
-        <div className="relative bg-gray-200 w-7/12 rounded-tl-3xl pt-3 pl-5 pb-0">
+        <div className="relative bg-gray-200 w-7/12 rounded-tl-3xl pr-1 pt-3 pl-5 pb-0">
           <Badge icon={GlassWater}>Garden ordering</Badge>
           {/* SVG */}
           <div className="absolute top-0 -right-[64px] h-10 text-gray-200">
@@ -48,12 +48,18 @@ export const TaskCard: React.FC<TaskCardProps> = ({
       {/* Bottom */}
       <div className="rounded-tr-3xl rounded-br-3xl rounded-bl-3xl bg-gray-200 h-24">
         <div className="flex h-full items-end p-3 pl-5">
-          {/* Bottom Left */}
-          <div>
+          <div className="flex">
+            {/* Bottom Left */}
+
             <BorderedIcon iconName="Snail" className="w-8 h-8" />
+            {/* Bottom Right */}
+            <div className="flex flex-col pl-3">
+              {/* Title Task */}
+              <div className="font-semibold leading-[1] text-xl">
+                Do shopping to the garden ma...
+              </div>
+            </div>
           </div>
-          {/* Bottom Right */}
-          <div></div>
         </div>
       </div>
     </div>
