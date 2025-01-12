@@ -17,7 +17,7 @@ export function Badge({
       {...props}
     >
       {Icon && (
-        <span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary">
+        <span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-black">
           <Icon className="h-3 w-3 text-white" />
         </span>
       )}
