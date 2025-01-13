@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/custom/badge";
 import { GlassWater } from "lucide-react";
 import { BorderedIcon } from "@/components/ui/icons/BorderIcons";
+import { Label } from "@/components/ui/custom/label";
 
 interface TaskCardProps {
   title: string;
@@ -46,17 +47,23 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         </div>
       </div>
       {/* Bottom */}
-      <div className="rounded-tr-3xl rounded-br-3xl rounded-bl-3xl bg-gray-200 h-24">
-        <div className="flex h-full items-end p-3 pl-5">
-          <div className="flex">
+      <div className="rounded-tr-3xl rounded-br-3xl rounded-bl-3xl bg-gray-200">
+        <div className="flex h-full flex-start pb-3 pt-5 px-4">
+          <div className="flex ">
             {/* Bottom Left */}
-
-            <BorderedIcon iconName="Snail" className="w-8 h-8" />
+            <div className="flex flex-start flex-col">
+              <BorderedIcon iconName="Snail" className="w-7 h-7" />
+            </div>
             {/* Bottom Right */}
             <div className="flex flex-col pl-3">
               {/* Title Task */}
-              <div className="font-semibold leading-[1] text-xl">
-                Do shopping to the garden ma...
+              <div className="leading-[1] text-xl line-clamp-2">
+                Do shopping to the garden mather
+              </div>
+              <div className="flex gap-2 pt-2">
+                <Label color="#FFCDB2">shopping list</Label>
+                <Label color="#D0F0C0">shopping list</Label>
+                <Label color="#B0E0E6">shopping list</Label>
               </div>
             </div>
           </div>

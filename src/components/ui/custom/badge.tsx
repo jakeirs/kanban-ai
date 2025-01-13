@@ -13,7 +13,7 @@ export function Badge({
 }: BadgeProps) {
   return (
     <div
-      className={`inline-flex items-center rounded-full border-2 border-black px-4 py-1 text-xs font-semibold bg-transparent max-w-full ${className}`}
+      className={`inline-flex items-center rounded-full border-[1.5px] border-black px-4 py-1 text-xs font-semibold bg-transparent max-w-full ${className}`}
       {...props}
     >
       {Icon && (

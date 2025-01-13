@@ -45,7 +45,7 @@ const Timeline = ({ slots, className }: TimelineProps) => {
               <TaskCard
                 createdBy="Józef"
                 title="Shopping to the garden"
-                className="pb-6"
+                className="mb-3"
               />
             ) : (
               <div className="mt-2 w-2 h-2 rounded-full bg-gray-200 shrink-0 relative top-2 -left-1" />
