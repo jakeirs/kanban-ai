@@ -1,5 +1,5 @@
-import ElementVisualizer from "@/components/blocks/ai_gen/onboarding/ElementVisualizer";
-import LivingCanvasWrapper from "@/components/blocks/ai_gen/onboarding/LivingCanvasWrapper";
+import ElementVisualizer from "@/components/ai_gen/onboarding/ElementVisualizer";
+import LivingCanvasWrapper from "@/components/ai_gen/onboarding/LivingCanvasWrapper";
 import Link from "next/link";
 
 export default function OnboardingPage() {
