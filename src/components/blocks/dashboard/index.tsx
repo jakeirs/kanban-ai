@@ -113,12 +113,15 @@ const QuickAccessCard: React.FC<{
   onClick?: () => void;
 }> = ({ title, icon, bgColor, onClick }) => (
   <Card
-    className={`${bgColor} cursor-pointer hover:opacity-90 transition-opacity`}
+    className={`${bgColor} cursor-pointer hover:opacity-90 transition-opacity overflow-hidden`}
     onClick={onClick}
   >
-    <CardContent className="p-4 flex items-center gap-2">
+    <CardContent className="p-4 flex items-center gap-2 relative">
       {icon}
       <span className="font-medium">{title}</span>
+      <div className="absolute right-4 bottom-2 opacity-10 transform scale-[2.5] rotate-12">
+        {icon}
+      </div>
     </CardContent>
   </Card>
 );

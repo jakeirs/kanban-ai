@@ -3,7 +3,13 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Home, LayoutGrid, ClipboardList, User, Search } from "lucide-react";
+import {
+  Home,
+  CalendarCheckIcon,
+  ClipboardList,
+  User,
+  Search,
+} from "lucide-react";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -19,7 +25,7 @@ const BottomNav = () => {
       path: "/mobile/dashboard",
     },
     {
-      icon: <LayoutGrid className="h-6 w-6" />,
+      icon: <CalendarCheckIcon className="h-6 w-6" />,
       path: "/mobile/scheduler",
     },
     {
