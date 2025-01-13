@@ -1,6 +1,5 @@
-import TimelineDemo from "@/components/blocks/scheduler/Timeline";
-import { exampleSlots } from "@/components/blocks/scheduler/Timeline/props";
+import { Scheduler } from "@/components/blocks/scheduler";
 
 export default function SchedulerPage() {
-  return <TimelineDemo slots={exampleSlots} />;
+  return <Scheduler />;
 }
