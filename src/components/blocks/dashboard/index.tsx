@@ -28,18 +28,18 @@ interface DashboardProps {
   scheduleItems: ScheduleItemProps[];
 }
 
-// Active Session Component
-const ActiveSession: React.FC<ActiveSessionProps> = ({
+// Active Session Item Component
+const ActiveSessionItem: React.FC<ActiveSessionProps> = ({
   title,
   duration,
   icon,
   onClick,
 }) => (
-  <Card
-    className="bg-black text-white mb-2 cursor-pointer hover:bg-gray-900 transition-colors"
+  <div
+    className="cursor-pointer hover:rounded-3xl rounded-3xl hover:bg-gray-900 transition-colors"
     onClick={onClick}
   >
-    <CardContent className="flex items-center justify-between p-4">
+    <div className="flex items-center justify-between p-4">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
           {icon}
@@ -50,6 +50,39 @@ const ActiveSession: React.FC<ActiveSessionProps> = ({
         </div>
       </div>
       <ChevronRight className="w-5 h-5 text-gray-400" />
+    </div>
+  </div>
+);
+
+// Active Sessions Container Component
+const ActiveSessions: React.FC<{
+  sessions: DashboardProps["activeSessions"];
+}> = ({ sessions }) => (
+  <Card className="bg-black text-white rounded-3xl">
+    <CardContent className="p-0">
+      {sessions.map((session, index) => (
+        <React.Fragment key={index}>
+          <ActiveSessionItem
+            title={session.title}
+            duration={session.duration}
+            icon={
+              session.type === "video" ? (
+                <Video className="w-5 h-5" />
+              ) : (
+                <CircleDot className="w-5 h-5" />
+              )
+            }
+            onClick={() =>
+              console.log(`Navigating to session: ${session.title}`)
+            }
+          />
+          {index < sessions.length - 1 && (
+            <div className="px-4">
+              <Separator className="bg-gray-800" />
+            </div>
+          )}
+        </React.Fragment>
+      ))}
     </CardContent>
   </Card>
 );
@@ -106,25 +139,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       <div className="space-y-6">
         {/* Active Sessions */}
-        <div className="space-y-2">
-          {activeSessions.map((session, index) => (
-            <ActiveSession
-              key={index}
-              title={session.title}
-              duration={session.duration}
-              icon={
-                session.type === "video" ? (
-                  <Video className="w-5 h-5" />
-                ) : (
-                  <CircleDot className="w-5 h-5" />
-                )
-              }
-              onClick={() =>
-                console.log(`Navigating to session: ${session.title}`)
-              }
-            />
-          ))}
-        </div>
+        <ActiveSessions sessions={activeSessions} />
 
         {/* Grid Layout */}
         <div className="grid grid-cols-2 gap-4">
