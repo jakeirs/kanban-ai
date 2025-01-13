@@ -1,5 +1,5 @@
-import CreateUser from "./_root/CreateUser";
-import ServerSideComponent from "./_root/server-side-component";
+import CreateUser from "./auth/CreateUser";
+import ServerSideComponent from "./auth/server-side-component";
 
 export default function HomePage() {
   return (

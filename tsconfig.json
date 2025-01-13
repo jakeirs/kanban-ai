@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(pages)/_root/server-side-component"
+    "src/app/(pages)/auth/server-side-component"
   ],
   "exclude": ["node_modules"]
 }
