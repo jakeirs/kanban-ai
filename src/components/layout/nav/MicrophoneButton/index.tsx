@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Mic } from "lucide-react";
+import { Mic, Square } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -89,14 +89,25 @@ export const MicrophoneButton: React.FC<MicrophoneButtonProps> = ({
             ease: "easeInOut",
           }}
         >
-          <Mic
-            className={cn(
-              "h-8 w-8 relative z-10",
-              "text-purple-600",
-              "transition-all duration-300",
-              isProcessing && "text-purple-800"
-            )}
-          />
+          {isProcessing ? (
+            <Square
+              className={cn(
+                "h-8 w-8 relative z-10",
+                "text-purple-800",
+                "transition-all duration-300",
+                "rounded-sm"
+              )}
+              fill="currentColor"
+            />
+          ) : (
+            <Mic
+              className={cn(
+                "h-8 w-8 relative z-10",
+                "text-purple-600",
+                "transition-all duration-300"
+              )}
+            />
+          )}
         </motion.div>
       </Button>
     </motion.div>
