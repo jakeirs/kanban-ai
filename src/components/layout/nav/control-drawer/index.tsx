@@ -22,34 +22,20 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 interface VoiceDrawerProps {
-  // onVoiceCommand: (context: string) => void;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
 }
 
 type Context = "planner" | "search" | "brain-dump" | "conversation";
 
-export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({}) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
+  isOpen,
+  setIsOpen,
+}) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentContext, setCurrentContext] = useState<Context>("conversation");
   const [inputMode, setInputMode] = useState<"voice" | "keyboard">("voice");
-
-  const handleVoiceStart = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-      return;
-    }
-    setIsRecording(true);
-    // Simulate voice recording for demo
-    setTimeout(() => {
-      setIsRecording(false);
-      setIsProcessing(true);
-      // Simulate AI processing
-      setTimeout(() => {
-        setIsProcessing(false);
-      }, 2000);
-    }, 3000);
-  };
 
   const getContextIcon = (context: Context) => {
     switch (context) {
@@ -66,43 +52,12 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({}) => {
 
   return (
     <>
-      {/* Main Action Button */}
-      <Button
-        onClick={handleVoiceStart}
-        className={cn(
-          "fixed bottom-20 right-4 h-16 w-16 rounded-full",
-          "bg-gradient-to-br from-white to-purple-100",
-          "border-4 border-purple-100 shadow-lg",
-          "hover:shadow-xl transition-all duration-300",
-          isRecording && "animate-pulse border-purple-300 scale-110",
-          isProcessing && "border-purple-400"
-        )}
-      >
-        {isProcessing ? (
-          <Loader2 className="h-8 w-8 text-purple-500 animate-spin" />
-        ) : (
-          <Mic
-            className={cn(
-              "h-8 w-8",
-              isRecording ? "text-purple-600" : "text-purple-500"
-            )}
-          />
-        )}
-      </Button>
-
       {/* Drawer */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="bottom" className="h-[70%] rounded-t-3xl">
           <SheetHeader className="space-y-4">
             <div className="flex justify-between items-center">
               <SheetTitle>How can I help you?</SheetTitle>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-              >
-                <X className="h-5 w-5" />
-              </Button>
             </div>
 
             {/* Context Selector */}
