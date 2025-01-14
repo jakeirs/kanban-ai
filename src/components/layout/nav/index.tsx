@@ -67,7 +67,10 @@ const BottomNav = () => {
             </Link>
           );
         })}
-        <MicrophoneButton onClick={() => {}} classNames="right-1" />
+        <MicrophoneButton
+          onClick={() => {}}
+          classNames="-right-2 -bottom-10 absolute"
+        />
       </nav>
     </div>
   );
