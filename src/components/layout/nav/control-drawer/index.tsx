@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { ControlDrawerTabs } from "./Tabs";
 
 interface VoiceDrawerProps {
   isOpen: boolean;
@@ -61,34 +62,7 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
             </div>
 
             {/* Context Selector */}
-            <Tabs
-              value={currentContext}
-              onValueChange={(value) => setCurrentContext(value as Context)}
-              className="w-full"
-            >
-              <TabsList className="grid grid-cols-4 h-14">
-                {(
-                  [
-                    "planner",
-                    "search",
-                    "brain-dump",
-                    "conversation",
-                  ] as Context[]
-                ).map((context) => {
-                  const Icon = getContextIcon(context);
-                  return (
-                    <TabsTrigger
-                      key={context}
-                      value={context}
-                      className="flex flex-col gap-1 capitalize"
-                    >
-                      <Icon className="h-4 w-4" />
-                      <span className="text-xs">{context}</span>
-                    </TabsTrigger>
-                  );
-                })}
-              </TabsList>
-            </Tabs>
+            <ControlDrawerTabs />
           </SheetHeader>
 
           <div className="mt-8 space-y-4">
