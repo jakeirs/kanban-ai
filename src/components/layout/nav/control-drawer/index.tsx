@@ -4,12 +4,6 @@ import React, { useState } from "react";
 import {
   Mic,
   Keyboard,
-  X,
-  Brain,
-  Calendar,
-  Search,
-  MessageCircle,
-  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,29 +21,11 @@ interface VoiceDrawerProps {
   setIsOpen: (open: boolean) => void;
 }
 
-type Context = "planner" | "search" | "brain-dump" | "conversation";
-
 export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [currentContext, setCurrentContext] = useState<Context>("conversation");
   const [inputMode, setInputMode] = useState<"voice" | "keyboard">("voice");
-
-  const getContextIcon = (context: Context) => {
-    switch (context) {
-      case "planner":
-        return Calendar;
-      case "search":
-        return Search;
-      case "brain-dump":
-        return Brain;
-      case "conversation":
-        return MessageCircle;
-    }
-  };
 
   return (
     <>
@@ -87,33 +63,17 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
               </Button>
             </div>
 
-            {/* Recording/Processing State Feedback */}
             <div className="flex flex-col items-center justify-center h-48">
-              {isRecording ? (
-                <div className="text-center space-y-4">
-                  <div className="relative">
-                    <div className="absolute inset-0 rounded-full animate-ping bg-purple-200" />
-                    <Mic className="h-12 w-12 text-purple-500 relative" />
-                  </div>
-                  <p className="text-sm text-gray-600">Listening...</p>
-                </div>
-              ) : isProcessing ? (
-                <div className="text-center space-y-4">
-                  <Loader2 className="h-12 w-12 text-purple-500 animate-spin" />
-                  <p className="text-sm text-gray-600">Processing...</p>
-                </div>
-              ) : (
-                <div className="text-center text-gray-500">
-                  {inputMode === "voice" ? (
-                    <p>Tap the mic button to start speaking</p>
-                  ) : (
-                    <textarea
-                      className="w-full h-32 p-3 border rounded-lg"
-                      placeholder="Type your message here..."
-                    />
-                  )}
-                </div>
-              )}
+              <div className="text-center text-gray-500">
+                {inputMode === "voice" ? (
+                  <p>Tap the mic button to start speaking</p>
+                ) : (
+                  <textarea
+                    className="w-full h-32 p-3 border rounded-lg"
+                    placeholder="Type your message here..."
+                  />
+                )}
+              </div>
             </div>
           </div>
         </SheetContent>
