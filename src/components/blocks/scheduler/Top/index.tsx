@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CurrentDate } from "./CurrentDate";
+import { Button } from "@/components/ui/button";
 
 export const Top = () => {
   const date = new Date();
@@ -26,8 +27,9 @@ export const Top = () => {
 
       <div className="space-y-3  p-4 rounded-lg">
         <div className="flex items-center text-zinc-400">
-          <span className="mr-3">📝</span>
-          <p>Review weekly progress notes</p>
+          <Button className="rounded-3xl text-black px-10 py-6 w-4/5">
+            Make a plan{" "}
+          </Button>
         </div>
 
         <Separator className="bg-zinc-800" />
