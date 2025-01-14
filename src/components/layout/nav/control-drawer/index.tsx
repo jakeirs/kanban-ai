@@ -57,12 +57,11 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="bottom" className="h-[70%] rounded-t-3xl">
           <SheetHeader className="space-y-4">
-            <div className="flex justify-between items-center">
-              <SheetTitle>How can I help you?</SheetTitle>
-            </div>
-
             {/* Context Selector */}
             <ControlDrawerTabs />
+            <div className="flex justify-between items-center">
+              <SheetTitle className="text-3xl">How can I help you?</SheetTitle>
+            </div>
           </SheetHeader>
 
           <div className="mt-8 space-y-4">
