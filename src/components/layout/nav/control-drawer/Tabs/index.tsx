@@ -20,7 +20,7 @@ export function ControlDrawerTabs({ invert = false }: ControlDrawerTabsProps) {
     <Tabs defaultValue="planner" className="w-full">
       <TabsList
         className={cn(
-          "w-full h-20 rounded-full grid grid-cols-4",
+          "w-full h-full rounded-full grid grid-cols-4",
           invert
             ? "bg-white/10 text-white"
             : "bg-black text-white backdrop-blur-sm"
@@ -33,8 +33,8 @@ export function ControlDrawerTabs({ invert = false }: ControlDrawerTabsProps) {
             className={cn(
               "rounded-full data-[state=active]:shadow-none flex flex-col items-center justify-center gap-1",
               invert
-                ? "data-[state=active]:bg-black/10 data-[state=active]:text-white"
-                : "data-[state=active]:bg-white/10 data-[state=active]:text-white"
+                ? "data-[state=active]:bg-white data-[state=active]:text-black"
+                : "data-[state=active]:bg-white data-[state=active]:text-black"
             )}
           >
             <tab.icon className="w-5 h-5" />
