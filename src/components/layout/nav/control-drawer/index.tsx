@@ -2,10 +2,7 @@
 
 import React, { useState } from "react";
 import { MicrophoneButton } from "../MicrophoneButton";
-import {
-  Mic,
-  Keyboard,
-} from "lucide-react";
+import { Mic, Keyboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,8 +10,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 import { ControlDrawerTabs } from "./Tabs";
 
 interface VoiceDrawerProps {
@@ -67,9 +62,11 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
             <div className="flex flex-col items-center justify-center h-48">
               {inputMode === "voice" ? (
                 <div className="text-center space-y-6">
-                  <p className="text-gray-500 text-lg">Tap the mic button to start speaking</p>
-                  <MicrophoneButton 
-                    onClick={() => {}} 
+                  <p className="text-gray-500 text-lg">
+                    Tap the mic button to start speaking
+                  </p>
+                  <MicrophoneButton
+                    onClick={() => {}}
                     classNames="h-[100px] w-[100px]"
                   />
                 </div>
