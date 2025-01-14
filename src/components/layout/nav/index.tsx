@@ -10,6 +10,7 @@ import {
   User,
   Search,
 } from "lucide-react";
+import { MicrophoneButton } from "./MicrophoneButton";
 
 interface NavItem {
   icon: React.ReactNode;
@@ -66,6 +67,7 @@ const BottomNav = () => {
             </Link>
           );
         })}
+        <MicrophoneButton onClick={() => {}} classNames="right-1" />
       </nav>
     </div>
   );
