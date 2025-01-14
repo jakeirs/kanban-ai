@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { MicrophoneButton } from "../MicrophoneButton";
 import {
   Mic,
   Keyboard,
@@ -64,16 +65,20 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
             </div>
 
             <div className="flex flex-col items-center justify-center h-48">
-              <div className="text-center text-gray-500">
-                {inputMode === "voice" ? (
-                  <p>Tap the mic button to start speaking</p>
-                ) : (
-                  <textarea
-                    className="w-full h-32 p-3 border rounded-lg"
-                    placeholder="Type your message here..."
+              {inputMode === "voice" ? (
+                <div className="text-center space-y-6">
+                  <p className="text-gray-500 text-lg">Tap the mic button to start speaking</p>
+                  <MicrophoneButton 
+                    onClick={() => {}} 
+                    classNames="h-[100px] w-[100px]"
                   />
-                )}
-              </div>
+                </div>
+              ) : (
+                <textarea
+                  className="w-full h-32 p-3 border rounded-lg"
+                  placeholder="Type your message here..."
+                />
+              )}
             </div>
           </div>
         </SheetContent>
