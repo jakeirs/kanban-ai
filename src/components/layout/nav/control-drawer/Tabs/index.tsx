@@ -4,9 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Brain, Calendar, MessageCircle, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface ControlDrawerTabsProps {
-  invert?: boolean;
-}
+interface ControlDrawerTabsProps {}
 
 const tabs = [
   { value: "planner", icon: Calendar },
@@ -15,16 +13,11 @@ const tabs = [
   { value: "conversation", icon: MessageCircle },
 ];
 
-export function ControlDrawerTabs({ invert = false }: ControlDrawerTabsProps) {
+export function ControlDrawerTabs({}: ControlDrawerTabsProps) {
   return (
     <Tabs defaultValue="planner" className="w-full">
       <TabsList
-        className={cn(
-          "w-full h-full rounded-full grid grid-cols-4",
-          invert
-            ? "bg-white/10 text-white"
-            : "bg-black text-white backdrop-blur-sm"
-        )}
+        className="w-full h-full rounded-full grid grid-cols-4 bg-black text-white backdrop-blur-sm"
       >
         {tabs.map((tab) => (
           <TabsTrigger
@@ -32,9 +25,7 @@ export function ControlDrawerTabs({ invert = false }: ControlDrawerTabsProps) {
             value={tab.value}
             className={cn(
               "rounded-full data-[state=active]:shadow-none flex flex-col items-center justify-center gap-1",
-              invert
-                ? "data-[state=active]:bg-white data-[state=active]:text-black"
-                : "data-[state=active]:bg-white data-[state=active]:text-black"
+              "data-[state=active]:bg-white data-[state=active]:text-black"
             )}
           >
             <tab.icon className="w-5 h-5" />
