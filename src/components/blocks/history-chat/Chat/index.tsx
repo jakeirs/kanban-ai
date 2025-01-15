@@ -1,20 +1,17 @@
 import React from "react";
-import { Brain, Plus, Pencil, Trash2, Edit, Calendar, Tag } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { ActionType, ChatMemoryItem, memoryItems } from "./props";
+import { ChatMemoryItem, memoryItems } from "./props";
 import { getActionIcon } from "./utils";
+import { OperationTag } from "./ChatCloud/OperationTag";
 
 const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
-  const isRightSide = ["insert", "edit"].includes(item.actionType);
+  const isRightSide = ["create", "edit"].includes(item.actionType);
 
   // Playful Style Classes
   const cardClasses = isRightSide
     ? "bg-gradient-to-br from-pink-300 to-pink-200"
     : "bg-gradient-to-br from-purple-300 to-blue-200";
-
-  const exchangeCountClasses = isRightSide
-    ? "bg-pink-400 text-white"
-    : "bg-blue-400 text-white";
 
   const dateClasses = isRightSide
     ? "bg-pink-100 text-pink-600"
@@ -22,16 +19,8 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
 
   const textColorClasses = isRightSide ? "text-pink-900" : "text-blue-900";
 
-  const tagClasses = isRightSide
-    ? "bg-pink-100 text-pink-700"
-    : "bg-blue-100 text-blue-700";
-
-  const exchangeBorderClasses = isRightSide
-    ? "border-pink-200"
-    : "border-blue-200";
-
   return (
-    <div className="relative w-full mb-8">
+    <div className="relative w-full mt-2">
       {/* Date label */}
       <div
         className={`
@@ -60,7 +49,7 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
         <Card
           className={`
           max-w-[80%] 
-          p-4 
+          p-4
           rounded-2xl
           border-none
           shadow-lg
@@ -80,40 +69,37 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
                 {item.summary}
               </p>
 
-              {/* Metadata */}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                {/* Tags */}
-                <div className="flex-1 flex flex-wrap gap-2">
-                  {item.tags.map((tag, index) => (
-                    <div
-                      key={index}
-                      className={`
-                        flex items-center gap-1 
-                        px-2 py-1 rounded-full 
-                        text-xs
-                        ${tagClasses}
-                      `}
-                    >
-                      <Tag className="h-3 w-3" />
-                      <span>{tag}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* Subtitle */}
+              <p className={`text-sm mb-4 opacity-75 ${textColorClasses}`}>
+                {item.description || "No description available"}
+              </p>
 
-                {/* Exchange count circle - bigger and on the right */}
-                <div
-                  className={`
-                  flex items-center justify-center 
-                  w-12 h-12 
-                  rounded-full 
-                  text-xl font-medium
-                  border-2
-                  ${exchangeBorderClasses}
-                  ${exchangeCountClasses}
-                `}
-                >
-                  {item.exchangeCount}
-                </div>
+              {/* Operational Tags in Grid */}
+              <div className="grid grid-cols-2 gap-2">
+                {item.operationalTags?.map((tag, index) => {
+                  const operation = (() => {
+                    switch (item.actionType) {
+                      case "create":
+                        return "create";
+                      case "edit":
+                        return "edit";
+                      case "delete":
+                        return "delete";
+                      case "scheduled":
+                        return "scheduled";
+                      default:
+                        return "scheduled";
+                    }
+                  })();
+
+                  return (
+                    <OperationTag
+                      operation={operation}
+                      className="w-full justify-center"
+                      number={1}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -125,7 +111,7 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
 
 const ChatMemoryList: React.FC = () => {
   return (
-    <div className="flex flex-col w-full max-w-2xl mx-auto p-4 space-y-2">
+    <div className="flex flex-col w-full max-w-2xl mx-auto p-4">
       {memoryItems.map((item) => (
         <ChatMemoryCloud key={item.id} item={item} />
       ))}

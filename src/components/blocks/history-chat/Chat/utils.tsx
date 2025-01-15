@@ -1,31 +1,28 @@
 import React from "react";
 import { Brain, Plus, Pencil, Trash2, Edit } from "lucide-react";
 
-export type ActionType = "insert" | "adjust" | "edit" | "delete" | "knowledge";
+export type ActionType = "create" | "edit" | "delete" | "scheduled";
 
 const iconColors = {
-  insert: "bg-pink-400",
-  adjust: "bg-blue-400",
-  edit: "bg-violet-400",
+  create: "bg-emerald-400",
+  edit: "bg-blue-400",
   delete: "bg-red-400",
-  knowledge: "bg-purple-400",
+  scheduled: "bg-yellow-400",
 };
 
 const borderColors = {
-  insert: "border-pink-200",
-  adjust: "border-blue-200",
-  edit: "border-violet-200",
+  create: "border-emerald-200",
+  edit: "border-blue-200",
   delete: "border-red-200",
-  knowledge: "border-purple-200",
+  scheduled: "border-yellow-200",
 };
 
 export const getActionIcon = (type: ActionType) => {
   const IconComponent = {
-    insert: Plus,
-    adjust: Pencil,
-    edit: Edit,
+    create: Plus,
+    edit: Pencil,
     delete: Trash2,
-    knowledge: Brain,
+    scheduled: Brain,
   }[type];
 
   return (
