@@ -1,4 +1,4 @@
-import { ChevronLeft, Clock, History } from "lucide-react";
+import { ChevronLeft, Clock, History, Notebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -19,6 +19,11 @@ export function Header({ title, lastVisit, readingTime, onBack }: HeaderProps) {
           opacity: 0.95,
         }}
       />
+
+      {/* Background Icon */}
+      <div className="absolute right-[-50px] top-[50%] translate-y-[-50%] opacity-10">
+        <Notebook className="w-[250px] h-[250px] transform rotate-12 text-white" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 p-4 flex flex-col h-full">
