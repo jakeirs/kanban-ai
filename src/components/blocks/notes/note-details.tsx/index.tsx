@@ -2,8 +2,8 @@ import { Header } from "./Header";
 
 const headerProps = {
   title: "This is my note",
-  duration: "strong",
-  calories: 123,
+  lastVisit: "12 days since last visit",
+  readingTime: "5m reading",
 };
 
 export const NotesDetails = () => (
