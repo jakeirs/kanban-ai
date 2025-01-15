@@ -49,7 +49,7 @@ export const OperationTag = ({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 rounded-full px-2 py-1",
+        "inline-flex items-center justify-between gap-1 rounded-full px-2 py-1",
         config.bgColor,
         config.textColor,
         className
@@ -60,10 +60,9 @@ export const OperationTag = ({
       {typeof number === "number" && (
         <div
           className={cn(
-            "flex h-5 w-5 items-center justify-center rounded-full",
+            "flex h-5 w-5 items-center justify-center rounded-full border",
             config.bgColor,
-            "border",
-            `border-${config.textColor}`
+            config.textColor
           )}
         >
           <span className="text-xs">{number}</span>

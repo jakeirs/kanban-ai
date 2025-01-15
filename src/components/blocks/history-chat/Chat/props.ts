@@ -7,6 +7,7 @@ export interface ChatMemoryItem {
   date: string;
   operationalTags?: string[];
   actionType: ActionType;
+  operations?: { type: ActionType; number: number }[]
 }
 
 export const memoryItems: ChatMemoryItem[] = [
@@ -17,6 +18,10 @@ export const memoryItems: ChatMemoryItem[] = [
     date: "2024-01-14",
     operationalTags: ["Infrastructure", "Configuration"],
     actionType: "create",
+    operations: [
+      { type: "create", number: 3 },
+      { type: "edit", number: 1 }
+    ]
   },
   {
     id: "2",
@@ -25,6 +30,9 @@ export const memoryItems: ChatMemoryItem[] = [
     date: "2024-01-14",
     operationalTags: ["Planning", "Timeline"],
     actionType: "scheduled",
+    operations: [
+      { type: "scheduled", number: 2 }
+    ]
   },
   {
     id: "3",
@@ -33,6 +41,10 @@ export const memoryItems: ChatMemoryItem[] = [
     date: "2024-01-14",
     operationalTags: ["Task Management", "Client Input"],
     actionType: "edit",
+    operations: [
+      { type: "edit", number: 5 },
+      { type: "delete", number: 1 }
+    ]
   },
   {
     id: "4",
@@ -41,5 +53,9 @@ export const memoryItems: ChatMemoryItem[] = [
     date: "2024-01-14",
     operationalTags: ["Resource Planning", "Team Management"],
     actionType: "delete",
-  },
+    operations: [
+      { type: "delete", number: 2 },
+      { type: "edit", number: 3 }
+    ]
+  }
 ];

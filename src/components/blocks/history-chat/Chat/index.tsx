@@ -74,32 +74,16 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
                 {item.description || "No description available"}
               </p>
 
-              {/* Operational Tags in Grid */}
-              <div className="grid grid-cols-2 gap-2">
-                {item.operationalTags?.map((tag, index) => {
-                  const operation = (() => {
-                    switch (item.actionType) {
-                      case "create":
-                        return "create";
-                      case "edit":
-                        return "edit";
-                      case "delete":
-                        return "delete";
-                      case "scheduled":
-                        return "scheduled";
-                      default:
-                        return "scheduled";
-                    }
-                  })();
-
-                  return (
-                    <OperationTag
-                      operation={operation}
-                      className="w-full justify-center"
-                      number={1}
-                    />
-                  );
-                })}
+              {/* Operations Grid */}
+              <div className="inline-flex gap-2">
+                {item.operations?.map((op, index) => (
+                  <OperationTag
+                    key={index}
+                    operation={op.type}
+                    number={op.number}
+                    className="w-full justify-center"
+                  />
+                ))}
               </div>
             </div>
           </div>
