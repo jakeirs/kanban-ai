@@ -6,11 +6,6 @@ export function ChatHistory() {
   return (
     <>
       <ChatMemoryList />
-      <div>
-        {operationTagExamples.map((item) => (
-          <OperationTag {...item} />
-        ))}
-      </div>
     </>
   );
 }

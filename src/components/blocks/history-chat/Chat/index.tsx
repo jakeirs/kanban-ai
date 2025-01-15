@@ -75,13 +75,13 @@ const ChatMemoryCloud: React.FC<{ item: ChatMemoryItem }> = ({ item }) => {
               </p>
 
               {/* Operations Grid */}
-              <div className="inline-flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {item.operations?.map((op, index) => (
                   <OperationTag
                     key={index}
                     operation={op.type}
                     number={op.number}
-                    className="w-full justify-center"
+                    className="justify-center"
                   />
                 ))}
               </div>
