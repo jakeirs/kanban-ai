@@ -1,11 +1,11 @@
 "use client";
 
+import { Markdown } from "@/components/blocks/kanban/KanbanContent/Markdown";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 interface BodyNoteProps {
-  title: string;
   description: string;
   readNumber?: number;
   onClick?: () => void;
@@ -13,7 +13,6 @@ interface BodyNoteProps {
 }
 
 export function BodyNote({
-  title,
   description,
   readNumber,
   onClick,
@@ -27,7 +26,9 @@ export function BodyNote({
       )}
       onClick={onClick}
     >
-      <p className="mt-2 text-sm text-white">{description}</p>
+      <div className="mt-2 text-sm ">
+        <Markdown content={description} className="text-white" />
+      </div>
 
       {readNumber && (
         <div className="mt-4 text-xs text-white">

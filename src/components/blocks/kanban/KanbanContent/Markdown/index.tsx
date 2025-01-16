@@ -4,15 +4,17 @@ import ReactMarkdown from "react-markdown";
 
 interface MarkdownProps {
   content: string | undefined;
+  className?: string;
 }
 
-export const Markdown = ({ content }: MarkdownProps) => {
+export const Markdown = ({ content, className }: MarkdownProps) => {
   if (!content) {
     return null;
   }
 
   return (
     <ReactMarkdown
+      className={className}
       components={{
         h1: ({ children }) => (
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-4">
