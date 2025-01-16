@@ -11,9 +11,9 @@ const headerProps = {
 };
 
 export const NotesDetails = () => (
-  <div>
+  <div className="min-h-screen flex flex-col">
     <Header {...headerProps} />
     <Details {...detailsProps} />
-    <BodyNote {...exampleBodyNoteProps} />
+    <BodyNote {...exampleBodyNoteProps} className="flex-1" />
   </div>
 );

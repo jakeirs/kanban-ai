@@ -21,7 +21,7 @@ export function BodyNote({
   return (
     <Card
       className={cn(
-        "w-full cursor-pointer bg-zinc-900 p-6 transition-colors rounded-3xl",
+        "w-full cursor-pointer bg-zinc-900 p-6 transition-colors rounded-t-3xl",
         className
       )}
       onClick={onClick}
