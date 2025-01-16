@@ -1,5 +1,5 @@
-import { NotesDetails } from "@/components/blocks/notes/note-details.tsx";
+import { Thread } from "@/components/blocks/thread";
 
 export default function Page() {
-  return <NotesDetails />;
+  return <Thread />;
 }
