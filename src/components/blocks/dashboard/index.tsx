@@ -4,6 +4,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Video, CircleDot, ChevronRight, ListTodo, Loader } from "lucide-react";
+import Link from "next/link";
 
 // Types
 interface ActiveSessionProps {
@@ -62,25 +63,27 @@ const ActiveSessions: React.FC<{
     <CardContent className="p-0">
       {sessions.map((session, index) => (
         <React.Fragment key={index}>
-          <ActiveSessionItem
-            title={session.title}
-            duration={session.duration}
-            icon={
-              session.type === "video" ? (
-                <Video className="w-5 h-5" />
-              ) : (
-                <CircleDot className="w-5 h-5" />
-              )
-            }
-            onClick={() =>
-              console.log(`Navigating to session: ${session.title}`)
-            }
-          />
-          {index < sessions.length - 1 && (
-            <div className="px-4">
-              <Separator className="bg-gray-800" />
-            </div>
-          )}
+          <Link href="/mobile/thread">
+            <ActiveSessionItem
+              title={session.title}
+              duration={session.duration}
+              icon={
+                session.type === "video" ? (
+                  <Video className="w-5 h-5" />
+                ) : (
+                  <CircleDot className="w-5 h-5" />
+                )
+              }
+              onClick={() =>
+                console.log(`Navigating to session: ${session.title}`)
+              }
+            />
+            {index < sessions.length - 1 && (
+              <div className="px-4">
+                <Separator className="bg-gray-800" />
+              </div>
+            )}
+          </Link>
         </React.Fragment>
       ))}
     </CardContent>
