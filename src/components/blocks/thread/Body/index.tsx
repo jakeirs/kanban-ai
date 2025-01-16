@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import UpcomingTasks from "./UpcomingTasks";
 import ThisWeekTasksCompleted from "./ThisWeekTasksCompleted";
+import { Notes } from "./Notes";
 
 export default function Body() {
   return (
@@ -13,6 +14,7 @@ export default function Body() {
 
         <ThisWeekTasksCompleted completedTasks={56} totalTasks={64} />
       </div>
+      <Notes />
     </div>
   );
 }
