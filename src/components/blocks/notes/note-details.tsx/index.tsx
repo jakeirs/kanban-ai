@@ -1,3 +1,5 @@
+import { Details } from "./Details";
+import { detailsProps } from "./Details/props";
 import { Header } from "./Header";
 
 const headerProps = {
@@ -9,5 +11,6 @@ const headerProps = {
 export const NotesDetails = () => (
   <div>
     <Header {...headerProps} />
+    <Details {...detailsProps} />
   </div>
 );
