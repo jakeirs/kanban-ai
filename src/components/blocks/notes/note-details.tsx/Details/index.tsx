@@ -25,7 +25,7 @@ export function Details({
 }: DetailsProps) {
   return (
     <div className="flex flex-col  gap-3">
-      <Thread iconColor="red" />
+      <Thread />
       <div className="inline-flex gap-3 p-4 w-full">
         <TagWithIcon icon={User} label={customer} variant="secondary" />
         <TagWithIcon icon={DollarSign} label={price} variant="secondary" />
