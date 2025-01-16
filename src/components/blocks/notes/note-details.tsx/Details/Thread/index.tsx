@@ -30,7 +30,7 @@ export const Thread = ({ color = "#FFB5E8", className }: ThreadProps) => {
           <div className="text-xs text-white/70">Total:</div>
           <div className="text-white">
             <span className="text-4xl  font-medium">2</span>
-            <span className="ml-1">tasks</span>
+            <span className="ml-1">items</span>
           </div>
         </div>
       </div>
