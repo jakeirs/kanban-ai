@@ -1,10 +1,27 @@
 import { Card } from "@/components/ui/card";
 import { AlertOctagonIcon, Search, Building2 } from "lucide-react";
+import { SmallNotes } from "./SmallNotes";
 
 export const Notes = () => {
+  // Mock data for demonstration
+  const mockNotes = [
+    { id: "1", title: "Meeting notes" },
+    { id: "2", title: "Project ideas" },
+    { id: "3", title: "Todo list" },
+    { id: "4", title: "Weekly goals" },
+    { id: "5", title: "Reminders" },
+    { id: "6", title: "Important contacts" },
+    { id: "7", title: "Resources" }
+  ];
+
   return (
     <Card className="p-6 relative bg-green-100 mt-4">
-      <div className="flex-1">{/* Main content area */}</div>
+      <div className="flex-1">
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold mb-2">Quick Access Notes</h3>
+          <SmallNotes notes={mockNotes} />
+        </div>
+      </div>
 
       <div className="mt-8">
         <h3 className="text-lg font-semibold mb-2">Last Notes</h3>
