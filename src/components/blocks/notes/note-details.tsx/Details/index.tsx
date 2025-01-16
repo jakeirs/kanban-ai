@@ -2,6 +2,7 @@ import { User, DollarSign, FileText, Scale } from "lucide-react";
 import { TagWithIcon } from "./Tags";
 import { SummaryIcons } from "./SummaryIcons";
 import { Thread } from "./Thread";
+import { Timeline } from "./Timeline";
 
 interface DetailsProps {
   customer: string;
@@ -33,6 +34,7 @@ export function Details({
         <TagWithIcon icon={Scale} label={weight} variant="secondary" />
       </div>
       <SummaryIcons />
+      <Timeline />
     </div>
   );
 }

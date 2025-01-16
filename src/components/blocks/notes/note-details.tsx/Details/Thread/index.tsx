@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MessageCircle, ChevronRight } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 interface ThreadProps {
   color?: string;
@@ -12,7 +12,7 @@ export const Thread = ({ color = "#FFB5E8", className }: ThreadProps) => {
   return (
     <div className={cn("w-full rounded-3xl p-1 bg-secondary/20", className)}>
       <div
-        className="flex w-full items-center gap-4 rounded-2xl pl-10 pr-3 py-1"
+        className="flex w-full items-center gap-4 rounded-2xl px-10 py-1"
         style={{
           backgroundColor: color,
         }}
@@ -33,7 +33,6 @@ export const Thread = ({ color = "#FFB5E8", className }: ThreadProps) => {
             <span className="ml-1">tasks</span>
           </div>
         </div>
-        <ChevronRight className="w-6 h-6 ml-4 text-white/70" />
       </div>
     </div>
   );
