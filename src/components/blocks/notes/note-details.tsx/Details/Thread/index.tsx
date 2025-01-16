@@ -23,7 +23,14 @@ export const Thread = ({ color = "#FFB5E8", className }: ThreadProps) => {
         <div className="flex flex-col">
           <div className="text-xs text-gray-500 leading-[1]">Thread</div>
           <div className="text-3xl text-white font-semibold leading-[1]">
-            Details
+            <div>Details</div>
+          </div>
+        </div>
+        <div className="flex flex-col border-l-2 border-white/30 pl-4 ml-auto">
+          <div className="text-xs text-white/70">Total:</div>
+          <div className="text-white">
+            <span className="text-4xl  font-medium">2</span>
+            <span className="ml-1">tasks</span>
           </div>
         </div>
       </div>
