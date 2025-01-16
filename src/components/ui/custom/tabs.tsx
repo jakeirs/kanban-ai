@@ -1,24 +1,25 @@
 "use client";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Brain, Calendar, MessageCircle, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface ControlDrawerTabsProps {}
+interface Tab {
+  value: string;
+  icon: React.ElementType;
+}
 
-const tabs = [
-  { value: "planner", icon: Calendar },
-  { value: "search", icon: Search },
-  { value: "brain-dump", icon: Brain },
-  { value: "conversation", icon: MessageCircle },
-];
+interface ControlDrawerTabsProps {
+  tabs: Tab[];
+  defaultValue?: string;
+}
 
-export function ControlDrawerTabs({}: ControlDrawerTabsProps) {
+export function ControlDrawerTabs({
+  tabs,
+  defaultValue = tabs[0]?.value,
+}: ControlDrawerTabsProps) {
   return (
-    <Tabs defaultValue="planner" className="w-full">
-      <TabsList
-        className="w-full h-full rounded-full grid grid-cols-4 bg-black text-white backdrop-blur-sm"
-      >
+    <Tabs defaultValue={defaultValue} className="w-full">
+      <TabsList className="w-full h-full rounded-full grid grid-cols-4 bg-black text-white backdrop-blur-sm">
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}

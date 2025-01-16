@@ -3,6 +3,18 @@ import { exampleBodyNoteProps } from "./BodyNote/props";
 import { Details } from "./Details";
 import { detailsProps } from "./Details/props";
 import { Header } from "./Header";
+import { Eye, TestTube } from "lucide-react";
+
+const tabs = [
+  {
+    value: "view",
+    icon: Eye,
+  },
+  {
+    value: "labs",
+    icon: TestTube,
+  },
+];
 
 const headerProps = {
   title: "This is my note",

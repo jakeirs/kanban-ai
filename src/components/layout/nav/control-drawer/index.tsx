@@ -10,7 +10,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { ControlDrawerTabs } from "./Tabs";
+import { ControlDrawerTabs } from "@/components/ui/custom/tabs";
+import { tabs } from "./props";
 
 interface VoiceDrawerProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
         <SheetContent side="bottom" className="h-[70%] rounded-t-3xl">
           <SheetHeader className="space-y-4">
             {/* Context Selector */}
-            <ControlDrawerTabs />
+            <ControlDrawerTabs tabs={tabs} />
             <div className="flex justify-between items-center">
               <SheetTitle className="text-3xl">How can I help you?</SheetTitle>
             </div>

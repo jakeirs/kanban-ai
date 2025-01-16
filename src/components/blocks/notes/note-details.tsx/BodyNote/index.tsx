@@ -3,7 +3,6 @@
 import { Markdown } from "@/components/blocks/kanban/KanbanContent/Markdown";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
 
 interface BodyNoteProps {
   description: string;
