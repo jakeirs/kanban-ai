@@ -1,3 +1,5 @@
+import { BodyNote } from "./BodyNote";
+import { exampleBodyNoteProps } from "./BodyNote/props";
 import { Details } from "./Details";
 import { detailsProps } from "./Details/props";
 import { Header } from "./Header";
@@ -12,5 +14,6 @@ export const NotesDetails = () => (
   <div>
     <Header {...headerProps} />
     <Details {...detailsProps} />
+    <BodyNote {...exampleBodyNoteProps} />
   </div>
 );

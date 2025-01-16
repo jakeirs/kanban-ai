@@ -4,8 +4,8 @@ import { Clock, Sun, Sunset, Moon, Sunrise } from "lucide-react";
 import { format, getHours } from "date-fns";
 
 interface TimelineProps {
-  issuedDate?: number;
-  issuedOn?: number;
+  issuedDate: number;
+  issuedOn: number;
 }
 
 const getTimeOfDayIcon = (date: Date) => {
