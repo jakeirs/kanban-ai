@@ -21,7 +21,7 @@ export function Top({
   contributions = 0,
 }: TopProps) {
   return (
-    <Card className="rounded-t-none rounded-bl-full  p-4 bg-yellow-300">
+    <Card className="rounded-t-none rounded-bl-full  p-4 pb-10 bg-yellow-300">
       <h1 className="text-5xl font-bold mt-4 mb-4 text-black font-semibold tracking-tighter ">
         Project: Work
       </h1>
@@ -33,15 +33,15 @@ export function Top({
             </div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="pl-2 flex flex-col relative top-12">
           <div className="flex gap-2">
             {/* <HoursBadge icon={Activity}> Last Active 3 days ago</HoursBadge> */}
-            <HoursBadge icon={Sprout} invert={false}>
+            <HoursBadge icon={Sprout} invert={true}>
               Building Momentum
             </HoursBadge>
           </div>
 
-          <div className="bg-black/5 rounded-lg p-2 mt-6 mx-2 mb-4">
+          <div className="bg-black/5 rounded-lg p-2 mt-3 mx-2 mb-4">
             <p className="text-sm text-black/80">
               You've been active here lately!
             </p>

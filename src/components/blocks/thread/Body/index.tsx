@@ -8,7 +8,7 @@ import { Notes } from "./Notes";
 export default function Body() {
   return (
     <div className="p-4">
-      <h2 className="text-5xl font-semibold mb-4">Thread: Work</h2>
+      <h2 className="text-3xl font-semibold mb-4">Details</h2>
       <div className="grid grid-cols-3 gap-4">
         <UpcomingTasks />
 
