@@ -1,6 +1,9 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
-import { UserCircle2 } from "lucide-react";
+import { Clock, UserCircle2, Activity, Sprout } from "lucide-react";
+import { HoursBadge } from "./Tags";
 
 interface TopProps {
   username?: string;
@@ -18,31 +21,33 @@ export function Top({
   contributions = 0,
 }: TopProps) {
   return (
-    <Card className="rounded-t-none rounded-b-lg p-4 bg-black">
+    <Card className="rounded-t-none rounded-bl-full  p-4 bg-yellow-300">
+      <h1 className="text-5xl font-bold mt-4 mb-4 text-black font-semibold tracking-tighter ">
+        Project: Work
+      </h1>
       <div className="flex gap-4">
         <div className="relative flex-shrink-0">
-          <div className="h-24 w-24 rounded-full bg-red-200 flex items-center justify-center">
-            <div className="border-4 border-white rounded-full p-1 w-full h-full flex items-center justify-center">
-              <UserCircle2 className="w-16 h-16 text-red-500" />
+          <div className="h-32 w-32 rounded-full bg-yellow-100 flex items-center justify-center">
+            <div className="border-8 border-white rounded-full p-1 w-full h-full flex items-center justify-center">
+              <UserCircle2 className="w-20 h-20 text-yellow-900" />
             </div>
           </div>
         </div>
-
-        <div className="flex-1 space-y-4">
-          <div className="space-y-1">
-            <h2 className="text-xl font-semibold leading-tight">{username}</h2>
-            <p className="text-sm text-muted-foreground">{handle}</p>
-            <p className="text-sm text-muted-foreground">{description}</p>
+        <div className="flex flex-col">
+          <div className="flex gap-2">
+            {/* <HoursBadge icon={Activity}> Last Active 3 days ago</HoursBadge> */}
+            <HoursBadge icon={Sprout} invert={false}>
+              Building Momentum
+            </HoursBadge>
           </div>
 
-          <div className="flex gap-4">
-            <div className="space-y-0.5">
-              <p className="text-sm font-medium">{posts}</p>
-              <p className="text-xs text-muted-foreground">Post</p>
-            </div>
-            <div className="space-y-0.5">
-              <p className="text-sm font-medium">{contributions}</p>
-              <p className="text-xs text-muted-foreground">Contributions</p>
+          <div className="bg-black/5 rounded-lg p-2 mt-6 mx-2 mb-4">
+            <p className="text-sm text-black/80">
+              You've been active here lately!
+            </p>
+            <div className="flex items-center gap-1 mt-1">
+              <Clock className="w-3 h-3 text-black/50" />
+              <span className="text-xs text-black/50">1 day ago</span>
             </div>
           </div>
         </div>
