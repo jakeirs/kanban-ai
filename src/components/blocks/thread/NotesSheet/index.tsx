@@ -1,158 +1,15 @@
 "use client";
 
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import {
-  Activity,
-  Calendar,
-  FileQuestion,
-  MessageSquare,
-  ScrollText,
-  Stethoscope,
-  User2,
-} from "lucide-react";
+import { NoteTile } from "./NoteTile";
+import { noteTile } from "./props";
 
-interface MenuSheetProps {
+interface NoteSheetProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface MenuItem {
-  icon: React.ReactNode;
-  label: string;
-}
-
-const menuItems: MenuItem[] = [
-  {
-    icon: <User2 className="w-5 h-5" />,
-    label: "View profile",
-  },
-  {
-    icon: <Stethoscope className="w-5 h-5" />,
-    label: "Track disease",
-  },
-  {
-    icon: <Activity className="w-5 h-5" />,
-    label: "Go doctors",
-  },
-  {
-    icon: <Calendar className="w-5 h-5" />,
-    label: "Appointment",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Learning",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Quiz",
-  },
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    label: "Messages",
-  },
-  {
-    icon: <FileQuestion className="w-5 h-5" />,
-    label: "FAQ",
-  },
-  {
-    icon: <User2 className="w-5 h-5" />,
-    label: "View profile",
-  },
-  {
-    icon: <Stethoscope className="w-5 h-5" />,
-    label: "Track disease",
-  },
-  {
-    icon: <Activity className="w-5 h-5" />,
-    label: "Go doctors",
-  },
-  {
-    icon: <Calendar className="w-5 h-5" />,
-    label: "Appointment",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Learning",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Quiz",
-  },
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    label: "Messages",
-  },
-  {
-    icon: <FileQuestion className="w-5 h-5" />,
-    label: "FAQ",
-  },
-  {
-    icon: <User2 className="w-5 h-5" />,
-    label: "View profile",
-  },
-  {
-    icon: <Stethoscope className="w-5 h-5" />,
-    label: "Track disease",
-  },
-  {
-    icon: <Activity className="w-5 h-5" />,
-    label: "Go doctors",
-  },
-  {
-    icon: <Calendar className="w-5 h-5" />,
-    label: "Appointment",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Learning",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Quiz",
-  },
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    label: "Messages",
-  },
-  {
-    icon: <FileQuestion className="w-5 h-5" />,
-    label: "FAQ",
-  },
-  {
-    icon: <User2 className="w-5 h-5" />,
-    label: "View profile",
-  },
-  {
-    icon: <Stethoscope className="w-5 h-5" />,
-    label: "Track disease",
-  },
-  {
-    icon: <Activity className="w-5 h-5" />,
-    label: "Go doctors",
-  },
-  {
-    icon: <Calendar className="w-5 h-5" />,
-    label: "Appointment",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Learning",
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Quiz",
-  },
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    label: "Messages",
-  },
-  {
-    icon: <FileQuestion className="w-5 h-5" />,
-    label: "FAQ",
-  },
-];
-
-export function NotesSheet({ isOpen, onClose }: MenuSheetProps) {
+export function NotesSheet({ isOpen, onClose }: NoteSheetProps) {
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="right" className="w-[280px] p-0 overflow-auto">
@@ -171,16 +28,15 @@ export function NotesSheet({ isOpen, onClose }: MenuSheetProps) {
             </p>
           </div>
 
-          <div className="flex flex-col">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors"
-                onClick={onClose}
-              >
-                {item.icon}
-                <span className="text-sm">{item.label}</span>
-              </button>
+          <div className="grid grid-cols-2 gap-2 px-2 pr-4">
+            {noteTile.map((item) => (
+              <NoteTile
+                key={item.id}
+                title={item.label}
+                icon={item.icon}
+                description={item.description}
+                onClick={() => {}}
+              />
             ))}
           </div>
         </div>

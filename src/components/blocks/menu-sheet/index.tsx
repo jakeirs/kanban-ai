@@ -1,60 +1,54 @@
-"use client"
+"use client";
 
-import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { 
-  Activity, 
-  Calendar, 
-  FileQuestion, 
-  MessageSquare, 
-  ScrollText, 
-  Stethoscope, 
-  User2 
-} from "lucide-react"
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import {
+  Activity,
+  Calendar,
+  FileQuestion,
+  MessageSquare,
+  ScrollText,
+  Stethoscope,
+  User2,
+} from "lucide-react";
 
 interface MenuSheetProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-interface MenuItem {
-  icon: React.ReactNode
-  label: string
+interface NoteTile {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  subtext: string;
 }
 
-const menuItems: MenuItem[] = [
+const noteTiles: NoteTile[] = [
   {
-    icon: <User2 className="w-5 h-5" />,
-    label: "View profile"
+    icon: <ScrollText className="w-6 h-6 text-blue-500" />,
+    title: "Daily Notes",
+    description: "Track your daily thoughts and ideas",
+    subtext: "Last updated 2 hours ago",
   },
   {
-    icon: <Stethoscope className="w-5 h-5" />,
-    label: "Track disease"
+    icon: <Activity className="w-6 h-6 text-green-500" />,
+    title: "Project Tasks",
+    description: "Manage your ongoing projects",
+    subtext: "5 tasks pending",
   },
   {
-    icon: <Activity className="w-5 h-5" />,
-    label: "Go doctors"
+    icon: <MessageSquare className="w-6 h-6 text-purple-500" />,
+    title: "Meeting Notes",
+    description: "Keep track of important discussions",
+    subtext: "Next meeting in 3 days",
   },
   {
-    icon: <Calendar className="w-5 h-5" />,
-    label: "Appointment"
+    icon: <Calendar className="w-6 h-6 text-orange-500" />,
+    title: "Schedule",
+    description: "Plan your upcoming activities",
+    subtext: "2 events today",
   },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Learning"
-  },
-  {
-    icon: <ScrollText className="w-5 h-5" />,
-    label: "Quiz"
-  },
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    label: "Messages"
-  },
-  {
-    icon: <FileQuestion className="w-5 h-5" />,
-    label: "FAQ"
-  }
-]
+];
 
 export function MenuSheet({ isOpen, onClose }: MenuSheetProps) {
   return (
@@ -63,30 +57,25 @@ export function MenuSheet({ isOpen, onClose }: MenuSheetProps) {
         <div className="flex flex-col py-4">
           <div className="px-4 mb-4">
             <div className="w-16 h-16 rounded-full overflow-hidden mx-auto mb-2">
-              <img 
-                src="https://placekitten.com/100/100" 
-                alt="Profile" 
+              <img
+                src="https://placekitten.com/100/100"
+                alt="Profile"
                 className="w-full h-full object-cover"
               />
             </div>
             <h2 className="text-center text-lg font-medium">Bradon Lee</h2>
-            <p className="text-center text-sm text-muted-foreground">View profile</p>
+            <p className="text-center text-sm text-muted-foreground">
+              View profile
+            </p>
           </div>
 
-          <div className="flex flex-col">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-accent transition-colors"
-                onClick={onClose}
-              >
-                {item.icon}
-                <span className="text-sm">{item.label}</span>
-              </button>
+          <div className="flex flex-col gap-3 px-4">
+            {noteTiles.map((tile, index) => (
+              <div></div>
             ))}
           </div>
         </div>
       </SheetContent>
     </Sheet>
-  )
+  );
 }
