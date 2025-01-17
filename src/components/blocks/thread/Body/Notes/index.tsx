@@ -11,7 +11,7 @@ export const Notes = () => {
     { id: "4", title: "Weekly goals" },
     { id: "5", title: "Reminders" },
     { id: "6", title: "Important contacts" },
-    { id: "7", title: "Resources" }
+    { id: "7", title: "Resources" },
   ];
 
   return (

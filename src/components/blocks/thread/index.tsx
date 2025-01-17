@@ -1,8 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import Body from "./Body";
 import { SharedContext } from "./Mid/SharedContext";
 import { Top } from "./Top";
+import { NotesSheet } from "./NotesSheet";
 
 export const Thread = () => {
+  const [isNotesSheetOpen, setIsNotesSheetOpen] = useState(false);
+
+  const onNotesClick = () => {
+    setIsNotesSheetOpen((prev) => !prev);
+  };
+
+  const onNotesClose = () => {
+    setIsNotesSheetOpen((prev) => false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Top
@@ -12,8 +26,9 @@ export const Thread = () => {
         posts={78}
         contributions={2323}
       />
-      <Body />
+      <Body onClick={onNotesClick} isNotesSheetOpen={isNotesSheetOpen} />
       <SharedContext />
+      <NotesSheet isOpen={isNotesSheetOpen} onClose={onNotesClose} />
     </div>
   );
 };
