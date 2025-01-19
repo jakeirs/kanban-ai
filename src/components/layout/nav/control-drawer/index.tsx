@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { MicrophoneButton } from "../MicrophoneButton";
-import { Mic, Keyboard } from "lucide-react";
+import { Mic, Keyboard, Wand2, MessageSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -77,6 +77,20 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
                   placeholder="Type your message here..."
                 />
               )}
+            </div>
+            <div className="flex justify-between px-2">
+              <Button variant="ghost" size="sm">
+                <Wand2 className="h-4 w-4 mr-2" />
+                Process
+              </Button>
+              <Button variant="ghost" size="sm">
+                <MessageSquare className="h-4 w-4 mr-2" />
+                Clarify
+              </Button>
+              <Button variant="ghost" size="sm">
+                <Sparkles className="h-4 w-4 mr-2" />
+                Enhance
+              </Button>
             </div>
           </div>
         </SheetContent>
