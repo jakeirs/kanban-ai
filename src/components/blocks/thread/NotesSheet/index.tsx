@@ -37,7 +37,35 @@ export function NotesSheet({ isOpen, onClose }: NoteSheetProps) {
               <span className="text-white">Create a Note</span>
             </Button>
           </div>
-
+          <p className="p-2 text-lg text-muted-foreground">Latest</p>
+          <div className="grid grid-cols-2 gap-2 px-2 pr-4">
+            {noteTile.map((item) => (
+              <NoteTile
+                key={item.id}
+                title={item.label}
+                icon={item.icon}
+                description={item.description}
+                onClick={() => {}}
+                iconColor={item.iconColor}
+              />
+            ))}
+          </div>
+          <p className="p-2 mt-10 text-lg text-muted-foreground">
+            More than 15 days ago
+          </p>
+          <div className="grid grid-cols-2 gap-2 px-2 pr-4">
+            {noteTile.map((item) => (
+              <NoteTile
+                key={item.id}
+                title={item.label}
+                icon={item.icon}
+                description={item.description}
+                onClick={() => {}}
+                iconColor={item.iconColor}
+              />
+            ))}
+          </div>
+          <p className="p-2 mt-10 text-lg text-muted-foreground">Archived</p>
           <div className="grid grid-cols-2 gap-2 px-2 pr-4">
             {noteTile.map((item) => (
               <NoteTile
