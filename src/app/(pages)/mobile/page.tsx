@@ -1,3 +1,9 @@
+import { Init } from "@/components/blocks/init";
+
 export default function MobilePage() {
-  return <section className="">MobilePage</section>;
+  return (
+    <section className="">
+      Do some inits <Init />
+    </section>
+  );
 }

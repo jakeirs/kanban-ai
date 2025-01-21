@@ -6,7 +6,7 @@ import { SharedContext } from "./Mid/SharedContext";
 import { Top } from "./Top";
 import { NotesSheet } from "./NotesSheet";
 
-export const Thread = () => {
+export const Project = () => {
   const [isNotesSheetOpen, setIsNotesSheetOpen] = useState(false);
 
   const onNotesClick = () => {

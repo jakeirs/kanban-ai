@@ -1,5 +1,5 @@
-import { Thread } from "@/components/blocks/project";
+import { Project } from "@/components/blocks/project";
 
 export default function Page() {
-  return <Thread />;
+  return <Project />;
 }

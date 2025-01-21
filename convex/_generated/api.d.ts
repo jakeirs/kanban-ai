@@ -31,9 +31,7 @@ import type * as tables_kanbanDescription_queries_getCurrentUserKanbanDescriptio
 import type * as tables_kanbanDescription_table from "../tables/kanbanDescription/table.js";
 import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
 import type * as tables_projects_defaultValues from "../tables/projects/defaultValues.js";
-import type * as tables_projects_logic_initKanbanBoardLogic from "../tables/projects/logic/initKanbanBoardLogic.js";
-import type * as tables_projects_logic_visitKanbanPageLogic from "../tables/projects/logic/visitKanbanPageLogic.js";
-import type * as tables_projects_queries_getCurrentUserKanbanDescriptionForTask from "../tables/projects/queries/getCurrentUserKanbanDescriptionForTask.js";
+import type * as tables_projects_logic_initProjects from "../tables/projects/logic/initProjects.js";
 import type * as tables_projects_table from "../tables/projects/table.js";
 import type * as tables_projects_types from "../tables/projects/types.js";
 import type * as tables_userKanbanBoard_mutations_patchKanbanBoardsRelation from "../tables/userKanbanBoard/mutations/patchKanbanBoardsRelation.js";
@@ -68,9 +66,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanbanDescription/table": typeof tables_kanbanDescription_table;
   "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
   "tables/projects/defaultValues": typeof tables_projects_defaultValues;
-  "tables/projects/logic/initKanbanBoardLogic": typeof tables_projects_logic_initKanbanBoardLogic;
-  "tables/projects/logic/visitKanbanPageLogic": typeof tables_projects_logic_visitKanbanPageLogic;
-  "tables/projects/queries/getCurrentUserKanbanDescriptionForTask": typeof tables_projects_queries_getCurrentUserKanbanDescriptionForTask;
+  "tables/projects/logic/initProjects": typeof tables_projects_logic_initProjects;
   "tables/projects/table": typeof tables_projects_table;
   "tables/projects/types": typeof tables_projects_types;
   "tables/userKanbanBoard/mutations/patchKanbanBoardsRelation": typeof tables_userKanbanBoard_mutations_patchKanbanBoardsRelation;
