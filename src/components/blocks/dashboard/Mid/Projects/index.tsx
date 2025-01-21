@@ -3,14 +3,14 @@
 import React from "react"
 import { ChevronRight } from "lucide-react"
 
-interface ActiveSessionProps {
+interface ProjectTileProps {
   title: string
   duration: string
   icon: React.ReactNode
   onClick?: () => void
 }
 
-export const ActiveSessionItem: React.FC<ActiveSessionProps> = ({
+export const ProjectTile: React.FC<ProjectTileProps> = ({
   title,
   duration,
   icon,
