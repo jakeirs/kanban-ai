@@ -4,7 +4,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { NoteTile } from "./NoteTile";
-import { noteTile } from "./props";
+import { noteTilesExamples } from "./props";
 
 interface NoteSheetProps {
   isOpen: boolean;
@@ -39,7 +39,7 @@ export function NotesSheet({ isOpen, onClose }: NoteSheetProps) {
           </div>
           <p className="p-2 text-lg text-muted-foreground">Latest</p>
           <div className="grid grid-cols-2 gap-2 px-2 pr-4">
-            {noteTile.map((item) => (
+            {noteTilesExamples.map((item) => (
               <NoteTile
                 key={item.id}
                 title={item.label}
@@ -54,7 +54,7 @@ export function NotesSheet({ isOpen, onClose }: NoteSheetProps) {
             More than 15 days ago
           </p>
           <div className="grid grid-cols-2 gap-2 px-2 pr-4">
-            {noteTile.map((item) => (
+            {noteTilesExamples.map((item) => (
               <NoteTile
                 key={item.id}
                 title={item.label}
@@ -67,7 +67,7 @@ export function NotesSheet({ isOpen, onClose }: NoteSheetProps) {
           </div>
           <p className="p-2 mt-10 text-lg text-muted-foreground">Archived</p>
           <div className="grid grid-cols-2 gap-2 px-2 pr-4">
-            {noteTile.map((item) => (
+            {noteTilesExamples.map((item) => (
               <NoteTile
                 key={item.id}
                 title={item.label}

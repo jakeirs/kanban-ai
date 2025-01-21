@@ -17,7 +17,7 @@ interface NoteTile {
   iconColor?: string;
 }
 
-export const noteTile: NoteTile[] = [
+export const noteTilesExamples: NoteTile[] = [
   {
     id: "go-doctors",
     icon: Activity,
