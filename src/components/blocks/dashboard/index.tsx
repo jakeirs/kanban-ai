@@ -63,7 +63,7 @@ const ActiveSessions: React.FC<{
     <CardContent className="p-0">
       {sessions.map((session, index) => (
         <React.Fragment key={index}>
-          <Link href="/mobile/thread">
+          <Link href="/mobile/project">
             <ActiveSessionItem
               title={session.title}
               duration={session.duration}

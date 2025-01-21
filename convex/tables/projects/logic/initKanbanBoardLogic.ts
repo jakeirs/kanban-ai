@@ -1,10 +1,10 @@
 // user enters page
 
 import { v } from "convex/values";
-import { internalMutation,  } from "../../../_generated/server";
-import {  } from "../defaultValues";
+import { internalMutation } from "../../../_generated/server";
+import { defaultProjects } from "../defaultValues";
 
-const initProjectLogic = internalMutation({
+const initProjectsLogic = internalMutation({
   args: {
     userId: v.id("users"),
   },
@@ -15,30 +15,13 @@ const initProjectLogic = internalMutation({
       throw new Error("User not found");
     }
 
-    const defaultColumns = defaultKanbanColumns;
-
-    const kanbanBoardId = await ctx.db.insert("kanbanBoards", {
-      name: "My first Kanban",
-      ownerUserId: args.userId,
-      isPrivate: true,
-      columns: defaultColumns,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    });
-
-    await ctx.db.insert("userKanbanBoards", {
+    const projectsId = await ctx.db.insert("projects", {
       userId: args.userId,
-      ownerOfKanbaBoards: [kanbanBoardId],
-      accessToOtherKanbanBoards: [],
+      projects: defaultProjects,
     });
 
-    await ctx.db.insert("userSettings", {
-      userId: args.userId,
-      currentKanbanBoard: kanbanBoardId,
-    });
-
-    return kanbanBoardId;
+    return projectsId;
   },
 });
 
-export default initKanbanBoardLogic;
+export default initProjectsLogic;

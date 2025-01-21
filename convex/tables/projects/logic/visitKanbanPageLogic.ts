@@ -5,13 +5,16 @@ const visitKanbanPageLogic = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("User not found");
+    }
 
-    const kanbanBoard = await ctx.db
-      .query("kanbanBoards")
-      .filter((q) => q.eq(q.field("ownerUserId"), userId))
+    const projects = await ctx.db
+      .query("projects")
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
       .first();
 
-    return kanbanBoard;
+    return projects;
   },
 });
 

@@ -15,7 +15,7 @@ export default defineSchema({
     "kanbanBoardId",
     "taskId",
   ]),
-  projectsTable: projectsTable.table.index("by_userId", ["userId"]),
+  projects: projectsTable.table.index("by_userId", ["userId"]),
 
   // itemDescriptions: defineTable({
   //   itemId: v.string(),
