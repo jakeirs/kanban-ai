@@ -163,5 +163,6 @@ export const projectDetailsValidator = v.object({
 
 // Use the projectValidator from table.ts
 export type Project = Infer<typeof ProjectValidator>;
+export type ProjectDetail = Infer<typeof projectDetailsValidator>;
 export type Event = Infer<typeof eventValidator>;
 export type Note = Infer<typeof noteValidator>;

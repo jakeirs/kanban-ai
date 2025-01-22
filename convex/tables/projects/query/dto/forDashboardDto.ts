@@ -1,12 +1,13 @@
-import { Project, Event, Note } from "../../types";
-import { startOfDay, endOfDay, compareDesc } from "date-fns";
+import { Project, Event, Note, type ProjectDetail } from "../../types"
+import { compareDesc } from "date-fns"
+import { getEventsForDashboard } from "./utilts/events"
 
 /**
  * Data transfer object for the dashboard view containing
  * limited number of recent projects, today's events, and latest notes
  */
 export interface DashboardDto {
-  projects: Project[];
+  projects: ProjectDetail[];
   events: Event[];
   notes: Note[];
 }
@@ -16,7 +17,7 @@ export interface DashboardDto {
  * @param projects - Array of projects or undefined
  * @returns {DashboardDto} Object containing:
  * - 2 most recent projects
- * - 4 events scheduled for today
+ * - 4 events (today's events if available, otherwise upcoming events)
  * - 3 most recently created notes
  */
 export function forDashboardDto(projects: Project[] | undefined): DashboardDto {
@@ -28,23 +29,13 @@ export function forDashboardDto(projects: Project[] | undefined): DashboardDto {
     };
   }
 
-  const todayStart = startOfDay(new Date()).getTime();
-  const todayEnd = endOfDay(new Date()).getTime();
-
   // Get only 2 most recent projects
-  const recentProjects = [...projects]
+  const recentProjects = [...projects.map((project) => project.projectDetail)]
     .sort((a, b) => compareDesc(a.updatedAt || 0, b.updatedAt || 0))
-    .slice(0, 2);
+    .slice(0, 2)
 
-  // Get today's events from all projects (max 4)
-  const todayEvents = projects
-    .flatMap((project) => project.events || [])
-    .filter((event) => {
-      const eventStartTime = event.time.startTime;
-      return eventStartTime >= todayStart && eventStartTime <= todayEnd;
-    })
-    .sort((a, b) => a.time.startTime - b.time.startTime)
-    .slice(0, 4);
+  // Get today's events or upcoming events if no today's events
+  const events = getEventsForDashboard(projects)
 
   // Get latest notes from all projects (max 3)
   const latestNotes = projects
@@ -54,7 +45,7 @@ export function forDashboardDto(projects: Project[] | undefined): DashboardDto {
 
   return {
     projects: recentProjects,
-    events: todayEvents,
+    events,
     notes: latestNotes,
   };
 }
