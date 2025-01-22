@@ -1,6 +1,6 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { query } from "../../../_generated/server";
-import { forDashboardDto } from "./dto/forDashboardDto";
+import { forDashboardDto } from "./_dto/forDashboardDto";
 
 const getForDashboard = query({
   handler: async (ctx) => {

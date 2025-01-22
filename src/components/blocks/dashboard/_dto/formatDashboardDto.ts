@@ -1,9 +1,9 @@
 import { format } from "date-fns";
-import { DashboardDto } from "@/convex/tables/projects/query/dto/forDashboardDto";
+import { DashboardDto } from "@/convex/tables/projects/query/_dto/forDashboardDto";
 import { Event, Note, ProjectDetail } from "@/convex/tables/projects/types";
 
 // Interface for formatted dates version of ProjectDetail
-interface FormattedProjectDetail
+export interface FormattedProjectDetail
   extends Omit<ProjectDetail, "createdAt" | "updatedAt" | "timeConstraints"> {
   createdAt: string;
   updatedAt: string;
@@ -14,7 +14,7 @@ interface FormattedProjectDetail
 }
 
 // Interface for formatted dates version of Event
-interface FormattedEvent
+export interface FormattedEvent
   extends Omit<Event, "createdAt" | "updatedAt" | "time"> {
   createdAt?: string;
   updatedAt?: string;
@@ -27,7 +27,7 @@ interface FormattedEvent
 }
 
 // Interface for formatted dates version of Note
-interface FormattedNote
+export interface FormattedNote
   extends Omit<Note, "createdAt" | "updatedAt" | "lastVisited"> {
   createdAt?: string;
   updatedAt?: string;
@@ -35,7 +35,7 @@ interface FormattedNote
 }
 
 // Interface for formatted dates version of DashboardDto
-interface FormattedDashboardDto {
+export interface FormattedDashboardDto {
   projects: FormattedProjectDetail[];
   events: FormattedEvent[];
   notes: FormattedNote[];

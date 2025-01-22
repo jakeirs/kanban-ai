@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import React from "react"
-import Schedule, { ScheduleItemProps } from "./Schedule"
-import Notes from "./Notes"
+import React from "react";
+import Schedule from "./Schedule";
+import Notes from "./Notes";
+import type { FormattedEvent, FormattedNote } from "../_dto/formatDashboardDto";
 
-export interface BottomProps {
-  scheduleItems: ScheduleItemProps[]
-}
-
-const Bottom: React.FC<BottomProps> = ({ scheduleItems }) => {
+const Bottom: React.FC<{
+  events: FormattedEvent[];
+  notes: FormattedNote[];
+}> = ({ events, notes }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-1">
-        <Schedule items={scheduleItems} />
+        <Schedule events={events} />
       </div>
       <div className="col-span-1">
-        <Notes />
+        <Notes notes={notes} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Bottom
+export default Bottom;

@@ -1,48 +1,39 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { ListTodo, Loader } from "lucide-react"
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import type { FormattedNote } from "../../_dto/formatDashboardDto";
 
-interface QuickAccessCardProps {
-  title: string
-  icon: React.ReactNode
-  bgColor: string
-  onClick?: () => void
-}
-
-const QuickAccessCard: React.FC<QuickAccessCardProps> = ({ title, icon, bgColor, onClick }) => (
+const QuickAccessCard: React.FC<FormattedNote> = ({
+  title,
+  icon,
+  color,
+  shortDescription,
+}) => (
   <Card
-    className={`${bgColor} cursor-pointer hover:opacity-90 transition-opacity overflow-hidden`}
-    onClick={onClick}
+    className={`${color} cursor-pointer hover:opacity-90 transition-opacity overflow-hidden`}
   >
     <CardContent className="p-4 flex items-center gap-2 relative">
       {icon}
       <span className="font-medium">{title}</span>
+      <span className="text-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">
+        {shortDescription}
+      </span>
       <div className="absolute right-4 bottom-2 opacity-10 transform scale-[2.5] rotate-12">
         {icon}
       </div>
     </CardContent>
   </Card>
-)
+);
 
-const Notes: React.FC = () => {
+const Notes: React.FC<{ notes: FormattedNote[] }> = ({ notes }) => {
   return (
     <div className="space-y-4">
-      <QuickAccessCard
-        title="To Do list"
-        icon={<ListTodo className="w-5 h-5" />}
-        bgColor="bg-purple-100"
-        onClick={() => console.log("Navigate to Todo list")}
-      />
-      <QuickAccessCard
-        title="In progress"
-        icon={<Loader className="w-5 h-5" />}
-        bgColor="bg-blue-100"
-        onClick={() => console.log("Navigate to In Progress")}
-      />
+      {notes.map((note) => (
+        <QuickAccessCard {...note} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Notes
+export default Notes;

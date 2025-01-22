@@ -1,37 +1,25 @@
-"use client"
+"use client";
 
-import React from "react"
-import Top from "./Top"
-import Mid from "./Mid"
-import Bottom from "./Bottom"
+import React from "react";
+import Top from "./Top";
+import Mid from "./Mid";
+import Bottom from "./Bottom";
+import type { FormattedDashboardDto } from "./_dto/formatDashboardDto";
 
-interface DashboardProps {
-  name: string
-  activeSessions: {
-    title: string
-    duration: string
-    type: "video" | "info"
-  }[]
-  scheduleItems: {
-    time: string
-    title: string
-  }[]
-}
-
-const Dashboard: React.FC<DashboardProps> = ({
-  name,
-  activeSessions,
-  scheduleItems,
+const Dashboard: React.FC<FormattedDashboardDto> = ({
+  events,
+  notes,
+  projects,
 }) => {
   return (
     <div className="p-6 max-w-md mx-auto">
-      <Top name={name} />
+      <Top name={"Hi Marcin!"} />
       <div className="space-y-6">
-        <Mid activeSessions={activeSessions} />
-        <Bottom scheduleItems={scheduleItems} />
+        <Mid projects={projects} />
+        <Bottom events={events} notes={notes} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

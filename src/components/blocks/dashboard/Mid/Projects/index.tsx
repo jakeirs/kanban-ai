@@ -1,36 +1,44 @@
-"use client"
+"use client";
 
-import React from "react"
-import { ChevronRight } from "lucide-react"
+import React from "react";
+import { ChevronRight } from "lucide-react";
+import type { FormattedProjectDetail } from "../../_dto/formatDashboardDto";
+import { cn } from "@/lib/utils";
 
-interface ProjectTileProps {
-  title: string
-  duration: string
-  icon: React.ReactNode
-  onClick?: () => void
-}
-
-export const ProjectTile: React.FC<ProjectTileProps> = ({
+export const ProjectTile: React.FC<FormattedProjectDetail> = ({
   title,
-  duration,
-  icon,
-  onClick,
-}) => (
-  <div
-    className="cursor-pointer hover:rounded-3xl rounded-3xl hover:bg-gray-900 transition-colors"
-    onClick={onClick}
-  >
-    <div className="flex items-center justify-between p-4">
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
-          {icon}
+  indetifiers,
+  id,
+  status,
+  timeConstraints,
+}) => {
+  const { colorBg, colorIcon, icon } = indetifiers;
+
+  return (
+    <div
+      className={cn(
+        "cursor-pointer hover:rounded-3xl rounded-3xl hover:bg-gray-900 transition-colors"
+      )}
+      style={{ backgroundColor: colorBg }}
+    >
+      <div className="flex items-center justify-between p-4">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
+            {icon}
+          </div>
+          <div>
+            <h3 className="font-medium text-black ">{title}</h3>
+            {timeConstraints?.endDate && (
+              <p className="text-sm text-gray-400">
+                Ends: to {timeConstraints?.endDate}
+              </p>
+            )}
+
+            <p className="text-sm text-zinc-800">{status}</p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-medium">{title}</h3>
-          <p className="text-sm text-gray-400">Starting: since {duration}</p>
-        </div>
+        <ChevronRight className="w-5 h-5 text-gray-400" />
       </div>
-      <ChevronRight className="w-5 h-5 text-gray-400" />
     </div>
-  </div>
-)
+  );
+};
