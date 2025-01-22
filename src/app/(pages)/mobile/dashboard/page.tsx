@@ -10,6 +10,11 @@ export default function Page() {
     api.tables.projects.query.getForDashboard.default
   );
 
+  console.log("dashboardDatas", dashboardDatas);
+
+  // show events for today
+  // if not events for today -> show upcoming
+
   return (
     <Dashboard
       name={dashboardData.name}

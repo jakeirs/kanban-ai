@@ -32,6 +32,7 @@ import type * as tables_kanbanDescription_table from "../tables/kanbanDescriptio
 import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
 import type * as tables_projects_defaultValues from "../tables/projects/defaultValues.js";
 import type * as tables_projects_logic_initProjects from "../tables/projects/logic/initProjects.js";
+import type * as tables_projects_query_dto_forDashboardDto from "../tables/projects/query/dto/forDashboardDto.js";
 import type * as tables_projects_query_getForDashboard from "../tables/projects/query/getForDashboard.js";
 import type * as tables_projects_table from "../tables/projects/table.js";
 import type * as tables_projects_types from "../tables/projects/types.js";
@@ -68,6 +69,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
   "tables/projects/defaultValues": typeof tables_projects_defaultValues;
   "tables/projects/logic/initProjects": typeof tables_projects_logic_initProjects;
+  "tables/projects/query/dto/forDashboardDto": typeof tables_projects_query_dto_forDashboardDto;
   "tables/projects/query/getForDashboard": typeof tables_projects_query_getForDashboard;
   "tables/projects/table": typeof tables_projects_table;
   "tables/projects/types": typeof tables_projects_types;

@@ -1,6 +1,6 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { query } from "../../../_generated/server";
-import { Id } from "../../../_generated/dataModel";
+import { forDashboardDto } from "./dto/forDashboardDto";
 
 const getForDashboard = query({
   handler: async (ctx) => {
@@ -14,11 +14,9 @@ const getForDashboard = query({
       .filter((q) => q.eq(q.field("userId"), userId))
       .first();
 
-    const projects = projectsDoc?.projects;
+    const data = forDashboardDto(projectsDoc?.projects);
 
-    return {
-      projects,
-    };
+    return data;
   },
 });
 
