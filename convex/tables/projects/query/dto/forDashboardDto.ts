@@ -43,6 +43,8 @@ export function forDashboardDto(projects: Project[] | undefined): DashboardDto {
     .sort((a, b) => compareDesc(a.createdAt || 0, b.createdAt || 0))
     .slice(0, 3);
 
+    
+
   return {
     projects: recentProjects,
     events,
