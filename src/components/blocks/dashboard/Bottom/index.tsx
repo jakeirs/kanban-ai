@@ -15,6 +15,7 @@ const Bottom: React.FC<{
         <Schedule events={events} />
       </div>
       <div className="col-span-1">
+        Lately created Notes:
         <Notes notes={notes} />
       </div>
     </div>

@@ -19,7 +19,7 @@ const QuickAccessCard: React.FC<FormattedNote> = ({
       <span className="text-xs truncate overflow-hidden text-ellipsis whitespace-nowrap">
         {shortDescription}
       </span>
-      <div className="absolute right-4 bottom-2 opacity-10 transform scale-[2.5] rotate-12">
+      <div className="absolute right-4 bottom-2 opacity-30 transform scale-[2.5] rotate-12">
         {icon}
       </div>
     </CardContent>

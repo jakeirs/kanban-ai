@@ -11,22 +11,25 @@ import type { FormattedProjectDetail } from "../_dto/formatDashboardDto";
 const Mid: React.FC<{ projects: FormattedProjectDetail[] }> = ({
   projects,
 }) => (
-  <Card className="text-white rounded-3xl">
-    <CardContent className="p-0">
-      {projects.map((project, index) => (
-        <React.Fragment key={project.id}>
-          <Link href="/mobile/project">
-            <ProjectTile {...project} />
-            {index < projects.length - 1 && (
-              <div className="px-4">
-                <Separator className="bg-gray-800" />
-              </div>
-            )}
-          </Link>
-        </React.Fragment>
-      ))}
-    </CardContent>
-  </Card>
+  <div>
+    <h2 className="text-lg">Projects:</h2>
+    <Card>
+      <CardContent className="p-0">
+        {projects.map((project, index) => (
+          <React.Fragment key={project.id}>
+            <Link href="/mobile/project">
+              <ProjectTile {...project} />
+              {index < projects.length - 1 && (
+                <div className="px-4">
+                  <Separator className="bg-gray-800" />
+                </div>
+              )}
+            </Link>
+          </React.Fragment>
+        ))}
+      </CardContent>
+    </Card>
+  </div>
 );
 
 export default Mid;

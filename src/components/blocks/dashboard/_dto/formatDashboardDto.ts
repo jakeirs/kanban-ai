@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import { DashboardDto } from "@/convex/tables/projects/query/_dto/forDashboardDto";
 import { Event, Note, ProjectDetail } from "@/convex/tables/projects/types";
 
+const FORMAT_DATE = "MMM d, h:mm aa";
+
 // Interface for formatted dates version of ProjectDetail
 export interface FormattedProjectDetail
   extends Omit<ProjectDetail, "createdAt" | "updatedAt" | "timeConstraints"> {
@@ -55,31 +57,42 @@ export function formatDates(
   return {
     projects: dto.projects.map((project: ProjectDetail) => ({
       ...project,
-      createdAt: format(project.createdAt, "PPp"),
-      updatedAt: format(project.updatedAt, "PPp"),
+      createdAt: format(project.createdAt, FORMAT_DATE),
+      updatedAt: format(project.updatedAt, FORMAT_DATE),
       timeConstraints: project.timeConstraints
         ? {
-            startDate: format(project.timeConstraints.startDate, "PPp"),
-            endDate: format(project.timeConstraints.endDate, "PPp"),
+            startDate: format(
+              project.timeConstraints.startDate,
+              FORMAT_DATE
+            ),
+            endDate: format(project.timeConstraints.endDate, FORMAT_DATE),
           }
         : undefined,
     })),
     events: dto.events.map((event: Event) => ({
       ...event,
-      createdAt: event.createdAt ? format(event.createdAt, "PPp") : undefined,
-      updatedAt: event.updatedAt ? format(event.updatedAt, "PPp") : undefined,
+      createdAt: event.createdAt
+        ? format(event.createdAt, FORMAT_DATE)
+        : undefined,
+      updatedAt: event.updatedAt
+        ? format(event.updatedAt, FORMAT_DATE)
+        : undefined,
       time: {
         ...event.time,
-        startTime: format(event.time.startTime, "PPp"),
-        endTime: format(event.time.endTime, "PPp"),
+        startTime: format(event.time.startTime, FORMAT_DATE),
+        endTime: format(event.time.endTime, FORMAT_DATE),
       },
     })),
     notes: dto.notes.map((note: Note) => ({
       ...note,
-      createdAt: note.createdAt ? format(note.createdAt, "PPp") : undefined,
-      updatedAt: note.updatedAt ? format(note.updatedAt, "PPp") : undefined,
+      createdAt: note.createdAt
+        ? format(note.createdAt, FORMAT_DATE)
+        : undefined,
+      updatedAt: note.updatedAt
+        ? format(note.updatedAt, FORMAT_DATE)
+        : undefined,
       lastVisited: note.lastVisited
-        ? format(note.lastVisited, "PPp")
+        ? format(note.lastVisited, FORMAT_DATE)
         : undefined,
     })),
   };
