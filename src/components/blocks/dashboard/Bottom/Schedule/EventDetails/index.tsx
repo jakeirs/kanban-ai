@@ -26,7 +26,6 @@ const EventDetails: React.FC<EventDetailsProps> = ({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="rounded-t-3xl h-[80vh]">
         <BeanDays />
-        <PreviousEvent />
         <Card className="bg-white shadow-sm mt-4">
           <CardContent className="p-4">
             <h3 className="text-3xl font-light tracking-tight mb-4">
@@ -89,6 +88,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
             </div>
           </CardContent>
         </Card>
+        <PreviousEvent />
       </SheetContent>
     </Sheet>
   );
