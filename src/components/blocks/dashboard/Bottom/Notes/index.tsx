@@ -4,6 +4,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { FormattedNote } from "../../_dto/formatDashboardDto";
 
+
 const QuickAccessCard: React.FC<FormattedNote> = ({
   title,
   icon,

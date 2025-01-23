@@ -1,5 +1,7 @@
+"use client";
+
 import { Project } from "@/components/blocks/project";
 
 export default function Page() {
-  return "All projects";
+  return <Project />;
 }
