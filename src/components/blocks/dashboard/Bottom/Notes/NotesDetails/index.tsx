@@ -5,8 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import type { FormattedNote } from "../../../_dto/formatDashboardDto";
 import { Separator } from "@/components/ui/separator";
-import { BookOpen, Maximize2, Network } from "lucide-react";
-import { format } from "date-fns";
 
 interface NotesDetailsProps {
   note: FormattedNote;
@@ -31,31 +29,6 @@ const NotesDetails: React.FC<NotesDetailsProps> = ({
               </h3>
             </div>
 
-            <div className="pt-8">
-              <Separator />
-              <div className="grid grid-cols-3 gap-4 mt-6">
-                <div className="flex flex-col items-center text-center border-r-2 pr-2">
-                  <BookOpen className="w-8 h-8 mb-2 text-gray-600" />
-                  <span className="text-2xl font-semibold">Idea</span>
-                  <span className="text-sm text-gray-500">Type</span>
-                </div>
-
-                <div className="flex flex-col items-center text-center border-r-2 pr-2">
-                  <Maximize2 className="w-8 h-8 mb-2 text-gray-600" />
-                  <span className="text-2xl font-semibold">3</span>
-                  <span className="text-sm text-gray-500">connections</span>
-                </div>
-
-                <div className="flex flex-col items-center text-center">
-                  <Network className="w-8 h-8 mb-2 text-gray-600" />
-                  <span className="text-2xl font-semibold">
-                    {format(note.createdAt!, "p")}
-                  </span>
-                  <span className="text-sm text-gray-500">created</span>
-                </div>
-              </div>
-            </div>
-
             <div className="space-y-3">
               {note.shortDescription && (
                 <div className="pt-4">
@@ -77,5 +50,3 @@ const NotesDetails: React.FC<NotesDetailsProps> = ({
     </Sheet>
   );
 };
-
-export default NotesDetails;

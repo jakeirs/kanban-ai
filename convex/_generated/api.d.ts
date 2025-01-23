@@ -32,6 +32,7 @@ import type * as tables_kanbanDescription_table from "../tables/kanbanDescriptio
 import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
 import type * as tables_projects_defaultValues from "../tables/projects/defaultValues.js";
 import type * as tables_projects_logic_initProjects from "../tables/projects/logic/initProjects.js";
+import type * as tables_projects_query_getById from "../tables/projects/query/getById.js";
 import type * as tables_projects_query_getForDashboard from "../tables/projects/query/getForDashboard.js";
 import type * as tables_projects_query__dto_forDashboardDto from "../tables/projects/query/_dto/forDashboardDto.js";
 import type * as tables_projects_query__dto_utilts_events from "../tables/projects/query/_dto/utilts/events.js";
@@ -70,6 +71,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
   "tables/projects/defaultValues": typeof tables_projects_defaultValues;
   "tables/projects/logic/initProjects": typeof tables_projects_logic_initProjects;
+  "tables/projects/query/getById": typeof tables_projects_query_getById;
   "tables/projects/query/getForDashboard": typeof tables_projects_query_getForDashboard;
   "tables/projects/query/_dto/forDashboardDto": typeof tables_projects_query__dto_forDashboardDto;
   "tables/projects/query/_dto/utilts/events": typeof tables_projects_query__dto_utilts_events;

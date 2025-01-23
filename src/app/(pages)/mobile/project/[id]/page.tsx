@@ -1,7 +1,10 @@
-"use client";
-
 import { Project } from "@/components/blocks/project";
 
-export default function Page() {
-  return <Project />;
+interface ProjectPageProps {
+  params: {
+    id: string;
+  };
+}
+export default function ProjectPage({ params }: ProjectPageProps) {
+  return <Project id={params.id} />;
 }

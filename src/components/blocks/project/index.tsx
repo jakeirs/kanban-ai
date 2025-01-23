@@ -5,8 +5,24 @@ import Body from "./Body";
 import { SharedContext } from "./Mid/SharedContext";
 import { Top } from "./Top";
 import { NotesSheet } from "./NotesSheet";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { formatDates } from "../dashboard/_dto/formatDashboardDto";
 
-export const Project = () => {
+interface ProjectProps {
+  id: string;
+}
+
+export const Project = ({ id }: ProjectProps) => {
+  const projectDatas = useQuery(api.tables.projects.query.getById.default, {
+    id,
+  });
+
+  const projectDataFormatted = formatDates(projectDatas);
+
+  if (!projectDataFormatted) {
+    return <div>... Loading</div>;
+  }
   const [isNotesSheetOpen, setIsNotesSheetOpen] = useState(false);
 
   const onNotesClick = () => {

@@ -17,14 +17,12 @@ const Mid: React.FC<{ projects: FormattedProjectDetail[] }> = ({
       <CardContent className="p-0">
         {projects.map((project, index) => (
           <React.Fragment key={project.id}>
-            <Link href="/mobile/project">
-              <ProjectTile {...project} />
-              {index < projects.length - 1 && (
-                <div className="px-4">
-                  <Separator className="bg-gray-800" />
-                </div>
-              )}
-            </Link>
+            <ProjectTile {...project} />
+            {index < projects.length - 1 && (
+              <div className="px-4">
+                <Separator className="bg-gray-800" />
+              </div>
+            )}
           </React.Fragment>
         ))}
       </CardContent>
