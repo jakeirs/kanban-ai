@@ -100,6 +100,7 @@ export const projectDetailsValidator = v.object({
   id: v.string(),
   title: v.string(),
   description: v.optional(v.string()),
+  isDefault: v.optional(v.boolean()),
   status: projectStatusEnum,
   indetifiers: v.object({
     icon: v.string(),

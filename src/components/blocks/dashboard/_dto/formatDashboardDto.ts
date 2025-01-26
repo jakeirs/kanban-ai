@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { DashboardDto } from "@/convex/tables/projects/query/_dto/forDashboardDto";
+import { DashboardDto } from "@/convex/tables/projects/queries/_dto/forDashboardDto";
 import { Event, Note, ProjectDetail } from "@/convex/tables/projects/types";
 
 const FORMAT_DATE = "MMM d, h:mm aa";
@@ -61,10 +61,7 @@ export function formatDates(
       updatedAt: format(project.updatedAt, FORMAT_DATE),
       timeConstraints: project.timeConstraints
         ? {
-            startDate: format(
-              project.timeConstraints.startDate,
-              FORMAT_DATE
-            ),
+            startDate: format(project.timeConstraints.startDate, FORMAT_DATE),
             endDate: format(project.timeConstraints.endDate, FORMAT_DATE),
           }
         : undefined,

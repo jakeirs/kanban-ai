@@ -14,7 +14,7 @@ interface ProjectProps {
 }
 
 export const Project = ({ id }: ProjectProps) => {
-  const projectDatas = useQuery(api.tables.projects.query.getById.default, {
+  const projectDatas = useQuery(api.tables.projects.queries.getById.default, {
     id,
   });
 

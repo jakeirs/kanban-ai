@@ -14,7 +14,7 @@ import { AI_MODEL_TO_USE } from "@/config/ai/model";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
-export const updateKanbanColumns = tool({
+export const updateSchedule = tool({
   description: `Use this tools to update schedule of the user.
    You can schedule new item (event, task or reminder) to the user calendar (schedule), 
    you can also edit exisiting one or delete exisisting one
@@ -38,12 +38,8 @@ export const updateKanbanColumns = tool({
 
     convex.setAuth(tokenNextJs!);
 
-    const {
-      currentKanbanId: kanbanBoardId,
-      userId,
-      currentKanbanColumnsStringified,
-    } = await convex.query(
-      api.tables.kanban.queries.getCurrentUserForUpdateKanbanBoard.default
+    const { userId, currentProjectsStringified } = await convex.query(
+      api.tables.projects.queries.getCurrentUserProjects.default
     );
 
     if (!userId) {
@@ -62,10 +58,14 @@ export const updateKanbanColumns = tool({
 
         Generate Object that will match the schema and the task you were given changing current Kanban Board State.
 
-        Remember, never change createdAt time, never change any id of the item or column or title.
+        Remember, never change createdAt time, never change any id of the item or events, notes or anything. It's immutable.
       `,
-        prompt: `This is current state of the columns in Kanban Board: ${currentKanbanColumnsStringified}
+        prompt: `This is current state of the current state of schedule of the user: ${currentProjectsStringified}
       And this is what you need to do: "${message}.
+
+      Especially you want to look to at the property EVENTS, because we will be updating those. In proper project.
+      If project is not provided by the user then assign EVENT to the default project which is EVERYDAY LIFE or something like this.
+      Don't create new project.
       "
       `,
         schema: z.object({

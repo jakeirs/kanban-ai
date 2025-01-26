@@ -7,7 +7,7 @@ import { useQuery } from "convex/react";
 
 export default function Page() {
   const dashboardDatas = useQuery(
-    api.tables.projects.query.getForDashboard.default
+    api.tables.projects.queries.getForDashboard.default
   );
 
   const dashboardDataFormatted = formatDates(dashboardDatas);
