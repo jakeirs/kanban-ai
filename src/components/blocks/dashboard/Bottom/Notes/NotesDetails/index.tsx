@@ -12,7 +12,7 @@ interface NotesDetailsProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-const NotesDetails: React.FC<NotesDetailsProps> = ({
+export const NotesDetails: React.FC<NotesDetailsProps> = ({
   note,
   open,
   onOpenChange,

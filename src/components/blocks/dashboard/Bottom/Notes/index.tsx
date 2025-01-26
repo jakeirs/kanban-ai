@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { FormattedNote } from "../../_dto/formatDashboardDto";
-import NotesDetails from "./NotesDetails";
+import { NotesDetails } from "./NotesDetails";
 
 const QuickAccessCard: React.FC<FormattedNote & { onClick: () => void }> = ({
   title,
@@ -30,13 +30,13 @@ const QuickAccessCard: React.FC<FormattedNote & { onClick: () => void }> = ({
 );
 
 const Notes: React.FC<{ notes: FormattedNote[] }> = ({ notes }) => {
-  const [selectedNote, setSelectedNote] = useState<FormattedNote | null>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [selectedNote, setSelectedNote] = useState<FormattedNote | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       {selectedNote && (
-        <NotesDetails 
+        <NotesDetails
           note={selectedNote}
           open={isOpen}
           onOpenChange={setIsOpen}
@@ -44,12 +44,12 @@ const Notes: React.FC<{ notes: FormattedNote[] }> = ({ notes }) => {
       )}
       <div className="space-y-4">
         {notes.map((note) => (
-          <QuickAccessCard 
-            key={note.title} 
-            {...note} 
+          <QuickAccessCard
+            key={note.title}
+            {...note}
             onClick={() => {
-              setSelectedNote(note)
-              setIsOpen(true)
+              setSelectedNote(note);
+              setIsOpen(true);
             }}
           />
         ))}
