@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react"
-import { Wand2, MessageSquare, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { SheetTitle } from "@/components/ui/sheet"
-import { ControlDrawerTabs } from "@/components/ui/custom/tabs"
-import { tabs } from "../props"
-import { InputAiMessage } from "./InputAiMessage"
+import React from "react";
+import { Wand2, MessageSquare, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SheetTitle } from "@/components/ui/sheet";
+import { ControlDrawerTabs } from "@/components/ui/custom/tabs";
+import { tabs } from "../props";
+import { InputAiMessage } from "./InputAiMessage";
 
 export const Init: React.FC = () => {
   return (
