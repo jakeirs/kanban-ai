@@ -88,14 +88,14 @@ export const updateSchedule = tool({
       return {
         success: true,
         // message: `The columns has been changed. Generated this ${object}`,
-        message: `The columns has been changed.`,
+        message: `The projects has been changed.`,
       };
     } catch (error) {
-      console.error("Error in updateKanbanColumns Tool", error);
+      console.error("Error in updating Porjects Tool", error);
       return {
         success: false,
         // message: `The columns has been changed. Generated this ${object}`,
-        message: `There was an error updating Kanban items. Please try again now or later. Sorry mate!`,
+        message: `There was an error updating projects items. Please try again now or later. Sorry mate!`,
       };
     }
   },
