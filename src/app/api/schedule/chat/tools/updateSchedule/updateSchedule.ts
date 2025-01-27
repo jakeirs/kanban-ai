@@ -9,7 +9,7 @@ import {
   isAuthenticatedNextjs,
 } from "@convex-dev/auth/nextjs/server";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
-import { projectSchemaZod } from "@/convex/tables/projects/typesZod";
+import { eventSchemaZod } from "@/convex/tables/events/typesZod";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -37,9 +37,9 @@ export const updateSchedule = tool({
 
     convex.setAuth(tokenNextJs!);
 
-    const { userId, currentProjectsStringified, currectProjectsDocId } =
+    const { userId, currectEventsDocId, currentEventsStringified } =
       await convex.query(
-        api.tables.projects.queries.getCurrentUserProjects.default
+        api.tables.events.queries.getCurrentUserEvents.default
       );
 
     if (!userId) {
@@ -60,7 +60,7 @@ export const updateSchedule = tool({
         Remember, never change createdAt time, never change any id of the item or events, notes or anything. It's immutable.
         Never create new PROJECT.
       `,
-        prompt: `This is current state of the current state of schedule of the user: ${currentProjectsStringified}
+        prompt: `This is current state of the current state of schedule of the user: ${currentEventsStringified}
       And this is what you need to do: "${message}.
 
       Especially you want to look to at the property EVENTS, because we will be updating those. In proper project.
@@ -69,7 +69,7 @@ export const updateSchedule = tool({
       "
       `,
         schema: z.object({
-          projects: z.array(projectSchemaZod),
+          events: z.array(eventSchemaZod),
           idsOfTasksThatWillBeAffected: idsOfTasksThatWillBeAffectedZod,
         }),
       });
@@ -77,18 +77,18 @@ export const updateSchedule = tool({
       console.log("object PROJECTs gen by AI", JSON.stringify(object, null, 2));
 
       // Update Columns
-      const patchProjects = await convex.mutation(
-        api.tables.projects.mutations.patchProjects.default,
+      const patchEvents = await convex.mutation(
+        api.tables.events.mutations.patchEvents.default,
         {
-          projects: object.projects,
-          currectProjectsDocId,
+          events: object.events,
+          currectEventsDocId,
         }
       );
 
       return {
         success: true,
         // message: `The columns has been changed. Generated this ${object}`,
-        message: `The projects has been changed.`,
+        message: `The events has been changed successfully`,
       };
     } catch (error) {
       console.error("Error in updating Porjects Tool", error);

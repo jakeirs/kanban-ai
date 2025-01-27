@@ -1,10 +1,9 @@
-import { defineTable } from "convex/server";
 import { v } from "convex/values";
+import { Table } from "convex-helpers/server";
 import { eventValidator } from "./types";
 
 // Define the events table
-export const EventValidator = eventValidator;
-
-export default defineTable(eventValidator)
-  .index("byUsers", ["userId"])
-  .index("byStartTime", ["time.startTime"]);
+export const eventsTable = Table("events", {
+  events: v.array(eventValidator),
+  userId: v.id("users"),
+});

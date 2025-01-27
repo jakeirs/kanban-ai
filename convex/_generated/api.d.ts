@@ -16,8 +16,11 @@ import type {
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as tables_events_defaultValues from "../tables/events/defaultValues.js";
+import type * as tables_events_mutations_patchEvents from "../tables/events/mutations/patchEvents.js";
+import type * as tables_events_queries_getCurrentUserEvents from "../tables/events/queries/getCurrentUserEvents.js";
 import type * as tables_events_table from "../tables/events/table.js";
 import type * as tables_events_types from "../tables/events/types.js";
+import type * as tables_events_typesZod from "../tables/events/typesZod.js";
 import type * as tables_kanban_defaultValues from "../tables/kanban/defaultValues.js";
 import type * as tables_kanban_logic_initKanbanBoardLogic from "../tables/kanban/logic/initKanbanBoardLogic.js";
 import type * as tables_kanban_logic_visitKanbanPageLogic from "../tables/kanban/logic/visitKanbanPageLogic.js";
@@ -62,8 +65,11 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   "tables/events/defaultValues": typeof tables_events_defaultValues;
+  "tables/events/mutations/patchEvents": typeof tables_events_mutations_patchEvents;
+  "tables/events/queries/getCurrentUserEvents": typeof tables_events_queries_getCurrentUserEvents;
   "tables/events/table": typeof tables_events_table;
   "tables/events/types": typeof tables_events_types;
+  "tables/events/typesZod": typeof tables_events_typesZod;
   "tables/kanban/defaultValues": typeof tables_kanban_defaultValues;
   "tables/kanban/logic/initKanbanBoardLogic": typeof tables_kanban_logic_initKanbanBoardLogic;
   "tables/kanban/logic/visitKanbanPageLogic": typeof tables_kanban_logic_visitKanbanPageLogic;

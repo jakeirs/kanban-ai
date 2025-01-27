@@ -1,12 +1,4 @@
 import { Infer, v } from "convex/values";
-import { EventValidator } from "./table";
-
-// Define event priority
-export const priorityEnum = v.union(
-  v.literal("low"),
-  v.literal("medium"),
-  v.literal("high")
-);
 
 // Define recurrence type
 export const recurrenceTypeEnum = v.union(
@@ -20,7 +12,6 @@ export const recurrenceTypeEnum = v.union(
 // EVENTS
 export const eventValidator = v.object({
   id: v.string(),
-  userId: v.id("users"),
   title: v.string(),
   description: v.optional(v.string()),
   updatedAt: v.number(), // Unix timestamp
@@ -43,4 +34,5 @@ export const eventValidator = v.object({
   project: v.optional(v.string()), // assignment to the project
   notes: v.optional(v.array(v.string())), // assignment to the project
 });
-export type Event = Infer<typeof EventValidator>;
+
+export type Project = Infer<typeof eventValidator>;

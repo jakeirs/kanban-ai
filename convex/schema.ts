@@ -5,6 +5,7 @@ import { userKanbanBoardsTable } from "./tables/userKanbanBoard/table";
 import { userSettingsTable } from "./tables/users/table";
 import { kanbanDescriptionTable } from "./tables/kanbanDescription/table";
 import { projectsTable } from "./tables/projects/table";
+import { eventsTable } from "./tables/events/table";
 
 export default defineSchema({
   ...authTables,
@@ -16,6 +17,7 @@ export default defineSchema({
     "taskId",
   ]),
   projects: projectsTable.table.index("by_userId", ["userId"]),
+  events: eventsTable.table.index("by_userId", ["userId"]),
 
   // itemDescriptions: defineTable({
   //   itemId: v.string(),
