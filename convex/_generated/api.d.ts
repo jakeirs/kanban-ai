@@ -32,6 +32,7 @@ import type * as tables_kanbanDescription_table from "../tables/kanbanDescriptio
 import type * as tables_kanbanDescription_types from "../tables/kanbanDescription/types.js";
 import type * as tables_projects_defaultValues from "../tables/projects/defaultValues.js";
 import type * as tables_projects_logic_initProjects from "../tables/projects/logic/initProjects.js";
+import type * as tables_projects_mutations_patchProjects from "../tables/projects/mutations/patchProjects.js";
 import type * as tables_projects_queries_getById from "../tables/projects/queries/getById.js";
 import type * as tables_projects_queries_getCurrentUserProjects from "../tables/projects/queries/getCurrentUserProjects.js";
 import type * as tables_projects_queries_getForDashboard from "../tables/projects/queries/getForDashboard.js";
@@ -39,6 +40,8 @@ import type * as tables_projects_queries__dto_forDashboardDto from "../tables/pr
 import type * as tables_projects_queries__dto_utilts_events from "../tables/projects/queries/_dto/utilts/events.js";
 import type * as tables_projects_table from "../tables/projects/table.js";
 import type * as tables_projects_types from "../tables/projects/types.js";
+import type * as tables_projects_typesZod from "../tables/projects/typesZod.js";
+import type * as tables_projects___projectStructureFuture__ from "../tables/projects/__projectStructureFuture__.js";
 import type * as tables_userKanbanBoard_mutations_patchKanbanBoardsRelation from "../tables/userKanbanBoard/mutations/patchKanbanBoardsRelation.js";
 import type * as tables_userKanbanBoard_table from "../tables/userKanbanBoard/table.js";
 import type * as tables_userKanbanBoard_types from "../tables/userKanbanBoard/types.js";
@@ -72,6 +75,7 @@ declare const fullApi: ApiFromModules<{
   "tables/kanbanDescription/types": typeof tables_kanbanDescription_types;
   "tables/projects/defaultValues": typeof tables_projects_defaultValues;
   "tables/projects/logic/initProjects": typeof tables_projects_logic_initProjects;
+  "tables/projects/mutations/patchProjects": typeof tables_projects_mutations_patchProjects;
   "tables/projects/queries/getById": typeof tables_projects_queries_getById;
   "tables/projects/queries/getCurrentUserProjects": typeof tables_projects_queries_getCurrentUserProjects;
   "tables/projects/queries/getForDashboard": typeof tables_projects_queries_getForDashboard;
@@ -79,6 +83,8 @@ declare const fullApi: ApiFromModules<{
   "tables/projects/queries/_dto/utilts/events": typeof tables_projects_queries__dto_utilts_events;
   "tables/projects/table": typeof tables_projects_table;
   "tables/projects/types": typeof tables_projects_types;
+  "tables/projects/typesZod": typeof tables_projects_typesZod;
+  "tables/projects/__projectStructureFuture__": typeof tables_projects___projectStructureFuture__;
   "tables/userKanbanBoard/mutations/patchKanbanBoardsRelation": typeof tables_userKanbanBoard_mutations_patchKanbanBoardsRelation;
   "tables/userKanbanBoard/table": typeof tables_userKanbanBoard_table;
   "tables/userKanbanBoard/types": typeof tables_userKanbanBoard_types;

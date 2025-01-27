@@ -8,12 +8,12 @@ const getCurrentUserProjects = query({
     if (!userId) {
       throw new Error("User not logged in");
     }
-    const currectProjects = (
-      await ctx.db
-        .query("projects")
-        .filter((q) => q.eq(q.field("userId"), userId))
-        .first()
-    )?.projects;
+    const currectProjectsDoc = await ctx.db
+      .query("projects")
+      .filter((q) => q.eq(q.field("userId"), userId))
+      .first();
+
+    const currectProjects = currectProjectsDoc?.projects;
 
     if (!currectProjects) {
       throw new Error("User doesn't has any projects");
@@ -23,9 +23,12 @@ const getCurrentUserProjects = query({
       ...currectProjects,
     });
 
+    const currectProjectsDocId = currectProjectsDoc._id;
+
     return {
       userId,
       currentProjectsStringified,
+      currectProjectsDocId,
     };
   },
 });

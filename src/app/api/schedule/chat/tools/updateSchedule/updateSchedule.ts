@@ -3,14 +3,13 @@ import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { ConvexHttpClient } from "convex/browser";
 import { anthropic } from "@ai-sdk/anthropic";
-import { addUpdatedPropertiesToItems } from "@/lib/kanban/addPropertiesToItems";
 import { idsOfTasksThatWillBeAffectedZod } from "./types";
-import { kanbanColumnZod } from "@/convex/tables/kanban/types";
 import {
   convexAuthNextjsToken,
   isAuthenticatedNextjs,
 } from "@convex-dev/auth/nextjs/server";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
+import { projectSchemaZod } from "@/convex/tables/projects/typesZod";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -38,9 +37,10 @@ export const updateSchedule = tool({
 
     convex.setAuth(tokenNextJs!);
 
-    const { userId, currentProjectsStringified } = await convex.query(
-      api.tables.projects.queries.getCurrentUserProjects.default
-    );
+    const { userId, currentProjectsStringified, currectProjectsDocId } =
+      await convex.query(
+        api.tables.projects.queries.getCurrentUserProjects.default
+      );
 
     if (!userId) {
       return {
@@ -53,60 +53,35 @@ export const updateSchedule = tool({
       // generate Object with AI
       const { object } = await generateObject({
         model: anthropic(AI_MODEL_TO_USE),
-        system: `You are friendly assistant of Kanban board for the user. Don't mention any IDs of the tasks, columns and kanban boards and any other stuff to the user.
-        If you have to do many operations like move couple of tasks from one column to another, you can use tools many time if needed.
+        system: `You are friendly assistant of user's Schedule.
 
-        Generate Object that will match the schema and the task you were given changing current Kanban Board State.
+        Generate Object that will match the schema and the task you were given updating current project object.
 
         Remember, never change createdAt time, never change any id of the item or events, notes or anything. It's immutable.
+        Never create new PROJECT.
       `,
         prompt: `This is current state of the current state of schedule of the user: ${currentProjectsStringified}
       And this is what you need to do: "${message}.
 
       Especially you want to look to at the property EVENTS, because we will be updating those. In proper project.
       If project is not provided by the user then assign EVENT to the default project which is EVERYDAY LIFE or something like this.
-      Don't create new project.
+      Don't create new project. Never create new PROJECT. Project will be created in other tool.
       "
       `,
         schema: z.object({
-          columns: z.array(kanbanColumnZod),
+          projects: z.array(projectSchemaZod),
           idsOfTasksThatWillBeAffected: idsOfTasksThatWillBeAffectedZod,
         }),
       });
 
-      // updated properties such as updatedAt, createdAt, createdBy
-      const { columns, idsOfTasksThatWillBeAffected } =
-        addUpdatedPropertiesToItems({
-          columns: object.columns,
-          idsOfTasksThatWillBeAffected: object.idsOfTasksThatWillBeAffected,
-          userId,
-        });
-
-      // create or delete descriptions for the tasks
-      idsOfTasksThatWillBeAffected.every(async (task) => {
-        if (task.action === "created") {
-          await convex.mutation(
-            api.tables.kanbanDescription.mutations.createDescription.default,
-            { kanbanBoardId, taskId: task.id }
-          );
-        }
-        if (task.action === "deleted") {
-          await convex.mutation(
-            api.tables.kanbanDescription.mutations.deleteDescription.default,
-            {
-              kanbanBoardId,
-              taskId: task.id,
-            }
-          );
-        }
-      });
+      console.log("object PROJECTs gen by AI", JSON.stringify(object, null, 2));
 
       // Update Columns
-      const patchColumns = await convex.mutation(
-        api.tables.kanban.mutations.patchColumns.default,
+      const patchProjects = await convex.mutation(
+        api.tables.projects.mutations.patchProjects.default,
         {
-          columns: columns,
-          kanbanBoardId: kanbanBoardId,
+          projects: object.projects,
+          currectProjectsDocId,
         }
       );
 
