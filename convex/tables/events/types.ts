@@ -19,14 +19,6 @@ export const eventValidator = v.object({
   time: v.object({
     startTime: v.number(), // Unix timestamp
     endTime: v.number(), // Unix timestamp
-    recurrence: v.optional(
-      v.object({
-        type: recurrenceTypeEnum,
-        interval: v.number(), // e.g., every 2 weeks: interval: 2, type: "weekly"
-        endDate: v.optional(v.number()), // Optional end date for recurring events
-        exceptions: v.optional(v.array(v.number())), // Array of Unix timestamps (excluded dates)
-      })
-    ),
   }),
 
   location: v.optional(v.string()), // Physical or virtual location
@@ -35,4 +27,4 @@ export const eventValidator = v.object({
   notes: v.optional(v.array(v.string())), // assignment to the project
 });
 
-export type Project = Infer<typeof eventValidator>;
+export type Event = Infer<typeof eventValidator>;

@@ -12,6 +12,7 @@ import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { eventSchemaZod } from "@/convex/tables/events/typesZod";
 import { format } from "date-fns";
 import { convertToUnixTime } from "./utils/convertToUnixTime";
+import { convertToISO } from "./utils/convertTimeToISO";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -51,10 +52,9 @@ export const updateSchedule = tool({
 
     convex.setAuth(tokenNextJs!);
 
-    const { userId, currectEventsDocId, currentEventsStringified } =
-      await convex.query(
-        api.tables.events.queries.getCurrentUserEvents.default
-      );
+    const { userId, currectEventsDocId, currectEvents } = await convex.query(
+      api.tables.events.queries.getCurrentUserEvents.default
+    );
 
     if (!userId) {
       return {
@@ -63,28 +63,42 @@ export const updateSchedule = tool({
       };
     }
 
+    const eventsWithTimeToISO = convertToISO(currectEvents);
+    const currentEventsStringified = JSON.stringify(
+      eventsWithTimeToISO,
+      null,
+      2
+    );
+
     console.log("PRZED GENERATE OBJECT", format(new Date(), "pp"));
 
     try {
       // generate Object with AI
       const { object } = await generateObject({
         model: anthropic(AI_MODEL_TO_USE),
-        system: `You are friendly assistant of user's Schedule.
 
-        Generate Object that will match the schema and the task you were given updating current project object.
+        system: `You are friendly assistant of user's Calendar.
+
+        You have current list of user's events (tasks, items) in JSON format.
+
+        Your tasks is to update accordingly the current JSON object of events of the user and generate object that will match the schema
+        and the task you were given.
 
         Remember, never change createdAt time, never change any id of the item or events, notes or anything. It's immutable.
-        Never create new PROJECT.
+        
+        Don't remove exisiting events, unless you are clearly asked for.
+
+        Don't edit existing events, unless you are clearly asked for.
+
+        If you are asked for creating new events, add them next to existing events.
       `,
-        prompt: `This is the list of the items that you need to create ${JSON.stringify(listOfActionToDo, null, 2)}. All those changes need to 
-      be in ${currentEventsStringified}.
+        prompt: `This is JSON object that represent current calendar of the user ${currentEventsStringified}.
+        
+        With the list of items I want you to current calendar object.
+        
+        List of the items to add to current calendar object: ${JSON.stringify(listOfActionToDo, null, 2)}
 
-      And this is what you need to do: "${message}."
-
-      Especially you want to look to at the property EVENTS, because we will be updating those. In proper project.
-      If project is not provided by the user then assign EVENT to the default project which is EVERYDAY LIFE or something like this.
-      Don't create new project. Never create new PROJECT. Project will be created in other tool.
-      "
+        This what you were asked to "${message}.". Remember about previous rules.
       `,
         schema: z.object({
           events: z.array(eventSchemaZod),
@@ -112,11 +126,11 @@ export const updateSchedule = tool({
         message: `The events has been changed successfully`,
       };
     } catch (error) {
-      console.error("Error in updating Porjects Tool", error);
+      console.error("Error in updatingScheduleTool", error);
       return {
         success: false,
         // message: `The columns has been changed. Generated this ${object}`,
-        message: `There was an error updating projects items. Please try again now or later. Sorry mate!`,
+        message: `There was an error updating events items. Please try again now or later. Sorry mate!`,
       };
     }
   },

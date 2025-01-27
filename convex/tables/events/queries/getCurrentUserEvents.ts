@@ -19,15 +19,11 @@ const getCurrentUserEvents = query({
       throw new Error("User doesn't has any currectEvents");
     }
 
-    const currentEventsStringified = JSON.stringify({
-      ...currectEvents,
-    });
-
     const currectEventsDocId = currectEventsDoc._id;
 
     return {
       userId,
-      currentEventsStringified,
+      currectEvents,
       currectEventsDocId,
     };
   },

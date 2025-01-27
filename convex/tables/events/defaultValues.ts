@@ -6,12 +6,6 @@ export const defaultEvent = {
   time: {
     startTime: Date.now(),
     endTime: Date.now() + 3600000, // 1 hour from now by default
-    recurrence: {
-      type: "weekly" as const,
-      interval: 1,
-      endDate: Date.now() + 7776000000, // 90 days from now
-      exceptions: [],
-    },
   },
   location: "Virtual Meeting",
   project: "",
@@ -28,11 +22,6 @@ export const defaultEvents = [
     time: {
       startTime: Date.now(),
       endTime: Date.now() + 1800000, // 30 minutes
-      recurrence: {
-        type: "daily" as const,
-        interval: 1,
-        exceptions: [],
-      },
     },
     location: "Virtual Meeting Room 1",
   },
@@ -44,11 +33,6 @@ export const defaultEvents = [
     time: {
       startTime: Date.now(),
       endTime: Date.now() + 3600000, // 1 hour
-      recurrence: {
-        type: "weekly" as const,
-        interval: 1,
-        exceptions: [],
-      },
     },
     location: "Main Conference Room",
   },
@@ -60,11 +44,6 @@ export const defaultEvents = [
     time: {
       startTime: Date.now(),
       endTime: Date.now() + 7200000, // 2 hours
-      recurrence: {
-        type: "monthly" as const,
-        interval: 1,
-        exceptions: [],
-      },
     },
     location: "Board Room",
     project: "Project Review",

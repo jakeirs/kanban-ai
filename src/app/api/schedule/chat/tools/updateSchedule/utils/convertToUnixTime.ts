@@ -5,19 +5,11 @@ export const convertToUnixTime = (events: EventZod[]) => {
   return events.map((event) => {
     return {
       ...event,
-      updatedAt: getUnixTime(new Date(event.updatedAt)),
+      updatedAt: new Date(event.updatedAt).getTime(),
       time: {
         ...event.time,
-        startTime: getUnixTime(new Date(event.time.startTime)),
-        endTime: getUnixTime(new Date(event.time.endTime)),
-        recurrence: event.time.recurrence
-          ? {
-              ...event.time.recurrence,
-              endDate: event.time.recurrence.endDate
-                ? getUnixTime(new Date(event.time.recurrence.endDate))
-                : undefined,
-            }
-          : undefined,
+        startTime: new Date(event.time.startTime).getTime(),
+        endTime: new Date(event.time.endTime).getTime(),
       },
     };
   });

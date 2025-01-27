@@ -14,19 +14,23 @@ export const eventSchemaZod = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  updatedAt: z.string(), // Unix timestamp
+  updatedAt: z
+    .string()
+    .describe(
+      "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') that can be parsed to Unix timestamp"
+    ),
 
   time: z.object({
-    startTime: z.string(), // Unix timestamp
-    endTime: z.string(), // Unix timestamp
-    recurrence: z
-      .object({
-        type: recurrenceTypeEnumZod,
-        interval: z.number(), // e.g., every 2 weeks: interval: 2, type: "weekly"
-        endDate: z.string().optional(), // Optional end date for recurring events
-        exceptions: z.array(z.number()).optional(), // Array of Unix timestamps (excluded dates)
-      })
-      .optional(),
+    startTime: z
+      .string()
+      .describe(
+        "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
+      ),
+    endTime: z
+      .string()
+      .describe(
+        "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
+      ),
   }),
 
   location: z.string().optional(), // Physical or virtual location
