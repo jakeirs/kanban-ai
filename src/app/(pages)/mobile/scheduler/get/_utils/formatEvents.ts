@@ -2,11 +2,16 @@ import { Event } from "@/convex/tables/events/types";
 import { format } from "date-fns";
 
 export interface FormattedEvent {
+  id: string;
   title: string;
   description: string;
   timeStart: string;
   endTime: string;
-  day: string;
+  day: {
+    dayOfWeek: string;
+    dayOfMonth: string;
+    month: string;
+  };
 }
 
 export const formatEvents = (events: Event[]): FormattedEvent[] => {
@@ -15,15 +20,20 @@ export const formatEvents = (events: Event[]): FormattedEvent[] => {
   }
   return events.map((event) => {
     return {
+      id: event.id,
       title: event.title,
       description: event.description
         ? event.description.length > 75
           ? `${event.description.slice(0, 75)}...`
           : event.description
         : "",
-      timeStart: format(new Date(event.time.startTime), "h:mma"),
-      endTime: format(new Date(event.time.endTime), "h:mma"),
-      day: format(new Date(event.time.startTime), "MMMM d, yyyy"),
+      timeStart: format(new Date(event.time.startTime), "h:mm aaa"),
+      endTime: format(new Date(event.time.endTime), "h:mm aaa"),
+      day: {
+        dayOfWeek: format(new Date(event.time.startTime), "EEE"),
+        dayOfMonth: format(new Date(event.time.startTime), "dd"),
+        month: format(new Date(event.time.startTime), "MMM"),
+      },
     };
   });
 };

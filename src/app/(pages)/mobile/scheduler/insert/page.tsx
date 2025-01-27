@@ -1,54 +1,63 @@
 "use client";
 
 import { DateBeanList } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBeanList";
-import { useEffect } from "react";
-import * as dateFns from "date-fns";
-
-declare global {
-  interface Window {
-    dateFns: typeof dateFns;
-  }
-}
+import { FormattedEvent } from "../get/_utils/formatEvents";
 
 export default function DemoPage() {
-  useEffect(() => {
-    window.dateFns = dateFns;
-  }, []);
-
-  const appointments = [
+  const formattedEvents: FormattedEvent[] = [
     {
-      date: new Date(2024, 5, 6), // June 6, 2024
-      startTime: "11:00am",
+      id: "0",
+      title: "Meeting",
+      description: "Team sync",
+      timeStart: "11:00am",
       endTime: "11:30am",
+      day: {
+        dayOfWeek: "Thu",
+        dayOfMonth: "06",
+        month: "Jun",
+      },
     },
     {
-      date: new Date(2024, 5, 7), // June 7, 2024
-      startTime: "2:00pm",
+      id: "1",
+      title: "Review",
+      description: "Project review",
+      timeStart: "2:00pm",
       endTime: "2:30pm",
+      day: {
+        dayOfWeek: "Fri",
+        dayOfMonth: "07",
+        month: "Jun",
+      },
     },
     {
-      date: new Date(2024, 5, 8), // June 8, 2024
-      startTime: "10:00am",
+      id: "2",
+      title: "Planning",
+      description: "Sprint planning",
+      timeStart: "10:00am",
       endTime: "10:30am",
+      day: {
+        dayOfWeek: "Sat",
+        dayOfMonth: "08",
+        month: "Jun",
+      },
     },
     {
-      date: new Date(2024, 5, 9), // June 9, 2024
-      startTime: "3:00pm",
+      id: "3",
+      title: "Retrospective",
+      description: "Team retrospective",
+      timeStart: "3:00pm",
       endTime: "3:30pm",
+      day: {
+        dayOfWeek: "Sun",
+        dayOfMonth: "09",
+        month: "Jun",
+      },
     },
   ];
 
   return (
     <div className="p-4">
-      <DateBeanList
-        appointments={appointments}
-        onTodoClick={(index) =>
-          console.log("Todo clicked for appointment", index)
-        }
-        onDateClick={(index) =>
-          console.log("Date clicked for appointment", index)
-        }
-      />
+      <DateBeanList formattedEvents={formattedEvents} />
     </div>
   );
 }
