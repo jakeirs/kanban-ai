@@ -14,16 +14,16 @@ export const eventSchemaZod = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  updatedAt: z.number(), // Unix timestamp
+  updatedAt: z.string(), // Unix timestamp
 
   time: z.object({
-    startTime: z.number(), // Unix timestamp
-    endTime: z.number(), // Unix timestamp
+    startTime: z.string(), // Unix timestamp
+    endTime: z.string(), // Unix timestamp
     recurrence: z
       .object({
         type: recurrenceTypeEnumZod,
         interval: z.number(), // e.g., every 2 weeks: interval: 2, type: "weekly"
-        endDate: z.number().optional(), // Optional end date for recurring events
+        endDate: z.string().optional(), // Optional end date for recurring events
         exceptions: z.array(z.number()).optional(), // Array of Unix timestamps (excluded dates)
       })
       .optional(),
@@ -36,4 +36,4 @@ export const eventSchemaZod = z.object({
 });
 
 // Types
-export type Event = z.infer<typeof eventSchemaZod>;
+export type EventZod = z.infer<typeof eventSchemaZod>;

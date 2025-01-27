@@ -10,6 +10,8 @@ import {
 } from "@convex-dev/auth/nextjs/server";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { eventSchemaZod } from "@/convex/tables/events/typesZod";
+import { format } from "date-fns";
+import { convertToUnixTime } from "./utils/convertToUnixTime";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -23,10 +25,22 @@ export const updateSchedule = tool({
   parameters: z.object({
     message: z.string().describe(`Pass the message to this tool as clear order,
          what exactly it has to be done in order to achieve given goal`),
+    listOfActionToDo: z
+      .array(
+        z
+          .string()
+          .describe(
+            `Short description of details of the events and what tool should to do`
+          )
+      )
+      .describe(`Array of items, tasks, events to insert or change.`),
   }),
-  execute: async ({ message }) => {
+  execute: async ({ message, listOfActionToDo }) => {
     const tokenNextJs = await convexAuthNextjsToken();
     const isAuthenticated = await isAuthenticatedNextjs();
+
+    console.log("listOfActionToDo", JSON.stringify(listOfActionToDo, null, 2));
+    console.log("message", message);
 
     if (!isAuthenticated) {
       return {
@@ -49,6 +63,8 @@ export const updateSchedule = tool({
       };
     }
 
+    console.log("PRZED GENERATE OBJECT", format(new Date(), "pp"));
+
     try {
       // generate Object with AI
       const { object } = await generateObject({
@@ -60,8 +76,10 @@ export const updateSchedule = tool({
         Remember, never change createdAt time, never change any id of the item or events, notes or anything. It's immutable.
         Never create new PROJECT.
       `,
-        prompt: `This is current state of the current state of schedule of the user: ${currentEventsStringified}
-      And this is what you need to do: "${message}.
+        prompt: `This is the list of the items that you need to create ${JSON.stringify(listOfActionToDo, null, 2)}. All those changes need to 
+      be in ${currentEventsStringified}.
+
+      And this is what you need to do: "${message}."
 
       Especially you want to look to at the property EVENTS, because we will be updating those. In proper project.
       If project is not provided by the user then assign EVENT to the default project which is EVERYDAY LIFE or something like this.
@@ -74,13 +92,16 @@ export const updateSchedule = tool({
         }),
       });
 
+      console.log("PO GENERATE OBJECT", format(new Date(), "pp"));
       console.log("object PROJECTs gen by AI", JSON.stringify(object, null, 2));
+
+      const eventsConvertedToUnixTime = convertToUnixTime(object.events);
 
       // Update Columns
       const patchEvents = await convex.mutation(
         api.tables.events.mutations.patchEvents.default,
         {
-          events: object.events,
+          events: eventsConvertedToUnixTime,
           currectEventsDocId,
         }
       );

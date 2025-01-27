@@ -1,6 +1,5 @@
 export const defaultEvent = {
   id: "default",
-  userId: "", // This will be set when creating actual event
   title: "New Event",
   description: "",
   updatedAt: Date.now(),
@@ -18,20 +17,6 @@ export const defaultEvent = {
   project: "",
   notes: [],
 };
-
-export const getDefaultEvent = () => ({
-  ...defaultEvent,
-  updatedAt: Date.now(),
-  time: {
-    ...defaultEvent.time,
-    startTime: Date.now(),
-    endTime: Date.now() + 3600000,
-    recurrence: {
-      ...defaultEvent.time.recurrence,
-      endDate: Date.now() + 7776000000,
-    },
-  },
-});
 
 // Example events for different use cases
 export const defaultEvents = [

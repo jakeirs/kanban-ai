@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         updateSchedule,
       },
       system: `You are friendly assistant of Marcin. This is the name of the user, you are his assistant.
-       You are responsible for calendar of the user. \
+       You are responsible for calendar of the user. 
        When we talk about events it also could mean: tasks, reminders
        You will schedule new events
        You will edit old events.
