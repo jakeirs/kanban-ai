@@ -15,6 +15,9 @@ import type {
 } from "convex/server";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as tables_events_defaultValues from "../tables/events/defaultValues.js";
+import type * as tables_events_table from "../tables/events/table.js";
+import type * as tables_events_types from "../tables/events/types.js";
 import type * as tables_kanban_defaultValues from "../tables/kanban/defaultValues.js";
 import type * as tables_kanban_logic_initKanbanBoardLogic from "../tables/kanban/logic/initKanbanBoardLogic.js";
 import type * as tables_kanban_logic_visitKanbanPageLogic from "../tables/kanban/logic/visitKanbanPageLogic.js";
@@ -58,6 +61,9 @@ import type * as tables_users_table from "../tables/users/table.js";
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
+  "tables/events/defaultValues": typeof tables_events_defaultValues;
+  "tables/events/table": typeof tables_events_table;
+  "tables/events/types": typeof tables_events_types;
   "tables/kanban/defaultValues": typeof tables_kanban_defaultValues;
   "tables/kanban/logic/initKanbanBoardLogic": typeof tables_kanban_logic_initKanbanBoardLogic;
   "tables/kanban/logic/visitKanbanPageLogic": typeof tables_kanban_logic_visitKanbanPageLogic;
