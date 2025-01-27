@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react"
+import React from "react"
 import { Init } from "./init"
 import { Vizualizer } from "./vizualizer"
 import {
@@ -20,8 +20,6 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
   isOpen,
   setIsOpen,
 }) => {
-  const [inputMode, setInputMode] = useState<"voice" | "keyboard">("voice");
-
   return (
     <>
       {/* Drawer */}
@@ -35,7 +33,7 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
               </TabsList>
               
               <TabsContent value="init">
-                <Init inputMode={inputMode} setInputMode={setInputMode} />
+                <Init />
               </TabsContent>
 
               <TabsContent value="processing">
