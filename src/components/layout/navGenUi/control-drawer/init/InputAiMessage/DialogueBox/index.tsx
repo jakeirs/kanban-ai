@@ -23,6 +23,12 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ messages }) => {
           <div key={m.id}>
             {m.role === "assistant" ? (
               <div>
+                <MessageCloud
+                  key={m.id}
+                  message={m.content}
+                  isAi={false}
+                  userName={"App"}
+                />
                 {m.toolInvocations?.map((tool: ToolInvocation) => {
                   if (tool.state === "result" && tool.toolName === "getUI") {
                     const args = tool.args as GetUIToolArgs;
