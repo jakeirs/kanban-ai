@@ -1,7 +1,7 @@
 import { getUnixTime } from "date-fns";
-import { EventZod } from "@/convex/tables/events/typesZod";
+import { type EventFromLLMZod } from "@/convex/tables/events/typesZod";
 
-export const convertToUnixTime = (events: EventZod[]) => {
+export const convertToUnixTime = (events: EventFromLLMZod[]) => {
   return events.map((event) => {
     return {
       ...event,

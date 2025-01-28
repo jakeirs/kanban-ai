@@ -9,7 +9,7 @@ export const recurrenceTypeEnumZod = z.enum([
   "custom",
 ]);
 
-// EVENTS
+// EVENTS FROM LLM
 export const eventSchemaZod = z.object({
   id: z.string(),
   title: z.string(),
@@ -40,4 +40,4 @@ export const eventSchemaZod = z.object({
 });
 
 // Types
-export type EventZod = z.infer<typeof eventSchemaZod>;
+export type EventFromLLMZod = z.infer<typeof eventSchemaZod>;

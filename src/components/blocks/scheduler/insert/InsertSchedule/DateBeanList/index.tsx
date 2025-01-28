@@ -1,17 +1,16 @@
 "use client";
 
+import type { EventFromConvex } from "@/convex/tables/events/types";
 import { DateBean } from "../DateBean";
 
-import { FormattedEvent } from "@/app/(pages)/mobile/scheduler/get/_utils/formatEvents";
-
 interface DateBeanListProps {
-  formattedEvents: FormattedEvent[];
+  events: EventFromConvex[];
 }
 
-export const DateBeanList = ({ formattedEvents }: DateBeanListProps) => {
+export const DateBeanList = ({ events }: DateBeanListProps) => {
   return (
     <div className="flex flex-col space-y-4">
-      {formattedEvents.map((event, index) => (
+      {events.map((event, index) => (
         <DateBean key={index} event={event} />
       ))}
     </div>

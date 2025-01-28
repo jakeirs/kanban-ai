@@ -1,7 +1,7 @@
-import { Event } from "@/convex/tables/events/types";
+import { EventFromConvex } from "@/convex/tables/events/types";
 import { formatISO } from "date-fns";
 
-export const convertToISO = (events: Event[]) => {
+export const convertToISO = (events: EventFromConvex[]) => {
   return events.map((event) => {
     const converted = {
       ...event,

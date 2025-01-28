@@ -27,4 +27,4 @@ export const eventValidator = v.object({
   notes: v.optional(v.array(v.string())), // assignment to the project
 });
 
-export type Event = Infer<typeof eventValidator>;
+export type EventFromConvex = Infer<typeof eventValidator>;

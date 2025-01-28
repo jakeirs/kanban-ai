@@ -1,4 +1,4 @@
-import { Event } from "@/convex/tables/events/types";
+import { EventFromConvex } from "@/convex/tables/events/types";
 import { format } from "date-fns";
 
 export interface FormattedEvent {
@@ -14,7 +14,7 @@ export interface FormattedEvent {
   };
 }
 
-export const formatEvents = (events: Event[]): FormattedEvent[] => {
+export const formatEvents = (events: EventFromConvex[]): FormattedEvent[] => {
   if (!events || !events.length) {
     return [];
   }

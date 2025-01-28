@@ -1,6 +1,10 @@
 import { format } from "date-fns";
 import { DashboardDto } from "@/convex/tables/projects/queries/_dto/forDashboardDto";
-import { Event, Note, ProjectDetail } from "@/convex/tables/projects/types";
+import {
+  EventFromConvex,
+  Note,
+  ProjectDetail,
+} from "@/convex/tables/projects/types";
 
 const FORMAT_DATE = "MMM d, h:mm aa";
 
@@ -66,7 +70,7 @@ export function formatDates(
           }
         : undefined,
     })),
-    events: dto.events.map((event: Event) => ({
+    events: dto.events.map((event: E) => ({
       ...event,
       createdAt: event.createdAt
         ? format(event.createdAt, FORMAT_DATE)

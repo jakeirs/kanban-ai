@@ -6,17 +6,20 @@ import { useMemo } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-import { FormattedEvent } from "@/app/(pages)/mobile/scheduler/get/_utils/formatEvents";
+import { formatEvent, FormattedEvent } from "./utils/formatEvents";
+import type { EventFromConvex } from "@/convex/tables/events/types";
 
 interface DateBeanProps {
-  event: FormattedEvent;
+  event: EventFromConvex;
 }
 
-export const DateBean = ({ event }: DateBeanProps) => {
+export const DateBean = ({ event: eventFromConvex }: DateBeanProps) => {
   // Convex delete Mutation
   const deleteEvent = useMutation(
     api.tables.events.mutations.deleteEvent.default
   );
+
+  const event = formatEvent(eventFromConvex);
 
   // onClick Delete
   const handleDelete = async () => {
