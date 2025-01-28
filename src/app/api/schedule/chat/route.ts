@@ -39,7 +39,24 @@ export async function POST(req: Request) {
        If user doesn't add Month or year (assume current one)
        You should round all times to the nearest hour or 10-minute mark or quarters, unless the user specifically asks for an exact time
        If user didn't pass title then as default you should set "Meeting at X" where X is the date user told you
-      `,
+
+       When a user specifies a date that is in the past:
+
+        Notify the user that they've selected a past date
+        Ask for confirmation if they want to proceed with this past date
+        Only continue with the scheduling if they explicitly confirm
+        If they don't confirm, ask for a new date
+
+        For example:
+        If user says 'Schedule meeting for January 15, 2025' and today is (example January 16, 2025):
+
+        Notify: 'I notice this date is in the past'
+        Ask: 'Would you like to proceed with scheduling for this past date, or would you prefer to choose a future date?'
+        Then either:
+
+        Continue if they confirm
+        Help them pick a new date if they decline
+       `,
     });
 
     return result.toDataStreamResponse({

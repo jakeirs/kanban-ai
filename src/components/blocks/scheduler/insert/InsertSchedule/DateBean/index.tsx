@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { useMemo } from "react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 import { FormattedEvent } from "@/app/(pages)/mobile/scheduler/get/_utils/formatEvents";
 
@@ -11,6 +13,21 @@ interface DateBeanProps {
 }
 
 export const DateBean = ({ event }: DateBeanProps) => {
+  // Convex delete Mutation
+  const deleteEvent = useMutation(
+    api.tables.events.mutations.deleteEvent.default
+  );
+
+  // onClick Delete
+  const handleDelete = async () => {
+    try {
+      await deleteEvent({
+        eventId: event.id,
+      });
+    } catch (error) {
+      console.error("Failed to delete event:", error);
+    }
+  };
   return (
     <div className="flex items-center gap-4 tracking-tighter">
       <div className="bg-black text-white rounded-xl py-4 px-4 tracking-normal text-center cursor-pointer">
@@ -35,7 +52,12 @@ export const DateBean = ({ event }: DateBeanProps) => {
         </Button>
       </div>
 
-      <Button variant="ghost" size="icon" className="text-gray-400">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="text-gray-400"
+        onClick={handleDelete}
+      >
         <X className="h-6 w-6" />
       </Button>
     </div>
