@@ -1,12 +1,13 @@
 import { Message } from "ai/react";
 import { MessageCloud } from "./MessageCloud";
 import { ToolInvocation } from "@ai-sdk/ui-utils";
-import { FormattedEvent } from "@/app/api/schedule/chat/tools/getUI/types";
+import { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/getUI/types";
+import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue";
 
 interface GetUIToolArgs {
   message: string;
   shortMessage: string;
-  listOfActionToDo: FormattedEvent[];
+  listOfActionToDo: EventFromLLMGenUI[];
 }
 
 interface DialogueBoxProps {
@@ -37,10 +38,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({ messages }) => {
                         />
                         <ul>
                           {args.listOfActionToDo.map((action, index) => (
-                            <li key={index}>
-                              {action.title} - {action.date} at{" "}
-                              {action.timeStart}
-                            </li>
+                            <DateBeanDialogue event={action} />
                           ))}
                         </ul>
                       </div>

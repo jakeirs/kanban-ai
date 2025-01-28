@@ -1,4 +1,6 @@
+import type { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/getUI/types";
 import { EventFromConvex } from "@/convex/tables/events/types";
+import type { EventFromLLMZod } from "@/convex/tables/events/typesZod";
 import { format } from "date-fns";
 
 export interface FormattedEvent {
@@ -14,7 +16,9 @@ export interface FormattedEvent {
   };
 }
 
-export const formatEvent = (event: EventFromConvex): FormattedEvent => {
+export const formatEvent = (
+  event: EventFromConvex | EventFromLLMZod | EventFromLLMGenUI
+): FormattedEvent => {
   if (!event) {
     throw new Error("Event is required");
   }

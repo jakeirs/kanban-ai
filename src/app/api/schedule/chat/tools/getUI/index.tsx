@@ -1,7 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 
-import { eventGenUiZod } from "./types";
+import { eventFromLLMGenUiZod } from "./types";
 
 export const getUI = tool({
   description: `Use this tools to always first before using anyother tool.
@@ -22,7 +22,7 @@ export const getUI = tool({
         `Short message of what what user requested and what you can do for him. Be serious and kinda cool.`
       ),
     listOfActionToDo: z
-      .array(eventGenUiZod)
+      .array(eventFromLLMGenUiZod)
       .describe(`Array of items, tasks, events to insert or change.`),
   }),
   execute: async ({ message, listOfActionToDo }) => {
