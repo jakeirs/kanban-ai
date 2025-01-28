@@ -1,7 +1,7 @@
 import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
-import { updateSchedule } from "./tools";
+import { updateSchedule, getUI } from "./tools";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { format } from "date-fns";
 
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
       experimental_toolCallStreaming: true,
       maxSteps: 10,
       tools: {
+        getUI,
         updateSchedule,
       },
       system: `You are friendly assistant of Marcin. This is the name of the user, you are his assistant.

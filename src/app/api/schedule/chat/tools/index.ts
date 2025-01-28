@@ -1,1 +1,2 @@
-export { updateSchedule } from "./updateSchedule/updateSchedule";
+export { updateSchedule } from "./updateSchedule";
+export { getUI } from "./getUI";
