@@ -7,12 +7,12 @@ export interface FormattedEvent {
   id: string;
   title: string;
   description: string;
-  timeStart: string;
-  endTime: string;
+  timeStart: string | null;
+  endTime: string | null;
   day: {
-    dayOfWeek: string;
-    dayOfMonth: string;
-    month: string;
+    dayOfWeek: string | null;
+    dayOfMonth: string | null;
+    month: string | null;
   };
 }
 
@@ -22,6 +22,30 @@ export const formatEvent = (
   if (!event) {
     throw new Error("Event is required");
   }
+
+  let timeStart: string | null = null;
+  let endTime: string | null = null;
+  let dayOfWeek: string | null = null;
+  let dayOfMonth: string | null = null;
+  let month: string | null = null;
+
+  if (event.time?.startTime && event.time?.endTime) {
+    const startDate = new Date(event.time.startTime);
+    const endDate = new Date(event.time.endTime);
+
+    const isStartValid = !isNaN(startDate.getTime());
+    const isEndValid = !isNaN(endDate.getTime());
+    const isChronologicallyValid = endDate >= startDate;
+
+    if (isStartValid && isEndValid && isChronologicallyValid) {
+      timeStart = format(startDate, "h:mm aaa");
+      endTime = format(endDate, "h:mm aaa");
+      dayOfWeek = format(startDate, "EEE");
+      dayOfMonth = format(startDate, "dd");
+      month = format(startDate, "MMM");
+    }
+  }
+
   return {
     id: event.id,
     title: event.title,
@@ -30,12 +54,12 @@ export const formatEvent = (
         ? `${event.description.slice(0, 75)}...`
         : event.description
       : "",
-    timeStart: format(new Date(event.time.startTime), "h:mm aaa"),
-    endTime: format(new Date(event.time.endTime), "h:mm aaa"),
+    timeStart,
+    endTime,
     day: {
-      dayOfWeek: format(new Date(event.time.startTime), "EEE"),
-      dayOfMonth: format(new Date(event.time.startTime), "dd"),
-      month: format(new Date(event.time.startTime), "MMM"),
+      dayOfWeek,
+      dayOfMonth,
+      month,
     },
   };
 };
