@@ -1,7 +1,6 @@
 import { Message } from "ai/react";
 import { ToolUI } from "./ToolUI";
 import { useToolInvocation } from "../hooks/useToolInvocation";
-import { Loader } from "./Loader";
 import { Loader as Loaders } from "lucide-react";
 
 interface AssistantMessageProps {
@@ -17,7 +16,6 @@ export const AssistantMessage = ({
 
   return (
     <div className="relative">
-      {isLoading && <Loader />}
       {getUIArgs.map((args, index) => (
         <ToolUI key={index} args={args} messageId={message.id} />
       ))}
