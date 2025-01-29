@@ -1,4 +1,4 @@
-import { MessageCloud } from "../MessageCloud";
+import { MessageCloud } from "./MessageCloud";
 
 interface UserMessageProps {
   content: string;

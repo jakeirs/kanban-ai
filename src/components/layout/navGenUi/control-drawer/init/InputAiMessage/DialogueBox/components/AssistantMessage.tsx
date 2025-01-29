@@ -12,12 +12,12 @@ export const AssistantMessage = ({
   message,
   isLoading,
 }: AssistantMessageProps) => {
-  const { getUIArgs } = useToolInvocation(message.toolInvocations);
+  const { getUIArgs, toolState } = useToolInvocation(message.toolInvocations);
 
   return (
     <div className="relative">
       {getUIArgs.map((args, index) => (
-        <ToolUI key={index} args={args} messageId={message.id} />
+        <ToolUI key={index} args={args} messageId={message.id} toolState={toolState} />
       ))}
     </div>
   );

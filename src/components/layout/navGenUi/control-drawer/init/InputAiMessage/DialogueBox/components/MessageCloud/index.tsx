@@ -4,17 +4,20 @@ interface MessageCloudProps {
   message: string;
   isUser: boolean;
   userName?: string;
+  className?: string;
 }
 
 export const MessageCloud = ({
   message,
   isUser,
   userName = "Marcin",
+  className = "Marcin",
 }: MessageCloudProps) => {
   return (
     <div
       className={cn(
         "flex flex-col max-w-[80%] gap-1",
+        className,
         isUser ? "items-end ml-auto" : "items-start"
       )}
     >
