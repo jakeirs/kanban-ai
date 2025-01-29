@@ -16,12 +16,12 @@ export const eventFromLLMGenUiZod = z.object({
 
   time: z
     .object({
-      startTime: z
+      endTime: z
         .string()
         .describe(
           "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
         ),
-      endTime: z
+      startTime: z
         .string()
         .describe(
           "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
