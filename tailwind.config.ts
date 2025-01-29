@@ -56,44 +56,35 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		keyframes: {
-  			'accordion-down': {
+			"loader": {
+				"0%, 100%": {
+					opacity: "0.2"
+				},
+				"50%": {
+					opacity: "1"
+				}
+			},
+  			"accordion-down": {
   				from: {
-  					height: 0
+  					height: "0"
   				},
   				to: {
-  					height: 'var(--radix-accordion-content-height)'
+  					height: "var(--radix-accordion-content-height)"
   				}
   			},
-  			'accordion-up': {
+  			"accordion-up": {
   				from: {
-  					height: 'var(--radix-accordion-content-height)'
+  					height: "var(--radix-accordion-content-height)"
   				},
   				to: {
-  					height: 0
-  				}
-  			},
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
+  					height: "0"
   				}
   			}
   		},
   		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+			"loader": "loader 0.75s ease-in-out infinite",
+  			"accordion-down": "accordion-down 0.2s ease-out",
+  			"accordion-up": "accordion-up 0.2s ease-out"
   		}
   	}
   },

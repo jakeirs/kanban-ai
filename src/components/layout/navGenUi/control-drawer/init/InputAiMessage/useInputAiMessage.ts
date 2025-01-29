@@ -18,6 +18,8 @@ export const useInputAiMessage = ({
     handleSubmit,
     setMessages,
     reload,
+    isLoading,
+    addToolResult
   } = useChat({
     api: "/api/schedule/chat",
   });
@@ -59,5 +61,6 @@ export const useInputAiMessage = ({
     inputMode,
     toggleInputMode,
     onRecordingComplete,
+    isLoading,
   };
 };

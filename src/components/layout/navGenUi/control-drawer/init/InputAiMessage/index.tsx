@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React from "react"
-import { useInputAiMessage } from "./useInputAiMessage"
-import { DialogueBox } from "./DialogueBox"
-import { InputModeToggle } from "./InputModeToggle"
-import { InputForm } from "./InputForm"
+import React from "react";
+import { useInputAiMessage } from "./useInputAiMessage";
+import { DialogueBox } from "./DialogueBox";
+import { InputModeToggle } from "./InputModeToggle";
+import { InputForm } from "./InputForm";
 
 interface InputAiMessageProps {
-  onMessageSubmit?: (message: string) => void
+  onMessageSubmit?: (message: string) => void;
 }
 
 export const InputAiMessage: React.FC<InputAiMessageProps> = ({
@@ -21,19 +21,24 @@ export const InputAiMessage: React.FC<InputAiMessageProps> = ({
     inputMode,
     toggleInputMode,
     onRecordingComplete,
-  } = useInputAiMessage()
+    isLoading,
+  } = useInputAiMessage();
 
   return (
     <div className="space-y-4">
-      <DialogueBox messages={messages} />
-      <InputModeToggle inputMode={inputMode} toggleInputMode={toggleInputMode} />
+      <DialogueBox messages={messages} isLoading={isLoading} />
+      <InputModeToggle
+        inputMode={inputMode}
+        toggleInputMode={toggleInputMode}
+      />
       <InputForm
         inputMode={inputMode}
         input={input}
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
         onRecordingComplete={onRecordingComplete}
+        
       />
     </div>
-  )
-}
+  );
+};
