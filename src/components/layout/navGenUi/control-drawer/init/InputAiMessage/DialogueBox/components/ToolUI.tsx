@@ -25,14 +25,11 @@ export const ToolUI = ({ args, messageId }: ToolUIProps) => {
       {args.listOfActionToDo && (
         <div className="my-2">
           {args.listOfActionToDo.map((action, index) => {
-            if (action.time?.endTime) {
-              return (
-                <div className="mb-1">
-                  <DateBeanDialogue key={index} event={action} />
-                </div>
-              );
-            }
-            return null;
+            return (
+              <div className="mb-1">
+                <DateBeanDialogue key={index} event={action} />
+              </div>
+            );
           })}
         </div>
       )}
