@@ -13,7 +13,7 @@ export const DateBeanDialogue = ({ event: eventFromLLMZod }: DateBeanProps) => {
 
   return (
     <div className="flex items-center gap-4 tracking-tighter">
-      <div className="bg-black text-white rounded-xl py-4 px-4 tracking-normal text-center cursor-pointer">
+      <div className="bg-black min-w-[73px] text-white rounded-xl py-4 px-4 tracking-normal text-center cursor-pointer">
         <div className="text-lg font-semibold">{event.day.dayOfWeek}</div>
         <div className="text-3xl font-bold">{event.day.dayOfMonth}</div>
         <div className="text-sm">{event.day.month}</div>
