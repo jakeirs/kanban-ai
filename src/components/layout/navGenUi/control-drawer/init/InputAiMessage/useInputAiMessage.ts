@@ -19,7 +19,8 @@ export const useInputAiMessage = ({
     setMessages,
     reload,
     isLoading,
-    addToolResult
+    addToolResult,
+    
   } = useChat({
     api: "/api/schedule/chat",
   });
