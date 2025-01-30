@@ -4,8 +4,13 @@ import { Message } from "ai";
 import { updateSchedule, getUI } from "./tools";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { format } from "date-fns";
-import { agent3Tools, agentPrompt } from "./prompts/agent";
-import { calendarEventTool } from "./tools/calendarEvents";
+import {
+  agent3Tools,
+  agentPrompt,
+  agentNotAnsweringPrompt_V01,
+} from "./prompts/agent";
+import { calendarTool } from "./tools/calendarTool";
+import { confirmationTool } from "./tools/confirmationTool";
 
 export async function POST(req: Request) {
   try {
@@ -21,11 +26,14 @@ export async function POST(req: Request) {
       experimental_toolCallStreaming: true,
       maxSteps: 10,
       tools: {
-        getUI,
-        calendarEventTool,
+        // getUI,
+        calendarTool,
+        confirmationTool,
         // updateSchedule,
       },
       system: agent3Tools(CURRENT_TIME),
+      // system: agent2Tools(CURRENT_TIME),
+      // system: agentNotAnsweringPrompt_V01(CURRENT_TIME),
     });
 
     return result.toDataStreamResponse({

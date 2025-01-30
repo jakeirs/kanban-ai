@@ -1,5 +1,5 @@
-import { Message } from "ai/react"
-import { useEffect, useRef } from "react"
+import { Message } from "ai/react";
+import { useEffect, useRef } from "react";
 import { AssistantMessage } from "./components/AssistantMessage";
 import { UserMessage } from "./components/UserMessage";
 import { Loader } from "./components/Loader";
@@ -13,15 +13,17 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   messages,
   isLoading,
 }) => {
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  console.log("messages", messages);
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div className="flex-1 mb-4 space-y-4 overflow-y-auto max-h-[300px]">

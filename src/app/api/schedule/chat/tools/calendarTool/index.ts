@@ -2,32 +2,43 @@ import type { z } from "zod";
 import { calendarToolSchemaZod } from "./types";
 import { tool } from "ai";
 
-export const calendarEventTool = tool({
-  description: `Tool do zarządzania wydarzeniami w kalendarzu. Używaj tego narzędzia gdy:
-    1. Użytkownik chce dodać nowe wydarzenie/wydarzenia do kalendarza
-    2. Użytkownik chce zobaczyć proponowane zmiany w kalendarzu
-    3. Użytkownik prosi o zaplanowanie spotkania lub serii spotkań
-    4. Potrzebujesz pokazać użytkownikowi proponowane terminy wydarzeń
+export const calendarTool = tool({
+  description: `Calendar Tool Description
+      This tool is designed to manage calendar events. Use this tool when:
 
-    NIE używaj tego narzędzia gdy:
-    1. Użytkownik tylko potwierdza lub odrzuca propozycję (użyj confirmation_tool)
-    2. Potrzebujesz zadać ogólne pytanie (użyj general_tool)
-    
-    Przykłady użycia:
-    1. "Dodaj spotkanie na jutro o 15:00" -> calendarEventTool
-    2. "Zaplanuj 3 spotkania w tym tygodniu" -> calendarEventTool
-    3. "Stwórz wydarzenie na przyszły piątek" -> calendarEventTool
-    
-    Zawsze ustaw requiresConfirmation: true jeśli:
-    - Dodajesz nowe wydarzenie
-    - Modyfikujesz istniejące wydarzenie
-    - Proponujesz serię wydarzeń`,
+      A user wants to add new event(s) to the calendar
+      A user wants to see proposed changes to the calendar
+      A user requests to schedule a meeting or series of meetings
+      You need to show the user proposed event times
+
+      Do NOT use this tool when:
+
+      A user is only confirming or rejecting a proposal (use confirmation_tool instead)
+      You need to ask a general question (use general_tool instead)
+
+      Usage Examples:
+
+      "Add a meeting tomorrow at 3:00 PM" -> calendarEventTool
+      "Schedule 3 meetings this week" -> calendarEventTool
+      "Create an event for next Friday" -> calendarEventTool
+
+      Important Note About Confirmation:
+      Always set requiresConfirmation: true when:
+
+      Adding a new event
+      Modifying an existing event
+      Proposing a series of events`,
   parameters: calendarToolSchemaZod,
   execute: async (input) => {
     const validatedInput = calendarToolSchemaZod.parse(input);
 
-    console.log("validatedInput", JSON.stringify(validatedInput, null, 2));
     console.log("input", JSON.stringify(input, null, 2));
+
+    return {
+      aiMessage: "Now request user for confirmation using confrimationTool",
+      requiresConfirmation: true,
+      eventsRequested: input.events,
+    };
   },
 });
 
