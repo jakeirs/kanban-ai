@@ -11,6 +11,7 @@ import {
 } from "./prompts/agent";
 import { calendarTool } from "./tools/calendarTool";
 import { confirmationTool } from "./tools/confirmationTool";
+import { afterConfirmationTool } from "./tools/afterConfirmationTool";
 
 export async function POST(req: Request) {
   try {
@@ -29,6 +30,7 @@ export async function POST(req: Request) {
         // getUI,
         calendarTool,
         confirmationTool,
+        afterConfirmationTool,
         // updateSchedule,
       },
       system: agent3Tools(CURRENT_TIME),

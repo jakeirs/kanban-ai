@@ -38,7 +38,7 @@ export const ConfirmationDisplay = ({
     option: "APPROVE" | "MODIFY" | "CANCEL"
   ) => {
     const result = {
-      option: option,
+      userSelectedOption: option,
       eventContext,
     };
     addToolResult({ result, toolCallId });
