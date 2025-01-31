@@ -5,12 +5,18 @@ import { Loader as Loaders } from "lucide-react";
 
 interface AssistantMessageProps {
   message: Message;
-  isLoading?: boolean;
+  addToolResult: ({
+    toolCallId,
+    result,
+  }: {
+    toolCallId: string;
+    result: any;
+  }) => void;
 }
 
 export const AssistantMessage = ({
   message,
-  isLoading,
+  addToolResult,
 }: AssistantMessageProps) => {
   const {
     toolState,
@@ -20,11 +26,12 @@ export const AssistantMessage = ({
     hasCalendarTools,
     hasGetUITools,
     hasConfirmationTools,
+    toolCallId,
   } = useToolInvocation(message.toolInvocations);
 
   return (
     <div className="relative">
-      {hasGetUITools &&
+      {hasGetUITools && toolCallId &&
         getUIArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -32,9 +39,11 @@ export const AssistantMessage = ({
             messageId={message.id}
             toolState={toolState}
             toolType="getUI"
+            toolCallId={toolCallId}
+            addToolResult={addToolResult}
           />
         ))}
-      {hasCalendarTools &&
+      {hasCalendarTools && toolCallId &&
         calendarArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -42,9 +51,11 @@ export const AssistantMessage = ({
             messageId={message.id}
             toolState={toolState}
             toolType="CALENDAR_EVENTS"
+            toolCallId={toolCallId}
+            addToolResult={addToolResult}
           />
         ))}
-      {hasConfirmationTools &&
+      {hasConfirmationTools && toolCallId &&
         confirmationArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -52,6 +63,8 @@ export const AssistantMessage = ({
             messageId={message.id}
             toolState={toolState}
             toolType="confirmationTool"
+            toolCallId={toolCallId}
+            addToolResult={addToolResult}
           />
         ))}
     </div>

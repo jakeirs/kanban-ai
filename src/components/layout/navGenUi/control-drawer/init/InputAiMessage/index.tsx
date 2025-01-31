@@ -22,11 +22,16 @@ export const InputAiMessage: React.FC<InputAiMessageProps> = ({
     toggleInputMode,
     onRecordingComplete,
     isLoading,
+    addToolResult,
   } = useInputAiMessage();
 
   return (
     <div className="space-y-4">
-      <DialogueBox messages={messages} isLoading={isLoading} />
+      <DialogueBox
+        messages={messages}
+        isLoading={isLoading}
+        addToolResult={addToolResult}
+      />
       <InputModeToggle
         inputMode={inputMode}
         toggleInputMode={toggleInputMode}
@@ -37,7 +42,6 @@ export const InputAiMessage: React.FC<InputAiMessageProps> = ({
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
         onRecordingComplete={onRecordingComplete}
-        
       />
     </div>
   );

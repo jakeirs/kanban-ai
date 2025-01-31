@@ -28,6 +28,11 @@ export const useToolInvocation = (toolInvocations?: ToolInvocation[]) => {
     calendarTools[0]?.state ||
     confirmationTools[0]?.state;
 
+  const toolCallId =
+    getUITools[0]?.toolCallId ||
+    calendarTools[0]?.toolCallId ||
+    confirmationTools[0]?.toolCallId;
+
   const getUIArgs = getUITools.map((tool) => tool.args as GetUIToolArgs);
   const calendarArgs = calendarTools.map(
     (tool) => tool.args as CalendarToolArgs
@@ -41,6 +46,7 @@ export const useToolInvocation = (toolInvocations?: ToolInvocation[]) => {
     calendarArgs,
     confirmationArgs,
     toolState,
+    toolCallId,
     hasCalendarTools: calendarTools.length > 0,
     hasGetUITools: getUITools.length > 0,
     hasConfirmationTools: confirmationTools.length > 0,

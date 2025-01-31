@@ -7,11 +7,19 @@ import { Loader } from "./components/Loader";
 interface DialogueBoxProps {
   messages?: Message[];
   isLoading?: boolean;
+  addToolResult: ({
+    toolCallId,
+    result,
+  }: {
+    toolCallId: string;
+    result: any;
+  }) => void;
 }
 
 export const DialogueBox: React.FC<DialogueBoxProps> = ({
   messages,
   isLoading,
+  addToolResult,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -31,11 +39,14 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
         {messages?.map((message: Message) => {
           return (
             <div key={message.id}>
-              {message.role === "assistant" ? (
-                <AssistantMessage message={message} isLoading={isLoading} />
-              ) : (
+              {message.role === "assistant" && addToolResult ? (
+                <AssistantMessage
+                  message={message}
+                  addToolResult={addToolResult}
+                />
+              ) : message.role === "user" ? (
                 <UserMessage content={message.content} id={message.id} />
-              )}
+              ) : null}
             </div>
           );
         })}
