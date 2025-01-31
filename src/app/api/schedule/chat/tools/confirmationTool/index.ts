@@ -10,21 +10,13 @@ export const confirmationTool = tool({
   parameters: confirmationToolZod,
   execute: async (input) => {
     const validatedInput = confirmationToolZod.parse(input);
-    console.log(
-      "confirmationTool ZIOM",
-      JSON.stringify(validatedInput, null, 2)
-    );
 
     return {
       aiContext: {
         type: "AWAITING_USER_CONFIRMATION",
         about: validatedInput.eventContext,
+        messageWeSentToUser: validatedInput.messageToUser,
         possibleResponses: ["APPROVE", "MODIFY", "CANCEL"],
-      },
-      display: {
-        type: "CONFIRMATION_BUTTONS",
-        message: validatedInput.eventContext,
-        options: ["APPROVE", "MODIFY", "CANCEL"],
       },
     };
   },

@@ -1,15 +1,16 @@
 "use client";
 
-import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue";
-import { MessageCloud } from "./MessageCloud";
-import { CalendarToolArgs, GetUIToolArgs } from "../hooks/useToolInvocation";
-import { format } from "date-fns";
+import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue"
+import { MessageCloud } from "./MessageCloud"
+import { CalendarToolArgs, GetUIToolArgs, ConfirmationToolArgs } from "../hooks/useToolInvocation"
+import { format } from "date-fns"
+import { ConfirmationDisplay } from "./ConfirmationDisplay"
 
 interface ToolUIProps {
-  args: GetUIToolArgs | CalendarToolArgs;
+  args: GetUIToolArgs | CalendarToolArgs | ConfirmationToolArgs;
   messageId: string;
   toolState: "result" | "partial-call" | "call";
-  toolType: "getUI" | "CALENDAR_EVENTS";
+  toolType: "getUI" | "CALENDAR_EVENTS" | "confirmationTool";
 }
 
 const CalendarEventsDisplay = ({
@@ -79,7 +80,13 @@ export const ToolUI = ({
         </div>
       )}
 
-      {toolState === "result" && (
+      {toolType === "confirmationTool" && "options" in args && (
+        <div className="my-2">
+          <ConfirmationDisplay {...args} />
+        </div>
+      )}
+
+      {toolState === "result" && toolType !== "confirmationTool" && (
         <MessageCloud
           message={"Is this something what you wanted?"}
           isUser={false}

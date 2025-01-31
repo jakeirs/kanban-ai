@@ -1,11 +1,11 @@
-import { Message } from "ai/react"
-import { ToolUI } from "./ToolUI"
-import { useToolInvocation } from "../hooks/useToolInvocation"
-import { Loader as Loaders } from "lucide-react"
+import { Message } from "ai/react";
+import { ToolUI } from "./ToolUI";
+import { useToolInvocation } from "../hooks/useToolInvocation";
+import { Loader as Loaders } from "lucide-react";
 
 interface AssistantMessageProps {
-  message: Message
-  isLoading?: boolean
+  message: Message;
+  isLoading?: boolean;
 }
 
 export const AssistantMessage = ({
@@ -13,12 +13,14 @@ export const AssistantMessage = ({
   isLoading,
 }: AssistantMessageProps) => {
   const {
+    toolState,
     getUIArgs,
     calendarArgs,
-    toolState,
+    confirmationArgs,
     hasCalendarTools,
-    hasGetUITools
-  } = useToolInvocation(message.toolInvocations)
+    hasGetUITools,
+    hasConfirmationTools,
+  } = useToolInvocation(message.toolInvocations);
 
   return (
     <div className="relative">
@@ -42,6 +44,16 @@ export const AssistantMessage = ({
             toolType="CALENDAR_EVENTS"
           />
         ))}
+      {hasConfirmationTools &&
+        confirmationArgs.map((args, index) => (
+          <ToolUI
+            key={index}
+            args={args}
+            messageId={message.id}
+            toolState={toolState}
+            toolType="confirmationTool"
+          />
+        ))}
     </div>
-  )
-}
+  );
+};
