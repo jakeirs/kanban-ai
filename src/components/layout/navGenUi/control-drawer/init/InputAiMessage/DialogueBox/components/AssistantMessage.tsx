@@ -27,11 +27,14 @@ export const AssistantMessage = ({
     hasGetUITools,
     hasConfirmationTools,
     toolCallId,
+    generalArgs,
+    hasGeneralTools,
   } = useToolInvocation(message.toolInvocations);
 
   return (
     <div className="relative">
-      {hasGetUITools && toolCallId &&
+      {hasGetUITools &&
+        toolCallId &&
         getUIArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -43,7 +46,8 @@ export const AssistantMessage = ({
             addToolResult={addToolResult}
           />
         ))}
-      {hasCalendarTools && toolCallId &&
+      {hasCalendarTools &&
+        toolCallId &&
         calendarArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -55,7 +59,8 @@ export const AssistantMessage = ({
             addToolResult={addToolResult}
           />
         ))}
-      {hasConfirmationTools && toolCallId &&
+      {hasConfirmationTools &&
+        toolCallId &&
         confirmationArgs.map((args, index) => (
           <ToolUI
             key={index}
@@ -63,6 +68,19 @@ export const AssistantMessage = ({
             messageId={message.id}
             toolState={toolState}
             toolType="confirmationTool"
+            toolCallId={toolCallId}
+            addToolResult={addToolResult}
+          />
+        ))}
+      {hasGeneralTools &&
+        toolCallId &&
+        generalArgs.map((args, index) => (
+          <ToolUI
+            key={index}
+            args={args}
+            messageId={message.id}
+            toolState={toolState}
+            toolType="generalTool"
             toolCallId={toolCallId}
             addToolResult={addToolResult}
           />

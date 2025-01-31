@@ -12,6 +12,7 @@ import {
 import { calendarTool } from "./tools/calendarTool";
 import { confirmationTool } from "./tools/confirmationTool";
 import { afterConfirmationTool } from "./tools/afterConfirmationTool";
+import { generalTool } from "./tools/generalTool";
 
 export async function POST(req: Request) {
   try {
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
         calendarTool,
         confirmationTool,
         afterConfirmationTool,
+        generalTool,
         // updateSchedule,
       },
       system: agent3Tools(CURRENT_TIME),

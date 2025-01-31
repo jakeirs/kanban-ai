@@ -6,15 +6,20 @@ import {
   CalendarToolArgs,
   GetUIToolArgs,
   ConfirmationToolArgs,
+  GeneralToolArgs,
 } from "../hooks/useToolInvocation";
 import { format } from "date-fns";
 import { ConfirmationDisplay } from "./ConfirmationDisplay";
 
 interface ToolUIProps {
-  args: GetUIToolArgs | CalendarToolArgs | ConfirmationToolArgs;
+  args:
+    | GetUIToolArgs
+    | CalendarToolArgs
+    | ConfirmationToolArgs
+    | GeneralToolArgs;
   messageId: string;
   toolState: "result" | "partial-call" | "call";
-  toolType: "getUI" | "CALENDAR_EVENTS" | "confirmationTool";
+  toolType: "getUI" | "CALENDAR_EVENTS" | "confirmationTool" | "generalTool";
   toolCallId: string;
   addToolResult: ({
     toolCallId,
@@ -69,6 +74,17 @@ export const ToolUI = ({
         </div>
       )}
 
+      {toolType === "generalTool" && "messageToUser" in args && (
+        <div className="my-2">
+          <MessageCloud
+            message={args.messageToUser}
+            isUser={false}
+            userName={"App"}
+            className="mb-1"
+          />
+        </div>
+      )}
+
       {toolType === "confirmationTool" && "options" in args && (
         <div className="my-2">
           <ConfirmationDisplay
@@ -77,15 +93,6 @@ export const ToolUI = ({
             addToolResult={addToolResult}
           />
         </div>
-      )}
-
-      {toolState === "result" && toolType !== "confirmationTool" && (
-        <MessageCloud
-          message={"Is this something what you wanted?"}
-          isUser={false}
-          userName={"App"}
-          className="mb-1"
-        />
       )}
     </div>
   );
