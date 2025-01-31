@@ -32,8 +32,6 @@ export const calendarTool = tool({
   execute: async (input) => {
     const validatedInput = calendarToolSchemaZod.parse(input);
 
-    console.log("input", JSON.stringify(input, null, 2));
-
     return {
       aiMessage: "Now request user for confirmation using confrimationTool",
       requiresConfirmation: true,

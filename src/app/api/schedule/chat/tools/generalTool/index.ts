@@ -13,8 +13,6 @@ export const generalTool = tool({
   execute: async (input) => {
     const validatedInput = generalToolParamsZod.parse(input);
 
-    console.log("generalTool input", JSON.stringify(input, null, 2));
-
     return {
       waitForUser: true,
     };

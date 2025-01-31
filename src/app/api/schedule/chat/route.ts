@@ -4,11 +4,7 @@ import { Message } from "ai";
 import { updateSchedule, getUI } from "./tools";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { format } from "date-fns";
-import {
-  agent3Tools,
-  agentPrompt,
-  agentNotAnsweringPrompt_V01,
-} from "./prompts/agent";
+import { agent3Tools } from "./prompts/agent";
 import { calendarTool } from "./tools/calendarTool";
 import { confirmationTool } from "./tools/confirmationTool";
 import { afterConfirmationTool } from "./tools/afterConfirmationTool";
