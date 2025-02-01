@@ -2,6 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { ConfirmationToolArgs } from "../../hooks/useToolInvocation";
+import { MessageCloud } from "../MessageCloud";
+import type { ToolResponse } from "@/app/api/schedule/chat/tools/types";
 
 interface Props extends ConfirmationToolArgs {
   toolCallId: string;
@@ -16,8 +18,7 @@ interface Props extends ConfirmationToolArgs {
 
 export const ConfirmationDisplay = ({
   options,
-  messageToUser,
-  eventContext,
+  message,
   toolCallId,
   addToolResult,
 }: Props) => {
@@ -37,19 +38,22 @@ export const ConfirmationDisplay = ({
   const handleConfrimationButton = (
     option: "APPROVE" | "MODIFY" | "CANCEL"
   ) => {
-    const result = {
-      userSelectedOption: option,
-      eventContext,
+    const result: ToolResponse = {
+      nextAction: {
+        actImmediatelly: true,
+        waitForUserResponse: false,
+        nextToolToUse:
+          option === "APPROVE" ? "afterConfirmationTool" : "generalTool",
+      },
+      success: true,
+      userResponse: option,
     };
     addToolResult({ result, toolCallId });
   };
 
   return (
     <div className="space-y-4">
-      {eventContext && (
-        <p className="text-sm text-muted-foreground">{eventContext}</p>
-      )}
-      {messageToUser && <p className="font-medium">{messageToUser}</p>}
+      <MessageCloud isUser={false} message={message} userName="App" />
       <div className="flex gap-2">
         {options.map((option) => (
           <Button

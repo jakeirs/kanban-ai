@@ -4,5 +4,5 @@ import { z } from "zod";
 export const generalToolParamsZod = z.object({
   messageToUser: z
     .string()
-    .describe("Message to user, responding shortly his request"),
+    .describe("Message to user, responding shortly and concisely his request"),
 });

@@ -47,9 +47,6 @@ export type EventFromLLMGenUI = z.infer<typeof eventFromLLMGenUiZod>;
 
 // Main calendar response schema
 export const calendarToolSchemaZod = z.object({
-  action: z
-    .literal("CALENDAR_EVENTS")
-    .describe("Constant value defining the type of calendar action"),
   events: z
     .array(eventFromLLMGenUiZod)
     .min(1)
@@ -59,10 +56,5 @@ export const calendarToolSchemaZod = z.object({
     .max(200)
     .describe(
       "Short message explaining to the user what has been prepared (e.g., 'I have prepared 2 meetings for next week')"
-    ),
-  requiresConfirmation: z
-    .boolean()
-    .describe(
-      "Flag indicating whether the user should confirm the proposed changes"
     ),
 });

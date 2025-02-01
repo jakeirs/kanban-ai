@@ -1,3 +1,4 @@
+import type { ToolResponse } from "../types";
 import { generalToolParamsZod } from "./types";
 import { tool } from "ai";
 
@@ -13,8 +14,15 @@ export const generalTool = tool({
   execute: async (input) => {
     const validatedInput = generalToolParamsZod.parse(input);
 
-    return {
-      waitForUser: true,
+    const response: ToolResponse = {
+      success: true,
+      nextAction: {
+        waitForUserResponse: true,
+        actImmediatelly: false,
+      },
+      
     };
+
+    return response;
   },
 });
