@@ -51,10 +51,4 @@ export const calendarToolSchemaZod = z.object({
     .array(eventFromLLMGenUiZod)
     .min(1)
     .describe("List of events to add or modify in the calendar"),
-  shortMessage: z
-    .string()
-    .max(200)
-    .describe(
-      "Short message explaining to the user what has been prepared (e.g., 'I have prepared 2 meetings for next week')"
-    ),
 });

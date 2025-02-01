@@ -1,7 +1,7 @@
 import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
-import { updateSchedule, getUI } from "./tools";
+import { updateSchedule } from "./tools";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import { format } from "date-fns";
 import { agent3Tools } from "./prompts/agent";

@@ -9,7 +9,10 @@ export const confirmationToolZod = z.object({
     ),
   message: z
     .string()
+    .max(75)
     .describe(
-      "Short message about what options user can respond regarding the context"
+      `Short message about what options user can respond regarding the context. No details about events.
+      Message should sound cool.
+      `
     ),
 });
