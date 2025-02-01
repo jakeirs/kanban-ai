@@ -1,5 +1,8 @@
-import { Event } from "../../types"
+import { EventFromConvex } from "../../types";
 
-export const deleteEventUtil = (events: Event[], eventId: string): Event[] => {
-  return events.filter((event) => event.id !== eventId)
-}
+export const deleteEventUtil = (
+  events: EventFromConvex[],
+  eventId: string
+): EventFromConvex[] => {
+  return events.filter((event) => event.id !== eventId);
+};
