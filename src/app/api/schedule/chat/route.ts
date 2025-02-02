@@ -9,6 +9,14 @@ import { calendarTool } from "./tools/calendarTool";
 import { confirmationTool } from "./tools/confirmationTool";
 import { afterConfirmationTool } from "./tools/afterConfirmationTool";
 import { generalTool } from "./tools/generalTool";
+import { ConvexHttpClient } from "convex/browser";
+import {
+  convexAuthNextjsToken,
+  isAuthenticatedNextjs,
+} from "@convex-dev/auth/nextjs/server";
+import { api } from "@/convex/_generated/api";
+
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export async function POST(req: Request) {
   try {
@@ -19,9 +27,35 @@ export async function POST(req: Request) {
       CURRENT_TIME: string;
     };
 
+    const tokenNextJs = await convexAuthNextjsToken();
+    const isAuthenticated = await isAuthenticatedNextjs();
+
+    if (!isAuthenticated) {
+      return {
+        success: false,
+        message: "User is not authorized.",
+      };
+    }
+    convex.setAuth(tokenNextJs!);
+
     console.log(
-      "CURRENT_TIMECURRENT_TIME",
-      JSON.stringify(CURRENT_TIME, null, 2)
+      "CONVEX QUERY TIME BEFORE",
+      JSON.stringify(format(new Date(), "PP pp"), null, 2)
+    );
+
+    const currentUserEvents = await convex.query(
+      api.tables.events.queries.getCurrentUserEvents.default
+    );
+
+    console.log(
+      "CONVEX QUERY TIME AFter",
+      JSON.stringify(format(new Date(), "PP pp"), null, 2)
+    );
+
+    const currentUserEventsStringified = JSON.stringify(
+      currentUserEvents,
+      null,
+      2
     );
 
     const result = streamText({
@@ -35,7 +69,7 @@ export async function POST(req: Request) {
         afterConfirmationTool,
         generalTool,
       },
-      system: agent3Tools(CURRENT_TIME),
+      system: agent3Tools(CURRENT_TIME, currentUserEventsStringified),
       // system: agent2Tools(CURRENT_TIME),
       // system: agentNotAnsweringPrompt_V01(CURRENT_TIME),
     });

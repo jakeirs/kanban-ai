@@ -9,6 +9,7 @@ import { tool } from "ai";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
 import { prepareToConvex } from "./utils/prepareToConvex";
+import { convertToUnixTime } from "./utils/convertToUnixTime";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
@@ -39,16 +40,37 @@ export const afterConfirmationTool = tool({
       };
     }
 
-    const newEventsToConvex = prepareToConvex(input.events);
-
-    // Update Events
-    const patchEvents = await convex.mutation(
-      api.tables.events.mutations.addEvents.default,
-      {
-        newEvents: newEventsToConvex,
-        currectEventsDocId,
+    input.events.map(async ({ action, events }) => {
+      if (action === "created") {
+        const newEventsToConvex = prepareToConvex(events);
+        // add Events
+        const patchEvents = await convex.mutation(
+          api.tables.events.mutations.addEvents.default,
+          {
+            newEvents: newEventsToConvex,
+            currectEventsDocId,
+          }
+        );
       }
-    );
+      if (action === "updated") {
+        const patchEvents = await convex.mutation(
+          api.tables.events.mutations.updateSelectedEvents.default,
+          {
+            events: convertToUnixTime(events),
+            currectEventsDocId,
+          }
+        );
+      }
+      if (action === "deleted") {
+        const patchEvents = await convex.mutation(
+          api.tables.events.mutations.deleteManyEvents.default,
+          {
+            eventIds: events.map((e) => e.id),
+            currectEventsDocId,
+          }
+        );
+      }
+    });
 
     const response: ToolResponse = {
       success: true,

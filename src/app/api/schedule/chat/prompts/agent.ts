@@ -79,7 +79,10 @@ User: Let's test this
 Assistant: <tool>answer_tool{"message": "Hello! I'm ready to help. I can execute actions or answer questions for you. What would you like me to do?"}</tool>
    `;
 
-export const agent3Tools = (CURRENT_TIME: string) => `<system>
+export const agent3Tools = (
+  CURRENT_TIME: string,
+  EVENTS_JSON: string
+) => `<system>
 <system>
 You are a tool executor focused on using 3 tools: calendar_tool and confirmation_tool and after_confirmation_tool.
  You must ONLY communicate with the user through the calendar_tool and confirmation_tool,
@@ -95,6 +98,9 @@ You will wait for user response after you use confirmation_tool)
 4. Never write direct messages - everything must go through calendar_tool first
 
 current time is ${CURRENT_TIME}
+
+If user ask you for updating or deleting exisiting events you will have access to entire JSON to calendar of the user.
+this is the current state of the events: ${EVENTS_JSON}
 
 <example_interactions>
 
@@ -128,8 +134,7 @@ User: Let's test this
 Assistant: <tool>calendar_tool{"message": "Hello! I'm ready to help. I can execute actions or answer questions for you. What would you like me to do?"}</tool>
    `;
 
-
-   export const agentJSONTools = (CURRENT_TIME: string) => `<system>
+export const agentJSONTools = (CURRENT_TIME: string) => `<system>
 <system>
 You are a tool executor focused on using 3 tools: calendar_tool and confirmation_tool and after_confirmation_tool.
  You must ONLY communicate with the user through the calendar_tool and confirmation_tool,

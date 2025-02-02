@@ -3,35 +3,32 @@ import { v } from "convex/values";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { deleteEventsUtil } from "./utils/deleteEventsUtil";
 
-const deleteEventArgs = v.object({
-  eventId: v.string(),
+const deleteManyEventsArgs = v.object({
+  eventIds: v.array(v.string()),
+  currectEventsDocId: v.id("events"),
 });
 
-const deleteEvent = mutation({
-  args: deleteEventArgs,
+const deleteManyEvent = mutation({
+  args: deleteManyEventsArgs,
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
-    if (!userId) {
-      throw new Error("User not logged in");
-    }
-
     const eventsDoc = await ctx.db
       .query("events")
       .filter((q) => q.eq(q.field("userId"), userId))
       .first();
-    eventsDoc?._id;
 
     // Events don't exist
     if (!eventsDoc) {
       throw new Error("Events not found");
     }
+
     // Update events
-    await ctx.db.patch(eventsDoc?._id, {
-      events: deleteEventsUtil(eventsDoc.events, [args.eventId]),
+    await ctx.db.patch(eventsDoc._id, {
+      events: deleteEventsUtil(eventsDoc.events, args.eventIds),
     });
 
     return { success: true };
   },
 });
 
-export default deleteEvent;
+export default deleteManyEvent;

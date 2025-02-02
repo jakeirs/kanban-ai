@@ -73,8 +73,6 @@ export const updateSchedule = tool({
       2
     );
 
-    console.log("PRZED GENERATE OBJECT", format(new Date(), "pp"));
-
     try {
       // generate Object with AI
       const { object } = await generateObject({
@@ -92,9 +90,6 @@ export const updateSchedule = tool({
           idsOfTasksThatWillBeAffected: idsOfTasksThatWillBeAffectedZod,
         }),
       });
-
-      console.log("PO GENERATE OBJECT", format(new Date(), "pp"));
-      console.log("object PROJECTs gen by AI", JSON.stringify(object, null, 2));
 
       const eventsConvertedToUnixTime = convertToUnixTime(object.events);
 
