@@ -8,7 +8,6 @@ import {
   ConfirmationToolArgs,
   GeneralToolArgs,
 } from "../hooks/useToolInvocation";
-import { format } from "date-fns";
 import { ConfirmationDisplay } from "./ConfirmationDisplay";
 
 interface ToolUIProps {
@@ -52,16 +51,6 @@ export const ToolUI = ({
           userName={"App"}
           className="mb-1"
         />
-      )}
-
-      {toolType === "getUI" && "listOfActionToDo" in args && (
-        <div className="my-2">
-          {args.listOfActionToDo.map((action, index) => (
-            <div key={index} className="mb-1">
-              <DateBeanDialogue event={action} />
-            </div>
-          ))}
-        </div>
       )}
 
       {toolType === "CALENDAR_EVENTS" && "events" in args && (

@@ -20,11 +20,9 @@ export const AssistantMessage = ({
 }: AssistantMessageProps) => {
   const {
     toolState,
-    getUIArgs,
     calendarArgs,
     confirmationArgs,
     hasCalendarTools,
-    hasGetUITools,
     hasConfirmationTools,
     toolCallId,
     generalArgs,
@@ -33,19 +31,6 @@ export const AssistantMessage = ({
 
   return (
     <div className="relative">
-      {hasGetUITools &&
-        toolCallId &&
-        getUIArgs.map((args, index) => (
-          <ToolUI
-            key={index}
-            args={args}
-            messageId={message.id}
-            toolState={toolState}
-            toolType="getUI"
-            toolCallId={toolCallId}
-            addToolResult={addToolResult}
-          />
-        ))}
       {hasCalendarTools &&
         toolCallId &&
         calendarArgs.map((args, index) => (
