@@ -14,9 +14,15 @@ export async function POST(req: Request) {
   try {
     req.headers;
     const body = await req.json();
-    const { messages } = body as { messages: Message[] };
+    const { messages, CURRENT_TIME } = body as {
+      messages: Message[];
+      CURRENT_TIME: string;
+    };
 
-    const CURRENT_TIME = format(new Date(), "PP pp");
+    console.log(
+      "CURRENT_TIMECURRENT_TIME",
+      JSON.stringify(CURRENT_TIME, null, 2)
+    );
 
     const result = streamText({
       model: anthropic(AI_MODEL_TO_USE),
@@ -24,12 +30,10 @@ export async function POST(req: Request) {
       experimental_toolCallStreaming: true,
       maxSteps: 10,
       tools: {
-        // getUI,
         calendarTool,
         confirmationTool,
         afterConfirmationTool,
         generalTool,
-        // updateSchedule,
       },
       system: agent3Tools(CURRENT_TIME),
       // system: agent2Tools(CURRENT_TIME),

@@ -1,18 +1,5 @@
 import { z } from "zod";
 
-export const TimeSchema = z.object({
-  startTime: z
-    .string()
-    .describe(
-      "Event start date and time in ISO 8601 format (e.g., '2024-03-20T14:30:00Z'). Important to consider user's timezone."
-    ),
-  endTime: z
-    .string()
-    .describe(
-      "Event end date and time in ISO 8601 format (e.g., '2024-03-20T15:30:00Z'). Must be later than startTime."
-    ),
-});
-
 export const eventFromLLMGenUiZod = z.object({
   id: z.string().describe("Unique identifier for the event"),
   title: z.string().describe("Title of the event"),
@@ -24,7 +11,7 @@ export const eventFromLLMGenUiZod = z.object({
   updatedAt: z
     .string()
     .describe(
-      "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') that can be parsed to Unix timestamp"
+      "date string (e.g., 'Feb 2, 2025 2:29:31 PM') that can be parsed to Unix timestamp"
     ),
 
   time: z
@@ -32,12 +19,12 @@ export const eventFromLLMGenUiZod = z.object({
       endTime: z
         .string()
         .describe(
-          "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
+          "date string (e.g., 'Feb 2, 2025 2:29:31 PM')"
         ),
       startTime: z
         .string()
         .describe(
-          "ISO 8601 formatted date string (e.g., '2024-03-20T14:30:00Z') for easy Unix timestamp conversion and human readability"
+          "date string (e.g., 'Feb 2, 2025 2:29:31 PM')"
         ),
     })
     .describe("object of of when event starts and ends"),

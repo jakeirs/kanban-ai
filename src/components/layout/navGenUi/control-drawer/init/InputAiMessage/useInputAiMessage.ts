@@ -1,6 +1,7 @@
 import { Message, useChat } from "ai/react";
 import { generateId } from "ai";
 import { useCallback, useState } from "react";
+import { format } from "date-fns";
 
 interface UseInputAiMessageProps {
   initialMode?: "voice" | "keyboard";
@@ -22,6 +23,9 @@ export const useInputAiMessage = ({
     addToolResult,
   } = useChat({
     api: "/api/schedule/chat",
+    body: {
+      CURRENT_TIME: format(new Date(), "PP pp"),
+    },
   });
 
   const onRecordingComplete = useCallback(async (blob: Blob) => {
