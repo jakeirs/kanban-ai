@@ -38,18 +38,8 @@ export async function POST(req: Request) {
     }
     convex.setAuth(tokenNextJs!);
 
-    console.log(
-      "CONVEX QUERY TIME BEFORE",
-      JSON.stringify(format(new Date(), "PP pp"), null, 2)
-    );
-
     const currentUserEvents = await convex.query(
       api.tables.events.queries.getCurrentUserEvents.default
-    );
-
-    console.log(
-      "CONVEX QUERY TIME AFter",
-      JSON.stringify(format(new Date(), "PP pp"), null, 2)
     );
 
     const currentUserEventsStringified = JSON.stringify(
