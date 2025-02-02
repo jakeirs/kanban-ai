@@ -98,7 +98,7 @@ export const updateSchedule = tool({
 
       const eventsConvertedToUnixTime = convertToUnixTime(object.events);
 
-      // Update Columns
+      // Update Events
       const patchEvents = await convex.mutation(
         api.tables.events.mutations.patchEvents.default,
         {

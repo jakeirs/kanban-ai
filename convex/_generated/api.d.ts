@@ -16,6 +16,7 @@ import type {
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as tables_events_defaultValues from "../tables/events/defaultValues.js";
+import type * as tables_events_mutations_addEvents from "../tables/events/mutations/addEvents.js";
 import type * as tables_events_mutations_deleteEvent from "../tables/events/mutations/deleteEvent.js";
 import type * as tables_events_mutations_initEvents from "../tables/events/mutations/initEvents.js";
 import type * as tables_events_mutations_patchEvents from "../tables/events/mutations/patchEvents.js";
@@ -68,6 +69,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   "tables/events/defaultValues": typeof tables_events_defaultValues;
+  "tables/events/mutations/addEvents": typeof tables_events_mutations_addEvents;
   "tables/events/mutations/deleteEvent": typeof tables_events_mutations_deleteEvent;
   "tables/events/mutations/initEvents": typeof tables_events_mutations_initEvents;
   "tables/events/mutations/patchEvents": typeof tables_events_mutations_patchEvents;
