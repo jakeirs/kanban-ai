@@ -1,7 +1,6 @@
 import { Message } from "ai/react";
 import { ToolUI } from "./ToolUI";
 import { useToolInvocation } from "../hooks/useToolInvocation";
-import { Loader as Loaders } from "lucide-react";
 
 interface AssistantMessageProps {
   message: Message;
@@ -18,58 +17,23 @@ export const AssistantMessage = ({
   message,
   addToolResult,
 }: AssistantMessageProps) => {
-  const {
-    toolState,
-    calendarArgs,
-    confirmationArgs,
-    hasCalendarTools,
-    hasConfirmationTools,
-    toolCallId,
-    generalArgs,
-    hasGeneralTools,
-  } = useToolInvocation(message.toolInvocations);
+  const { toolState, toolGroups } = useToolInvocation(message.toolInvocations);
 
   return (
     <div className="relative">
-      {hasCalendarTools &&
-        toolCallId &&
-        calendarArgs.map((args, index) => (
+      {toolGroups.map((tool, toolIndex) =>
+        tool.items.map((item, itemIndex) => (
           <ToolUI
-            key={index}
-            args={args}
+            key={`${toolIndex}-${itemIndex}`}
+            args={item.args}
             messageId={message.id}
             toolState={toolState}
-            toolType="CALENDAR_EVENTS"
-            toolCallId={toolCallId}
+            toolType={tool.type}
+            toolCallId={item.toolCallId}
             addToolResult={addToolResult}
           />
-        ))}
-      {hasConfirmationTools &&
-        toolCallId &&
-        confirmationArgs.map((args, index) => (
-          <ToolUI
-            key={index}
-            args={args}
-            messageId={message.id}
-            toolState={toolState}
-            toolType="confirmationTool"
-            toolCallId={toolCallId}
-            addToolResult={addToolResult}
-          />
-        ))}
-      {hasGeneralTools &&
-        toolCallId &&
-        generalArgs.map((args, index) => (
-          <ToolUI
-            key={index}
-            args={args}
-            messageId={message.id}
-            toolState={toolState}
-            toolType="generalTool"
-            toolCallId={toolCallId}
-            addToolResult={addToolResult}
-          />
-        ))}
+        ))
+      )}
     </div>
   );
 };

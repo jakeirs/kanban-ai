@@ -1,39 +1,41 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { ConfirmationToolArgs } from "../../hooks/useToolInvocation";
-import { MessageCloud } from "../MessageCloud";
-import type { ToolResponse } from "@/app/api/schedule/chat/tools/types";
+import { Button } from "@/components/ui/button"
+import { ConfirmationToolArgs } from "../../hooks/useToolInvocation"
+import { MessageCloud } from "../MessageCloud"
+import type { ToolResponse } from "@/app/api/schedule/chat/tools/types"
 
-interface Props extends ConfirmationToolArgs {
-  toolCallId: string;
+interface ConfirmationToolProps {
+  args: ConfirmationToolArgs
+  toolCallId: string
   addToolResult: ({
     toolCallId,
     result,
   }: {
-    toolCallId: string;
-    result: any;
-  }) => void;
+    toolCallId: string
+    result: any
+  }) => void
 }
 
-export const ConfirmationDisplay = ({
-  options,
-  message,
+export const ConfirmationTool = ({
+  args,
   toolCallId,
   addToolResult,
-}: Props) => {
+}: ConfirmationToolProps) => {
+  if (!("options" in args)) return null
+
   const getVariant = (option: string) => {
     switch (option) {
       case "APPROVE":
-        return "default";
+        return "default"
       case "MODIFY":
-        return "secondary";
+        return "secondary"
       case "CANCEL":
-        return "destructive";
+        return "destructive"
       default:
-        return "outline";
+        return "outline"
     }
-  };
+  }
 
   const handleConfrimationButton = (
     option: "APPROVE" | "MODIFY" | "CANCEL"
@@ -47,15 +49,15 @@ export const ConfirmationDisplay = ({
       },
       success: true,
       userResponse: option,
-    };
-    addToolResult({ result, toolCallId });
-  };
+    }
+    addToolResult({ result, toolCallId })
+  }
 
   return (
-    <div className="space-y-4">
-      <MessageCloud isUser={false} message={message} userName="App" />
+    <div className="my-2 space-y-4">
+      <MessageCloud isUser={false} message={args.message} userName="App" />
       <div className="flex gap-2">
-        {options.map((option) => (
+        {args.options.map((option) => (
           <Button
             key={option}
             variant={getVariant(option)}
@@ -66,5 +68,5 @@ export const ConfirmationDisplay = ({
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
