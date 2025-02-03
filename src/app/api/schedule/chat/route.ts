@@ -26,8 +26,6 @@ export async function POST(req: Request) {
       CURRENT_TIME: string;
     };
 
-    console.log("CURRENT_TIME", JSON.stringify(CURRENT_TIME, null, 2));
-
     const tokenNextJs = await convexAuthNextjsToken();
     const isAuthenticated = await isAuthenticatedNextjs();
 
