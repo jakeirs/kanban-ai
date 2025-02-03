@@ -41,12 +41,6 @@ export async function POST(req: Request) {
       api.tables.events.queries.getCurrentUserEvents.default
     );
 
-    const currentUserEventsStringified = JSON.stringify(
-      convertToLocalTime(currentUserEvents.currectEvents),
-      null,
-      2
-    );
-
     const result = streamText({
       model: anthropic(AI_MODEL_TO_USE),
       messages,
@@ -59,7 +53,10 @@ export async function POST(req: Request) {
         afterConfirmationTool,
         generalTool,
       },
-      system: february3Tools(CURRENT_TIME, currentUserEventsStringified),
+      system: february3Tools(
+        CURRENT_TIME,
+        convertToLocalTime(currentUserEvents.currectEvents)
+      ),
       // system: agent2Tools(CURRENT_TIME),
       // system: agentNotAnsweringPrompt_V01(CURRENT_TIME),
     });

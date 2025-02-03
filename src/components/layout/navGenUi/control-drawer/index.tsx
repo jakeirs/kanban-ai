@@ -20,7 +20,7 @@ export const VoiceDrawer: React.FC<VoiceDrawerProps> = ({
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent
           side="bottom"
-          className="h-[70%] overflow-y-auto rounded-t-3xl"
+          className="h-[90%] overflow-y-auto rounded-t-3xl"
         >
           <div className="w-full h-full flex flex-col">
             <Tabs defaultValue="init" className="w-full h-full flex flex-col">

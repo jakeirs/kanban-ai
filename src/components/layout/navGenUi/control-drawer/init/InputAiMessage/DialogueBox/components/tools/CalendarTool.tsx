@@ -1,9 +1,9 @@
 "use client";
 
-import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue";
 import { CalendarToolArgs } from "../../hooks/useToolInvocation";
-import { DateCardDialogue } from "@/components/blocks/dialogue-box/events/base";
 import { EventToAddDateCard } from "@/components/blocks/dialogue-box/events/EventToAdd";
+import { EventToDeleteDateCard } from "@/components/blocks/dialogue-box/events/EventToDelete";
+import { EventToUpdateDateCard } from "@/components/blocks/dialogue-box/events/EventToUpdate";
 
 interface CalendarToolProps {
   args: CalendarToolArgs;
@@ -14,9 +14,21 @@ export const CalendarTool = ({ args }: CalendarToolProps) => {
 
   return (
     <div className="my-2">
-      {args.events.map((event, index) => (
-        <div key={index} className="mb-1">
-          <DateBeanDialogue event={event} />
+      {args.events.events.map((eventGroup, index) => (
+        <div key={index} className="mb-4">
+          {eventGroup.events.map((event, eventIndex) => (
+            <div key={eventIndex} className="mb-1">
+              {eventGroup.action === "created" && (
+                <EventToAddDateCard event={event} />
+              )}
+              {eventGroup.action === "updated" && (
+                <EventToUpdateDateCard event={event} />
+              )}
+              {eventGroup.action === "deleted" && (
+                <EventToDeleteDateCard event={event} />
+              )}
+            </div>
+          ))}
         </div>
       ))}
     </div>

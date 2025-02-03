@@ -34,7 +34,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   }, [messages]);
 
   return (
-    <div className="flex-1 mb-4 space-y-4 overflow-y-auto max-h-[300px]">
+    <div className="flex-1 mb-4 space-y-4 overflow-y-auto max-h-[600px]">
       <div className="space-y-4">
         {messages?.map((message: Message) => {
           return (
