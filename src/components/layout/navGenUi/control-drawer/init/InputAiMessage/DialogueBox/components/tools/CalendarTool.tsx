@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
-import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue"
-import { CalendarToolArgs } from "../../hooks/useToolInvocation"
+import { DateBeanDialogue } from "@/components/blocks/scheduler/insert/InsertSchedule/DateBean/DateBeanDialogue";
+import { CalendarToolArgs } from "../../hooks/useToolInvocation";
+import { DateCardDialogue } from "@/components/blocks/dialogue-box/events/base";
+import { EventToAddDateCard } from "@/components/blocks/dialogue-box/events/EventToAdd";
 
 interface CalendarToolProps {
-  args: CalendarToolArgs
+  args: CalendarToolArgs;
 }
 
 export const CalendarTool = ({ args }: CalendarToolProps) => {
-  if (!("events" in args)) return null
+  if (!("events" in args)) return null;
 
   return (
     <div className="my-2">
@@ -18,5 +20,5 @@ export const CalendarTool = ({ args }: CalendarToolProps) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

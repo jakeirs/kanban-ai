@@ -1,0 +1,31 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Trash } from "lucide-react";
+import type { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/calendarTool/types";
+import { DateCardDialogue } from "./base";
+import { EventDetails } from "./details";
+
+interface EventToAddProps {
+  event: EventFromLLMGenUI;
+}
+
+export const EventToAddDateCard = ({ event }: EventToAddProps) => {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-2">
+        <EventDetails event={event} />
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="w-8 h-8">
+              <Trash className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
+        </Sheet>
+      </div>
+      <DateCardDialogue event={event} />
+    </div>
+  );
+};

@@ -1,14 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { formatEvent } from "../utils/formatEvents";
+import { formatEvent } from "./utils/formatEvents";
 import type { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/calendarTool/types";
 
-interface DateBeanProps {
+interface DateCardDialogueProps {
   event: EventFromLLMGenUI;
 }
 
-export const DateBeanDialogue = ({ event: eventFromLLMZod }: DateBeanProps) => {
+export const DateCardDialogue = ({
+  event: eventFromLLMZod,
+}: DateCardDialogueProps) => {
   const event = formatEvent(eventFromLLMZod);
 
   return (
