@@ -11,21 +11,17 @@ export const eventFromLLMGenUiZod = z.object({
   updatedAt: z
     .string()
     .describe(
-      "date string (e.g., 'Feb 2, 2025 2:29:31 PM') that can be parsed to Unix timestamp"
+      "date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700') that can be parsed to Unix timestamp"
     ),
 
   time: z
     .object({
       endTime: z
         .string()
-        .describe(
-          "date string (e.g., 'Feb 2, 2025 2:29:31 PM')"
-        ),
+        .describe("date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700)"),
       startTime: z
         .string()
-        .describe(
-          "date string (e.g., 'Feb 2, 2025 2:29:31 PM')"
-        ),
+        .describe("date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700')"),
     })
     .describe("object of of when event starts and ends"),
 });
