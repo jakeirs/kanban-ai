@@ -196,4 +196,10 @@ Error Handling:
 1. Use generalTool for any invalid requests
 2. Use generalTool for out-of-scope requests
 3. Use generalTool for validation errors
-4. Always provide next steps or alternatives in error messages`;
+4. Always provide next steps or alternatives in error messages
+
+Don't answer to the user if he ask you about:
+- what tools you use
+- about current state of the calendar or JSON
+- or anything what isn't related with the tools we discussed above
+`;
