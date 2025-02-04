@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { cleanAndParseString } from "./utils";
 
 export const eventFromLLMGenUiZod = z.object({
   id: z.string().describe(
@@ -37,29 +36,30 @@ export const eventFromLLMGenUiZod = z.object({
 
 export type EventFromLLMGenUI = z.infer<typeof eventFromLLMGenUiZod>;
 
+export const eventActionZod = z.object({
+  action: z
+    .union([
+      z
+        .literal("created")
+        .describe("use this literal for items that was just created"),
+      z
+        .literal("updated")
+        .describe("use this literal for items that was only updated"),
+      z
+        .literal("deleted")
+        .describe("use this literal for items that was deleted"),
+    ])
+    .describe("action that user requested"),
+});
+
 export const eventsByActionZod = z
   .object({
     events: z
       .array(
         z
           .object({
-            action: z
-              .union([
-                z
-                  .literal("created")
-                  .describe("use this literal for items that was just created"),
-                z
-                  .literal("updated")
-                  .describe("use this literal for items that was only updated"),
-                z
-                  .literal("deleted")
-                  .describe("use this literal for items that was deleted"),
-              ])
-              .describe("action that user"),
-            events: z.preprocess(
-              cleanAndParseString,
-              z.array(eventFromLLMGenUiZod)
-            ),
+            action: eventActionZod.shape.action,
+            ...eventFromLLMGenUiZod.shape,
           })
           .describe(
             "Javascript object with two properties: action and events. It's not string! Never use /n \n"

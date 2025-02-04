@@ -10,5 +10,5 @@ export type { EventFromLLMGenUI };
 
 // Main calendar response schema
 export const calendarToolSchemaZod = z.object({
-  events: eventsByActionZod,
+  events: eventsByActionZod.shape.events,
 });
