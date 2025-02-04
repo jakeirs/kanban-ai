@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eventFromLLMGenUiZod } from "../shared/eventTypes";
+import { eventFromLLMGenUiZod } from "../_shared/types/event";
 
 // Input schema for the calendar search
 export const calendarSearchRequestZod = z.object({
@@ -37,7 +37,7 @@ export const calendarMatchZod = z.object({
 });
 
 // Output schema for the search results
-export const calendarSearchParamsZod = z.object({
+export const calendarSearchToolArgsZod = z.object({
   matches: z
     .array(calendarMatchZod)
     .describe(
@@ -53,4 +53,4 @@ export const calendarSearchParamsZod = z.object({
 // Type exports
 export type CalendarSearchRequest = z.infer<typeof calendarSearchRequestZod>;
 export type CalendarMatch = z.infer<typeof calendarMatchZod>;
-export type CalendarSearchResponse = z.infer<typeof calendarSearchParamsZod>;
+export type CalendarSearchToolArgs = z.infer<typeof calendarSearchToolArgsZod>;

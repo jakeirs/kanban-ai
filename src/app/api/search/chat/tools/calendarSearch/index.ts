@@ -1,11 +1,11 @@
 import { tool } from "ai";
-import { calendarSearchParamsZod } from "./types";
+import { calendarSearchToolArgsZod } from "./types";
 import type { ToolResponse } from "../types";
 import { calendarSearchToolDescription } from "./description";
 
 export const calendarSearchTool = tool({
   description: calendarSearchToolDescription,
-  parameters: calendarSearchParamsZod,
+  parameters: calendarSearchToolArgsZod,
   execute: async (input) => {
     try {
       const response: ToolResponse = {

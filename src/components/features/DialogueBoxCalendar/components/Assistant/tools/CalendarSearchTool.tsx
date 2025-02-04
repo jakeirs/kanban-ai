@@ -1,22 +1,26 @@
-"use client"
+"use client";
 
-import { Card } from "@/components/ui/card"
-import { CalendarSearchResponse } from "@/app/api/search/chat/tools/calendarSearch/types"
+import { Card } from "@/components/ui/card";
+import { useToolArgs } from "./_shared/useToolArgs";
+import type { Message } from "ai";
 
 interface CalendarSearchToolProps {
-  args: CalendarSearchResponse
+  message: Message;
 }
 
-export const CalendarSearchTool = ({ args }: CalendarSearchToolProps) => {
-  if (!("matches" in args)) return null
+export const CalendarSearchTool = ({ message }: CalendarSearchToolProps) => {
+  const { toolArgs, toolState, toolName, toolCallId, toolResult } =
+    useToolArgs(message);
 
   return (
     <div className="my-2">
       <Card className="p-4 mb-4">
-        <p className="text-sm text-muted-foreground">{args.searchSummary}</p>
+        <p className="text-sm text-muted-foreground">
+          {toolArgs?.searchSummary}
+        </p>
       </Card>
 
-      {args.matches.map((match, index) => (
+      {toolArgs?.matches.map((match, index) => (
         <Card key={index} className="p-4 mb-4">
           <div className="flex justify-between items-start mb-2">
             <div className="text-sm font-medium">Event ID: {match.eventId}</div>
@@ -28,5 +32,5 @@ export const CalendarSearchTool = ({ args }: CalendarSearchToolProps) => {
         </Card>
       ))}
     </div>
-  )
-}
+  );
+};
