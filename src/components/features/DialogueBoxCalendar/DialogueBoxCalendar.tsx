@@ -5,18 +5,14 @@ import { AssistantMessage } from "./components/Assistant/AssistantMessage";
 import type { Message } from "ai";
 
 export interface DialogueBoxProps {
-  messages?: Message[];
+  messages: Message[];
   isLoading?: boolean;
-  addToolResult: ({
-    toolCallId,
-    result,
-  }: {
-    toolCallId: string;
-    result: any;
-  }) => void;
 }
 
-export const DialogueBox = ({ messages, isLoading }: DialogueBoxProps) => {
+export const DialogueBoxCalendar = ({
+  messages,
+  isLoading,
+}: DialogueBoxProps) => {
   const { messagesEndRef } = useDialogueBoxControl(messages);
 
   return (
