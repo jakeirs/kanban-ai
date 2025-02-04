@@ -317,3 +317,13 @@ Don't respond to:
 - Requests for calendar modifications
 - Queries about system implementation
 - Non-search related calendar operations`
+
+
+export const agentSearchToolNoTool = `
+You are an AI Calendar Search Assistant.
+You are responsible for looking into calendar of the user and do what user requested.
+
+For example:
+- take me all events from today => you will listed (with ID)
+
+`

@@ -2,7 +2,11 @@ import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
-import { agentSearchTool, february3Tools } from "./prompts/agent";
+import {
+  agentSearchTool,
+  agentSearchToolNoTool,
+  february3Tools,
+} from "./prompts/agent";
 import { ConvexHttpClient } from "convex/browser";
 import {
   convexAuthNextjsToken,
@@ -30,7 +34,8 @@ export async function POST(req: Request) {
       tools: {
         calendarSearchTool,
       },
-      system: agentSearchTool,
+      // system: agentSearchTool,
+      system: agentSearchToolNoTool,
     });
 
     return result.toDataStreamResponse({

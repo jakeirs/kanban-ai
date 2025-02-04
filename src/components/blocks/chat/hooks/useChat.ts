@@ -1,37 +1,22 @@
-import { Message, useChat } from "ai/react";
+import { Message, useChat as useChatSdk } from "ai/react";
 import { generateId } from "ai";
-import { useCallback, useState } from "react";
-import { format } from "date-fns";
+import { useCallback } from "react";
 
-interface UseInputAiMessageProps {
-  initialMode?: "voice" | "keyboard";
+interface UseChatProps {
   userCalendarObject?: any;
   currentTime?: string;
+  api?: string;
 }
 
-export const useInputAiMessage = ({
-  initialMode = "keyboard",
+export const useChat = ({
+  api = "/api/chat",
   userCalendarObject,
   currentTime,
-}: UseInputAiMessageProps = {}) => {
-  const [inputMode, setInputMode] = useState<"voice" | "keyboard">(initialMode);
-
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit: originalHandleSubmit,
-    setMessages,
-    reload,
-    isLoading,
-    addToolResult,
-    append,
-  } = useChat({
-    api: "/api/search/chat",
-    body: {
-      CURRENT_TIME: format(new Date(), "PP pp"),
-    },
-  });
+}: UseChatProps) => {
+  const { input, handleInputChange, setMessages, reload, ...chatMethods } =
+    useChatSdk({
+      api,
+    });
 
   const onRecordingComplete = useCallback(async (blob: Blob) => {
     const formData = new FormData();
@@ -75,26 +60,24 @@ export const useInputAiMessage = ({
         },
       ]);
 
+      // Create a fake event to clear the input
+      const clearEvent = {
+        target: { value: "" },
+      } as React.ChangeEvent<HTMLTextAreaElement>;
+
+      handleInputChange(clearEvent);
       await reload();
     },
-    [input, setMessages]
+    [input, setMessages, handleInputChange]
   );
 
-  const toggleInputMode = (mode: "voice" | "keyboard") => {
-    setInputMode(mode);
-  };
-
   return {
-    messages,
+    ...chatMethods,
     input,
     handleInputChange,
-    handleSubmit: customHandleSubmit,
-    inputMode,
-    toggleInputMode,
-    onRecordingComplete,
-    isLoading,
-    addToolResult,
-    append,
     setMessages,
+    reload,
+    handleSubmit: customHandleSubmit,
+    onRecordingComplete,
   };
 };
