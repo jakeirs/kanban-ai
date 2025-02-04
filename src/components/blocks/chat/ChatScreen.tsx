@@ -15,23 +15,20 @@ export const ChatScreen: React.FC = () => {
     api.tables.events.queries.getCurrentUserEvents.default
   );
 
-  if (!eventsData) {
-    return <div>... Loading</div>;
-  }
-  const sortedEvents = convertToLocalTime(sortEvents(eventsData.currectEvents));
+  const userCalendarObject = eventsData
+    ? convertToLocalTime(sortEvents(eventsData.currectEvents))
+    : [];
 
   const chatMethods = useChat({
     api: "/api/search/chat",
     currentTime: format(new Date(), "EEE MMM dd yyyy HH:mm:ss xxx"),
-    userCalendarObject: sortedEvents,
+    userCalendarObject,
   });
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="space-y-4">
-        <DialogueBox {...chatMethods} />
-        <UserInputZone {...chatMethods} />
-      </div>
+    <div className="h-full flex flex-col space-y-4">
+      <DialogueBox {...chatMethods} />
+      <UserInputZone {...chatMethods} />
     </div>
   );
 };
