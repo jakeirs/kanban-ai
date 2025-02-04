@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import type { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/calendarTool/types";
-import { formatEvent } from "../base/utils/formatEvents";
+import { formatEvent } from "../_base/utils/formatEvents";
 
 interface DeleteEventCardProps {
   event: EventFromLLMGenUI;
