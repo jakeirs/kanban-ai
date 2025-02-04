@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { MobileNav } from "@/components/layout/nav";
 import { MobileNavGenUi } from "@/components/layout/navGenUi";
+import { MobileNavGenUiSearch } from "@/components/layout/navGenUiSearch";
 
 export const metadata: Metadata = {
   title: "Kanban - AI",
@@ -23,7 +24,8 @@ export default function RootLayout({
     <div className="relative flex flex-col min-h-screen">
       <div className="flex-1">{children}</div>
       {/* <MobileNav />  Previous nav - with visuaizer - Check for Inspiration */}
-      <MobileNavGenUi />
+      {/* <MobileNavGenUi /> */}
+      <MobileNavGenUiSearch />
     </div>
   );
 }
