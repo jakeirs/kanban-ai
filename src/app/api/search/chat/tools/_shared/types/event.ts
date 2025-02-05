@@ -1,38 +1,38 @@
 import { z } from "zod";
 
-export const eventFromLLMGenUiZod = z.object({
-  id: z.string().describe(
-    `Take the same Id of the event from the JSON, which is the current state of user's calendar.
-      When you want to update or delete events.`
-  ),
-  title: z.string()
-    .describe(`Title of the event. If this is updated or deleted item, Title has to 
-    correspond to existing events from the calendar of the user. Match with id`),
-  description: z.string().describe(
-    `Description of the event.
-      If is updated or deleted item, description has to 
-      correspond to existing events from the calendar of the user. Match with id`
-  ),
-  updatedAt: z.string().describe(
-    `date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700') that can be parsed to Unix timestamp
-      If is updated or deleted item, updatedAt has to 
-      correspond to existing events from the calendar of the user. Match with id
-      `
-  ),
+const dateStringZod = z
+  .string()
+  .describe(
+    `date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700') that can be parsed to Unix timestamp`
+  );
 
+export const eventFromLLMGenUiZod = z.object({
+  title: z.string().describe(`Title of the event.`),
+  description: z.string().describe(`Description of the event.`),
   time: z
     .object({
-      endTime: z.string()
-        .describe(`date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700)
-          If is updated or deleted item, endTime has to 
-          correspond to existing events from the calendar of the user. Match with id`),
-      startTime: z.string()
-        .describe(`date string (e.g., 'Mon Feb 03 2025 15:25:52 GMT+0700')
-          If is updated or deleted item, startTime has to 
-          correspond to existing events from the calendar of the user. Match with id`),
+      endTime: dateStringZod,
+      startTime: dateStringZod,
     })
     .describe("object of when event starts and ends"),
 });
+
+export const eventToUpdateFieldsZod = z
+  .object({
+    title: z.optional(z.string().describe(`Title of the event.`)),
+    description: z.optional(z.string().describe(`Description of the event.`)),
+    time: z.optional(
+      z
+        .object({
+          endTime: z.optional(dateStringZod),
+          startTime: z.optional(dateStringZod),
+        })
+        .describe("object of when event starts and ends")
+    ),
+  })
+  .describe(
+    "Fill only those fields that user has requested to change. Give me the output"
+  );
 
 export type EventFromLLMGenUI = z.infer<typeof eventFromLLMGenUiZod>;
 

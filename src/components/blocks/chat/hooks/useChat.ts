@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 interface UseChatProps {
   userCalendarObject?: any;
-  currentTime?: string;
+  currentTime: string;
   api?: string;
 }
 
@@ -17,6 +17,8 @@ export const useChat = ({
     useChatSdk({
       api,
     });
+
+  console.log("messages", chatMethods.messages);
 
   const onRecordingComplete = useCallback(async (blob: Blob) => {
     const formData = new FormData();
@@ -46,6 +48,7 @@ export const useChat = ({
   const customHandleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       setMessages((currentMessages: Message[]) => [
         ...currentMessages,
         {
@@ -56,7 +59,8 @@ export const useChat = ({
         {
           id: generateId(),
           role: "user",
-          content: `CurrentTime: ${currentTime} My Calendar: ${JSON.stringify(userCalendarObject)}`,
+          content: `|_|_|_ CurrentTime: ${currentTime} My Calendar: ${JSON.stringify(userCalendarObject)}`,
+          data: { userCalendarObject, currentTime },
         },
       ]);
 

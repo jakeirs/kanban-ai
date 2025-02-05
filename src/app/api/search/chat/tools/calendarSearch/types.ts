@@ -1,19 +1,4 @@
 import { z } from "zod";
-import { eventFromLLMGenUiZod } from "../_shared/types/event";
-
-// Input schema for the calendar search
-export const calendarSearchRequestZod = z.object({
-  query: z
-    .string()
-    .describe(
-      "Natural language query from the user describing what events they're looking for (e.g., 'meetings next week', 'lunch appointments')"
-    ),
-  events: z
-    .array(eventFromLLMGenUiZod)
-    .describe(
-      "Array of calendar events to search through - this is the current state of user's calendar"
-    ),
-});
 
 // Output schema for a single matched event
 export const calendarMatchZod = z.object({
@@ -51,6 +36,4 @@ export const calendarSearchToolArgsZod = z.object({
 });
 
 // Type exports
-export type CalendarSearchRequest = z.infer<typeof calendarSearchRequestZod>;
-export type CalendarMatch = z.infer<typeof calendarMatchZod>;
 export type CalendarSearchToolArgs = z.infer<typeof calendarSearchToolArgsZod>;

@@ -12,6 +12,8 @@ export const CalendarSearchTool = ({ message }: CalendarSearchToolProps) => {
   const { toolArgs, toolState, toolName, toolCallId, toolResult } =
     useToolArgs(message);
 
+  if (toolState !== "result" && !toolArgs?.matches) return null;
+
   return (
     <div className="my-2">
       <Card className="p-4 mb-4">
@@ -20,7 +22,7 @@ export const CalendarSearchTool = ({ message }: CalendarSearchToolProps) => {
         </p>
       </Card>
 
-      {toolArgs?.matches.map((match, index) => (
+      {toolArgs?.matches?.map((match, index) => (
         <Card key={index} className="p-4 mb-4">
           <div className="flex justify-between items-start mb-2">
             <div className="text-sm font-medium">Event ID: {match.eventId}</div>

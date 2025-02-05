@@ -9,6 +9,8 @@ interface MessageDisplayProps {
 }
 
 export const UserMessage = ({ message }: MessageDisplayProps) => {
+  if (message.content.startsWith("|_|_|_")) return null;
+
   return (
     <div>
       <MessageCloud

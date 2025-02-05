@@ -6,7 +6,10 @@ import { calendarSearchToolDescription } from "./description";
 export const calendarSearchTool = tool({
   description: calendarSearchToolDescription,
   parameters: calendarSearchToolArgsZod,
-  execute: async (input) => {
+  execute: async (input, { messages }) => {
+    console.log("messages in Tools", JSON.stringify(messages, null, 2));
+    console.log("input in Tools", JSON.stringify(input, null, 2));
+
     try {
       const response: ToolResponse = {
         success: true,
