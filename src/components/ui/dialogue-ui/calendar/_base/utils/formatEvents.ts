@@ -8,6 +8,7 @@ export interface FormattedEvent {
   description: string;
   timeStart: string | null;
   endTime: string | null;
+  project?: string;
   day: {
     dayOfWeek: string | null;
     dayOfMonth: string | null;
@@ -55,6 +56,7 @@ export const formatEvent = (
       : "",
     timeStart,
     endTime,
+    project: (event as any).project,
     day: {
       dayOfWeek,
       dayOfMonth,

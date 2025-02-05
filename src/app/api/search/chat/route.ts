@@ -2,10 +2,7 @@ import { streamText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
-import {
-  agentManangeCalendar,
-
-} from "./prompts/agent";
+import { agentManangeCalendar } from "./prompts/agent";
 import { ConvexHttpClient } from "convex/browser";
 import {
   convexAuthNextjsToken,
@@ -40,14 +37,14 @@ export async function POST(req: Request) {
 
     return result.toDataStreamResponse({
       getErrorMessage: (error) => {
-        return "An error occurred while processing your request. Please try again.";
+        return `An error occurred while processing your request. Please try again. ${error}`;
       },
     });
   } catch (error) {
     console.error("Error in a Schedule chat API route:", error);
     return new Response(
       JSON.stringify({
-        error: "An error occurred while processing your request",
+        error: "In CATCH POST An error occurred while processing your request",
       }),
       {
         status: 500,

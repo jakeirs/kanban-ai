@@ -3,6 +3,7 @@
 import { mutation } from "../../../_generated/server";
 import { defaultEvents } from "../defaultValues";
 import { getAuthUserId } from "@convex-dev/auth/server";
+import { bigCalendarEvents } from "../defaultValuesBigCalendar";
 
 const initEvents = mutation({
   handler: async (ctx) => {
@@ -24,7 +25,7 @@ const initEvents = mutation({
     // Create new events for the first time
     const eventsDocId = await ctx.db.insert("events", {
       userId: userId,
-      events: defaultEvents,
+      events: bigCalendarEvents,
     });
 
     return eventsDocId;

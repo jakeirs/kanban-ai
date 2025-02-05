@@ -5,12 +5,12 @@ import { formatEvent } from "./utils/formatEvents";
 import type { EventFromLLMGenUI } from "@/app/api/schedule/chat/tools/calendarTool/types";
 
 interface BaseDateCardProps {
-  event: EventFromLLMGenUI;
+  event: EventFromLLMGenUI & {
+    project?: string;
+  };
 }
 
-export const BaseDateCard = ({
-  event: eventFromLLMZod,
-}: BaseDateCardProps) => {
+export const BaseDateCard = ({ event: eventFromLLMZod }: BaseDateCardProps) => {
   const event = formatEvent(eventFromLLMZod);
 
   return (
@@ -29,12 +29,16 @@ export const BaseDateCard = ({
         <div className="text-2xl font-bold">
           {event.timeStart} - {event.endTime}
         </div>
-        <Button
-          variant="outline"
-          className="mt-2 rounded-full bg-black text-white hover:bg-black/90"
-        >
-          To-Do List
-        </Button>
+        <div className="flex items-center gap-2 mt-2">
+          {event.project && (
+            <Button
+              variant="outline"
+              className="rounded-full bg-blue-600 text-white hover:bg-blue-700"
+            >
+              {event.project}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
