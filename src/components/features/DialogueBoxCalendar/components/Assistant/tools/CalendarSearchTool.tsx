@@ -12,7 +12,11 @@ export const CalendarSearchTool = ({ message }: CalendarSearchToolProps) => {
   const { toolArgs, toolState, toolName, toolCallId, toolResult } =
     useToolArgs(message);
 
-  if (toolState !== "result" && !toolArgs?.matches) return null;
+  if (
+    toolState !== "result" &&
+    (!toolArgs?.matches || !Array.isArray(toolArgs?.matches))
+  )
+    return null;
 
   return (
     <div className="my-2">

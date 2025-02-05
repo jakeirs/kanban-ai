@@ -3,9 +3,8 @@ import { anthropic } from "@ai-sdk/anthropic";
 import { Message } from "ai";
 import { AI_MODEL_TO_USE } from "@/config/ai/model";
 import {
-  agentSearchTool,
-  agentSearchToolNoTool,
-  february3Tools,
+  agentManangeCalendar,
+
 } from "./prompts/agent";
 import { ConvexHttpClient } from "convex/browser";
 import {
@@ -35,7 +34,8 @@ export async function POST(req: Request) {
         calendarSearchTool,
       },
       // system: agentSearchTool,
-      system: agentSearchToolNoTool,
+      // system: agentSearchToolNoTool,
+      system: agentManangeCalendar,
     });
 
     return result.toDataStreamResponse({

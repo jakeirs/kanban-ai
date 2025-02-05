@@ -15,11 +15,21 @@ export const useChat = ({
 }: UseChatProps) => {
   const { input, handleInputChange, setMessages, reload, ...chatMethods } =
     useChatSdk({
+      onError(error) {
+        console.log("On Error Do SOMETHING ZIOMMMMMM FUNCTION", error);
+        setMessages((currentMessages: Message[]) => [
+          ...currentMessages,
+          {
+            id: generateId(),
+            content: `Error Occured ${error?.name} ${error?.message} ${error?.cause} ${error?.stack}`,
+            role: "user",
+          },
+        ]);
+      },
       api,
     });
 
   console.log("messages", chatMethods.messages);
-
   const onRecordingComplete = useCallback(async (blob: Blob) => {
     const formData = new FormData();
     formData.append("file", blob);
@@ -70,7 +80,7 @@ export const useChat = ({
       } as React.ChangeEvent<HTMLTextAreaElement>;
 
       handleInputChange(clearEvent);
-      await reload();
+      reload();
     },
     [input, setMessages, handleInputChange]
   );

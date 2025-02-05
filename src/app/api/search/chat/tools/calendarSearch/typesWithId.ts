@@ -41,10 +41,16 @@ export const actionsToDo = z.object({
       reasoning: reasoningZod.shape.reasoning,
     })
   ).describe("Array of events that should be updated with specified changes based on user's request"),
+  search: z.array(
+    z.object({
+      eventId: eventIdZod.shape.eventId,
+      reasoning: reasoningZod.shape.reasoning,
+    })
+  ).describe("Array of events that user's requested from user calendar"),
 }).describe("Actions categorized based on of what user requested.")
 
 // Output schema for the search results
-export const calendarSearchToolArgsZod = z.object({
+export const calendarSearchToolArgsZodWith = z.object({
   matches: z
     .array(actionsToDo)
     .describe(
@@ -58,4 +64,4 @@ export const calendarSearchToolArgsZod = z.object({
 });
 
 // Type exports
-export type CalendarSearchToolArgs = z.infer<typeof calendarSearchToolArgsZod>;
+export type CalendarSearchToolArgs = z.infer<typeof calendarSearchToolArgsZodWith>;

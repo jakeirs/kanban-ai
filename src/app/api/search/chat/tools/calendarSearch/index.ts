@@ -1,11 +1,15 @@
 import { tool } from "ai";
 import { calendarSearchToolArgsZod } from "./types";
 import type { ToolResponse } from "../types";
-import { calendarSearchToolDescription } from "./description";
+import {
+  calendarManageToolDescription,
+  calendarSearchToolDescription,
+} from "./description";
+import { calendarSearchToolArgsZodWith } from "./typesWithId";
 
 export const calendarSearchTool = tool({
-  description: calendarSearchToolDescription,
-  parameters: calendarSearchToolArgsZod,
+  description: calendarManageToolDescription,
+  parameters: calendarSearchToolArgsZodWith,
   execute: async (input, { messages }) => {
     console.log("messages in Tools", JSON.stringify(messages, null, 2));
     console.log("input in Tools", JSON.stringify(input, null, 2));
