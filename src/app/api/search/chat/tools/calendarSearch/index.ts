@@ -1,11 +1,11 @@
 import { tool } from "ai";
-import { calendarSearchToolArgsZod } from "./types";
+import { calendarSearchToolArgsZod } from "./typesOldWithMatches";
 import type { ToolResponse } from "../types";
 import {
   calendarManageToolDescription,
   calendarSearchToolDescription,
 } from "./description";
-import { calendarSearchToolArgsZodWith } from "./typesWithId";
+import { calendarSearchToolArgsZodWith } from "./types";
 
 export const calendarSearchTool = tool({
   description: calendarManageToolDescription,

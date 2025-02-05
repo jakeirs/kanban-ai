@@ -5,7 +5,6 @@ import type { ToolName as ToolNameOriginal } from "@/app/api/search/chat/tools/_
 export type CalendarSearchToolArgs = CalendarSearchToolArgsOriginal;
 
 // TOOLS RESULTS
-
 // TOOL NAMES
 export type ToolName = ToolNameOriginal;
 export type ToolState = "result" | "partial-call" | "call";

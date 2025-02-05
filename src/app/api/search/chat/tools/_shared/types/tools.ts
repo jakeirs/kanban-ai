@@ -1,7 +1,4 @@
-import {
-  calendarSearchToolArgsZod,
-  type CalendarSearchToolArgs,
-} from "../../calendarSearch/types";
+import { type CalendarSearchToolArgs } from "../../calendarSearch/types";
 
 // ALL AVAILABLE TOOLS
 export type ToolName = "calendarSearchTool";
